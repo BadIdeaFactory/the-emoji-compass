@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Emoji Alethiometer UI Prototype</title>
+</head>
+<body>
+  <style id="compiled-sass"></style>
+  <div class="container">
+    <div class="compass-container">
+      <ul id="ring" class="circle-container"></ul>
+      <div id="dials" class="dials-container"></div>
+    </div>
+    <div class="text-container">
+      <hr />
+      <div class="flavor-text">
+        <div id="emoji-output"></div>
+        <div id="flavor-text-output"></div>
+      </div>
+    </div>
+  </div>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/sass.js/0.10.9/sass.min.js"></script>
+  <script>
+    // initialize a Sass instance
+    var sass = new Sass('./sass-worker.js')
+
+    window.fetch('./styles.scss')
+      .then(function (response) {
+        return response.text()
+      })
+      .then(function (scss) {
+        sass.compile(scss, function(result) {
+          document.getElementById('compiled-sass').textContent = result
+        })
+      })
+  </script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/1.20.3/TweenMax.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/1.20.3/utils/Draggable.min.js"></script>
+</body>
+</html>
+
+
