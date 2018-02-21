@@ -23,40 +23,48 @@ function makeDial (id) {
   
   // Make dials draggable
   TweenLite.set(el, {
-    transformOrigin: 'left'
+    transformOrigin: '2.5vmin'
   })
 
   Draggable.create(el, {
-  type: 'rotation',
-  sticky: true,
-//   onPress: function (e) {
-//     const clickX = e.pageX - dial1.offsetLeft
-//     const clickY = e.pageY - dial1.offsetTop
-//     originX = dial1.getBoundingClientRect().width / 2
-//     originY = dial1.getBoundingClientRect().height / 2     
-//     let clickRotation = Math.atan2(clickY - originY, clickX - originX) * 180 / Math.PI;
-//     if (clickRotation >= -90) {
-//       clickRotation += 90
-//     } else {
-//       clickRotation += 450
-//     }    
-    
-//     TweenMax.set(this.target, { rotation: clickRotation })
-//   },
-  onDrag: function (e) {
-    const position = getEmojiPosition(this.rotation, array)
-    emojiOutputEl.textContent = array[position]
-    flavorTextEl.textContent = flavor[position] || flavorPlaceholder
-    // console.log(ringEl.querySelectorAll('li'))
-    const allEmojis = ringEl.querySelectorAll('li')
-    allEmojis.forEach((i) => {
-      i.classList.remove('selected')
-    })
-    allEmojis[position].classList.add('selected')
-  }
-})
+    type: 'rotation',
+    sticky: true,
+    throwProps: true,
+  //   onPress: function (e) {
+  //     const clickX = e.pageX - dial1.offsetLeft
+  //     const clickY = e.pageY - dial1.offsetTop
+  //     originX = dial1.getBoundingClientRect().width / 2
+  //     originY = dial1.getBoundingClientRect().height / 2     
+  //     let clickRotation = Math.atan2(clickY - originY, clickX - originX) * 180 / Math.PI;
+  //     if (clickRotation >= -90) {
+  //       clickRotation += 90
+  //     } else {
+  //       clickRotation += 450
+  //     }    
+
+  //     TweenMax.set(this.target, { rotation: clickRotation })
+  //   },
+    onDrag: function (e) {
+      onDialPositionUpdate(e, this.rotation)
+    },
+    onThrowUpdate: function (e) {
+      onDialPositionUpdate(e, this.rotation)
+    }
+  })
 
   return el
+}
+
+function onDialPositionUpdate (event, rotation) {
+  const position = getEmojiPosition(rotation, array)
+  emojiOutputEl.textContent = array[position]
+  flavorTextEl.textContent = flavor[position] || flavorPlaceholder
+  // console.log(ringEl.querySelectorAll('li'))
+  const allEmojis = ringEl.querySelectorAll('li')
+  allEmojis.forEach((i) => {
+    i.classList.remove('selected')
+  })
+  allEmojis[position].classList.add('selected')
 }
 
 const dial1 = makeDial('1')

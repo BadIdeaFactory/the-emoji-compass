@@ -24,6 +24,7 @@ body {
   justify-content: center;
   height: 100vmin;
   width: 100vmin;
+  flex: 3;
 }
 
 .text-container {
@@ -91,8 +92,7 @@ body {
 }
 
 .circle-container {
-  @include on-circle($item-count: 36, $circle-size: 80vmin, $item-size: 2em); 
-  // border: solid 5px tomato;
+  @include on-circle($item-count: 36, $circle-size: 80vmin, $item-size: 1.5em);
   margin: 0;
   
   li { 
@@ -100,16 +100,9 @@ body {
     align-items: center;
     justify-content: center;
     max-width: 100%;
-    // filter: grayscale(100%);
-    // transition: .15s;
     font-size: 4vmin;
     border-radius: 50%;
     color: white;
-    
-    &:hover,
-    &:active {
-      filter: grayscale(0);
-    }
   }
 }
 
@@ -129,9 +122,9 @@ body {
   position: absolute;
   transform: rotateZ(0deg);
   transform-origin: left;
-  // transform-origin: 2.5vmin;
+  transform-origin: 2.5vmin;
   cursor: pointer;
-  // margin-left: -2.5vmin;
+  margin-left: -2.5vmin;
 }
 
 $dial-1-width: 6vmin;
@@ -180,11 +173,7 @@ $dial-1-width: 6vmin;
 // todo: fix overflowing elements in certain viewport dimensions
 @media (orientation: 'portrait') {
   .text-container {
-    max-height: 400px;
-  }
-  
-  .compass-container {
-    flex: 1;
+    min-height: 100px;
   }
 }
 
@@ -193,15 +182,10 @@ $dial-1-width: 6vmin;
     flex-direction: row;
   }
   
-  .compass-container {
-    flex: 1;
-  }
-  
   .text-container {
     flex-direction: row;
     align-items: center;
     max-width: 500px;
-    flex: 0;
   
     hr {
       height: 60%;
