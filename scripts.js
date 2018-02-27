@@ -1,16 +1,194 @@
-const array = ['🐘', 'αΩ', '😇', '🐜', '🍏', '👶', '🐝', '🐦', '🍞', '🐮', '🐫', '🕯️', '🍲', '🦎', '💠', '🎉', '🐊', '🐬', '⚓', '🌐', '🦅', '⛑️', '🐎', '⏳', '🎸', '🤱', '🎎', '🌕','🦉', '🐍', '☀️', '⚔️', '⚡', '🌳', '🌹', '👹']
-const flavor = [
-  'hihihi'
+const symbols = [
+  {
+    emoji: '🐘',
+    title: 'Elephant',
+    text: 'Africa terra. Charity offered. Continence maintained.'
+  },
+  {
+    emoji: 'αΩ',
+    title: 'Alpha and Omega',
+    text: 'Finality speaks. Consider process. Inevitability listens.'
+  },
+  {
+    emoji: '😇',
+    title: 'Angel',
+    text: 'A messenger arrives. Hierarchy provides structure, but disobedience lingers.'
+  },
+  {
+    emoji: '🐜',
+    title: 'Ant',
+    text: 'Steady and rote phsyical labor progresses. Diligence, tested by tedium.'
+  },
+  {
+    emoji: '🍏',
+    title: 'Apple',
+    text: 'A sensation of juicy sin. The tart gift of knowledge, the rot of polished vanity.'
+  },
+  {
+    emoji: '👶',
+    title: 'Baby',
+    text: 'The future is embodied in the present. A universe of malleable options, but also, helplessness.'
+  },
+  {
+    emoji: '🐝',
+    title: 'Beehive',
+    text: 'A productive hive is a locus of work. Sweetness is gathered. Beams of light.'
+  },
+  {
+    emoji: '🐦',
+    title: 'Bird',
+    text: 'A soul, a dæmon, flutters. Spring rejuvenates. Marriage bonds.'
+  },
+  {
+    emoji: '🍞',
+    title: 'Bread',
+    text: 'Nourishment is provided. Christ\'s corpus. Sacrifice made.'
+  },
+  {
+    emoji: '🐮',
+    title: 'Bull',
+    text: 'Fertile earth. Unbridled power bucks. Raw honesty charges.'
+  },
+  {
+    emoji: '🐫',
+    title: 'Camel',
+    text: 'Asian expanse. Summer ripeness. Perseverance on journeys.'
+  }, 
+  {
+    emoji: '🕯️',
+    title: 'Candle',
+    text: 'Fire\'s life. Faith steadily vigilant. Illumination of mind.'
+  }, 
+  {
+    emoji: '🍲',
+    title: 'Cauldron (crucible)',
+    text: 'Alchemy reconfigures. A craft practiced. A potent blend of archived wisdom.'
+  }, 
+  {
+    emoji: '🦎',
+    title: 'Chameleon',
+    text: 'Open air. Green with greed. Patience waits still in focus.'
+  }, 
+  {
+    emoji: '💠',
+    title: 'Compass',
+    text: 'Measurement quantifies. Mathematics solve. Science progessively orientates.'
+  }, 
+  {
+    emoji: '🎉',
+    title: 'Cornucopia',
+    text: 'A great wealth of resource. Autumn\'s harvest provides. Hospitality welcomes.'
+  }, 
+  {
+    emoji: '🐊',
+    title: 'Crocodile',
+    text: 'The Americas. Sly marauding. Enterprise.'
+  },   
+  {
+    emoji: '🐬',
+    title: 'Dolphin',
+    text: 'Fluid water. Resurrection surges. Succor comes to the rescue.'
+  },   
+  {
+    emoji: '⚓',
+    title: 'Anchor',
+    text: 'Hope floats. Steadfast currents prevail. Prevention tethers. Hear the sea.'
+  },   
+  {
+    emoji: '🌐',
+    title: 'Globe',
+    text: 'Politics traded. Sovereignty reigns. The circumference of fame.'
+  },   
+  {
+    emoji: '🦅',
+    title: 'Griffin',
+    text: 'The griffin\'s treasure. Vigilant watchfullness presides. Courage soars.'
+  },   
+  {
+    emoji: '⛑️',
+    title: 'Helmet',
+    text: 'War threatens. Protection shields. An open view is narrowed.'
+  },   
+  {
+    emoji: '🐎',
+    title: 'Horse',
+    text: 'Europa. Journeys traversed. Fidelity rides true.'
+  },   
+  {
+    emoji: '⏳',
+    title: 'Hourglass',
+    text: 'Time, too, will change. Death the constant. Change everlasting. The present now.'
+  },   
+  {
+    emoji: '🎸',
+    title: 'Lute',
+    text: 'Rhythmic poetry. The melody of rhetoric. Philosophy\'s chords strummed.'
+  },   
+  {
+    emoji: '🤱',
+    title: 'Madonna',
+    text: 'Motherhood begets life. The feminine energy. Worship.'
+  },   
+  {
+    emoji: '🎎',
+    title: 'Marionette',
+    text: 'The marionette\'s tethered obedience. Submission. The grace of weightless dance.'
+  },   
+  {
+    emoji: '🌕',
+    title: 'Moon',
+    text: 'Pure chastity. Hanging mystery. Eliciting the uncanny.'
+  },   
+  {
+    emoji: '🦉',
+    title: 'Owl',
+    text: 'The span of night. Winter\'s stillness. Prey\'s frozen fear.'
+  },   
+  {
+    emoji: '🐍',
+    title: 'Serpent',
+    text: 'Cunning and unpredictable evil. Striking guile. Eons of remembered wisdom.'
+  },   
+  {
+    emoji: '☀️',
+    title: 'Sun',
+    text: 'The transit of daytime. Overriding authority. Radiating truth. Energetic intellect.'
+  },   
+  {
+    emoji: '⚔️',
+    title: 'Sword',
+    text: 'Justice brought. Physical fortitude. The Catholic Church.'
+  },   
+  {
+    emoji: '⚡',
+    title: 'Thunderbolt',
+    text: 'A crackling of inspiration. Established fate. A horizon of chance.'
+  },   
+  {
+    emoji: '🌳',
+    title: 'Tree',
+    text: 'A firm and solid trunk. Its canopy of shelter offered. Fertility sprouts forth.'
+  },   
+  {
+    emoji: '🌱',
+    title: 'Walled Garden',
+    text: 'Nature lives. Innocence protected. Order kept.'
+  },   
+  {
+    emoji: '👹',
+    title: 'Wild Man',
+    text: 'A wild man ranges. The Masculine energy. Lust drives forward.'
+  }
 ]
-const flavorPlaceholder = 'this is placeholder text'
+
 const ringEl = document.getElementById('ring')
 const dialsEl = document.getElementById('dials')
 const flavorTextEl = document.getElementById('flavor-text-output')
 
 // Create all the emoji items around the compass
-array.forEach((i) => {
+symbols.forEach((i) => {
   const li = document.createElement('li')
-  li.innerText = i
+  li.innerText = i.emoji
   ringEl.appendChild(li)
 })
 
@@ -56,9 +234,9 @@ function makeDial (id) {
 }
 
 function onDialPositionUpdate (event, rotation) {
-  const position = getEmojiPosition(rotation, array)
-  emojiOutputEl.textContent = array[position]
-  flavorTextEl.textContent = flavor[position] || flavorPlaceholder
+  const position = getEmojiPosition(rotation, symbols)
+  emojiOutputEl.textContent = symbols[position].emoji
+  flavorTextEl.textContent = symbols[position].text
   // console.log(ringEl.querySelectorAll('li'))
   const allEmojis = ringEl.querySelectorAll('li')
   allEmojis.forEach((i) => {
