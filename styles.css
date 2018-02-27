@@ -221,6 +221,9 @@ body {
   cursor: pointer;
   margin-left: -2.5vmin; }
 
+.dial.active {
+  filter: grayscale(100%) brightness(30%) sepia(100%) hue-rotate(-40deg) saturate(600%) contrast(1.5); }
+
 .dial-1 {
   width: 40vmin;
   height: 6vmin;

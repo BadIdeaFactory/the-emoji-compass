@@ -186,6 +186,7 @@ const dialsEl = document.getElementById('dials')
 const flavorTextOutputEl = document.getElementById('flavor-text-output')
 const flavorTextEl = document.querySelector('.flavor-text')
 const instructionTextEl = document.querySelector('.instruction-text')
+const selectedEmojis = []
 
 // Create all the emoji items around the compass
 symbols.forEach((i) => {
@@ -232,6 +233,10 @@ function makeDial (id) {
       onDialPositionUpdate(e, this.rotation)
     },
     onDragEnd: function (e) {
+      // Select the emoji it's pointing at.
+      const emoji = onDialPositionUpdate(e, this.rotation)
+      selectedEmojis.push(emoji)
+
       // Disable this when it's done dragging.
       dial.disable()
 
@@ -248,11 +253,13 @@ function makeDial (id) {
     draggable: draggable[0],
     // Wrap original `enable()` to make element take z-index priority
     enable: function () {
+      el.classList.add('active')
       draggable[0].enable()
       el.style.zIndex = 1000
     },
     // Wrap original `disable()` to make element keep non-selectable style
     disable: function () {
+      el.classList.remove('active')
       draggable[0].disable()
       el.style.userSelect = 'none'
       el.style.touchAction = 'none'
@@ -275,6 +282,7 @@ function onDialPositionUpdate (event, rotation) {
     i.classList.remove('selected')
   })
   allEmojis[position].classList.add('selected')
+  return symbols[position]
 }
 
 const dial1 = makeDial('1')
@@ -284,9 +292,16 @@ const dial3 = makeDial('3')
 dial1.enable()
 window.addEventListener('dial-1:dragend', function (e) {
   dial2.enable()
+  showInstructions()
 })
 window.addEventListener('dial-2:dragend', function (e) {
   dial3.enable()
+  showInstructions()
+})
+window.addEventListener('dial-3:dragend', function (e) {
+  console.log(selectedEmojis)
+
+  // Have a 4th dial automatically and randomly select 3 more emojis
 })
 
 const emojiOutputEl = document.getElementById('emoji-output')
@@ -303,4 +318,10 @@ function getEmojiPosition (rotation, emojis) {
   position = Math.round(position / range)
   if (position >= emojis.length) position = 0
   return position
+}
+
+function showInstructions () {
+  flavorTextEl.classList.add('hidden')
+  instructionTextEl.textContent = 'Drag the next dial to select the next emoji.'
+  instructionTextEl.classList.remove('hidden')
 }
