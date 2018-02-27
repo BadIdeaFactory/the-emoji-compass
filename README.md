@@ -28,11 +28,11 @@ To use the compass, the user sets the three needles to three symbols that frame 
 The Bad Idea Factory has created a mobile app that replaces the 36 alethiometer symbols with emoji. The answers the app returns are appropriately shrouded in the symbology of the novels.
 
 ### Built with
- *[TweenMax](https://cdnjs.cloudflare.com/ajax/libs/gsap/1.20.3/TweenMax.min.js)
- *[Draggable](https://cdnjs.cloudflare.com/ajax/libs/gsap/1.20.3/utils/Draggable.min.js)
- *[browser-sync](https://www.npmjs.com/package/browser-sync)
- *[node-sass](https://www.npmjs.com/package/node-sass-cli)
- *[Mixin to place items on a circle by Hugo Giraudel & Ana Tudor](https://css-tricks.com/snippets/sass/placing-items-circle/)
+ * [TweenMax](https://cdnjs.cloudflare.com/ajax/libs/gsap/1.20.3/TweenMax.min.js)
+ * [Draggable](https://cdnjs.cloudflare.com/ajax/libs/gsap/1.20.3/utils/Draggable.min.js)
+ * [browser-sync](https://www.npmjs.com/package/browser-sync)
+ * [node-sass](https://www.npmjs.com/package/node-sass-cli)
+ * [Mixin to place items on a circle by Hugo Giraudel & Ana Tudor](https://css-tricks.com/snippets/sass/placing-items-circle/)
 
 ### License
 [Apache License 2.0](https://www.apache.org/licenses/LICENSE-2.0)
