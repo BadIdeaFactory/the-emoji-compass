@@ -263,7 +263,6 @@ function makeDial (id) {
     enable: function () {
       el.classList.add('active')
       draggable[0].enable()
-      el.style.zIndex = 1000
     },
     // Wrap original `disable()` to make element keep non-selectable style
     disable: function () {
