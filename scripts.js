@@ -338,20 +338,29 @@ function getRandomRotation () {
   return randomEmoji * increment
 }
 
-let rotateTo = null
-let finalDial
+function rotateDialStep (dial, rotateTo, rotateDirection) {
+  // rotateDirection = 0 => clockwise
+  // rotateDirection = 1 => counterclockwise
+  let rotated = false
 
-function rotateDialStep (timestamp) {
-  if (finalDial.draggable.rotation <= rotateTo) {
-    TweenLite.set(finalDial.el, { rotation: finalDial.draggable.rotation + 1 })
-    
+  if (rotateDirection === 0 && dial.draggable.rotation <= rotateTo + 360) {
+    TweenLite.set(dial.el, { rotation: dial.draggable.rotation + 1 })
+    rotated = true
+  } else if (rotateDirection === 1 && dial.draggable.rotation >= rotateTo - 360) {
+    TweenLite.set(dial.el, { rotation: dial.draggable.rotation - 1 })
+    rotated = true
+  }
+  
+  if (rotated) {
     // Tell the Draggable to calibrate/synchronize/read the current value
-    finalDial.draggable.update()
-    onDialPositionUpdate(finalDial.draggable.rotation)
+    dial.draggable.update()
+    onDialPositionUpdate(dial.draggable.rotation)
 
-    window.requestAnimationFrame(rotateDialStep)
+    window.requestAnimationFrame(function (timestamp) {
+      rotateDialStep(dial, rotateTo, rotateDirection)
+    })
   } else {
-    const emoji = onDialPositionUpdate(finalDial.draggable.rotation)
+    const emoji = onDialPositionUpdate(dial.draggable.rotation)
     selectedEmojis.push(emoji)
   }
   
@@ -361,8 +370,11 @@ function rotateDialStep (timestamp) {
 // Have a 4th dial automatically and randomly select 3 more emojis
 function autoRotateDial (dial) {
   dial.el.classList.add('active')
-  finalDial = dial
 
   rotateTo = getRandomRotation()
-  window.requestAnimationFrame(rotateDialStep)
+  rotateDirection = Math.round(Math.random()) // 0 or 1.
+
+  window.requestAnimationFrame(function (timestamp) {
+    rotateDialStep(dial, rotateTo, rotateDirection)
+  })
 }
