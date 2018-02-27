@@ -1,4 +1,17 @@
-# BIFFUD Project Application
+# The Emoji Compass
+
+## Quick start
+
+Clone the repository, then run:
+
+```sh
+npm install
+npm start
+```
+
+View this online at https://badideafactory.github.io/the-emoji-compass/
+
+# Application
 
 As described in section 11.11.B of the BIFFUD Corporate Bylaws I hereby invoke my rights as a sentient being who has not uploaded their mind to the cloud for consideration of this project application by the BIFFUD Hive Mind. With this application I submit my interest in becoming a Member of BIFFUD and having this project supported and adored by all who can 🤔.
 
