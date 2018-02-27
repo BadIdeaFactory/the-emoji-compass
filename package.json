@@ -4,7 +4,9 @@
   "description": "",
   "main": "scripts.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "npm run build:css",
+    "build:css": "node-sass styles.scss styles.css"
   },
   "repository": {
     "type": "git",
