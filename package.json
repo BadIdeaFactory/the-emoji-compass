@@ -1,0 +1,22 @@
+{
+  "name": "the-emoji-compass",
+  "version": "0.0.1",
+  "description": "",
+  "main": "scripts.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/BadIdeaFactory/the-emoji-compass.git"
+  },
+  "author": "",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/BadIdeaFactory/the-emoji-compass/issues"
+  },
+  "homepage": "https://github.com/BadIdeaFactory/the-emoji-compass#readme",
+  "devDependencies": {
+    "node-sass": "4.7.2"
+  }
+}

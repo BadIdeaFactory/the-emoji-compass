@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Emoji Alethiometer UI Prototype</title>
-  <!--link rel="stylesheet" href="./styles.css" /-->
+  <link rel="stylesheet" href="./styles.css">
 </head>
 <body>
   <style id="compiled-sass"></style>
@@ -22,27 +22,8 @@
       </div>
     </div>
   </div>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/sass.js/0.10.9/sass.js"></script>
-  <script>
-    // initialize a Sass instance
-    Sass.setWorkerUrl('./sass-worker.js')
-    var sass = new Sass()
-
-    window.fetch('./styles.scss')
-      .then(function (response) {
-        return response.text()
-      })
-      .then(function (scss) {
-        sass.compile(scss, function(result) {
-          console.log("compiled", result)
-          document.getElementById('compiled-sass').textContent = result.text
-        })
-      })
-  </script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/1.20.3/TweenMax.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/1.20.3/utils/Draggable.min.js"></script>
   <script src="./scripts.js"></script>
 </body>
 </html>
-
-
