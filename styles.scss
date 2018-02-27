@@ -195,6 +195,10 @@ $dial-1-width: 6vmin;
   font-style: italic;
 }
 
+.text-box.final {
+  font-size: 5vmin;
+}
+
 // todo: fix overflowing elements in certain viewport dimensions
 @media (orientation: 'portrait') {
   .text-container {

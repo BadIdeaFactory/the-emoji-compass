@@ -277,6 +277,9 @@ body {
   color: #999;
   font-style: italic; }
 
+.text-box.final {
+  font-size: 5vmin; }
+
 @media (orientation: portrait) {
   .text-container {
     min-height: 100px; } }

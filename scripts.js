@@ -344,7 +344,7 @@ function getRandomRotation () {
   return randomEmoji * increment
 }
 
-function rotateDialStep (dial, rotateTo, rotateDirection, rotateQuantity) {
+function rotateDialStep (dial, rotateTo, rotateDirection, rotateQuantity, resolve) {
   // rotateDirection = 0 => clockwise
   // rotateDirection = 1 => counterclockwise
   let rotated = false
@@ -364,12 +364,24 @@ function rotateDialStep (dial, rotateTo, rotateDirection, rotateQuantity) {
     onDialPositionUpdate(dial.draggable.rotation)
 
     window.requestAnimationFrame(function (timestamp) {
-      rotateDialStep(dial, rotateTo, rotateDirection, rotateQuantity)
+      rotateDialStep(dial, rotateTo, rotateDirection, rotateQuantity, resolve)
     })
   } else {
     const emoji = onDialPositionUpdate(dial.draggable.rotation)
     selectedEmojis.push(emoji)
+    resolve()
   }
+}
+
+function rotatePromise (dial, rotateTo) {
+  const rotateDirection = Math.round(Math.random()) // 0 or 1.
+  const rotateQuantity = Math.round(Math.random() * 3) + 1 // a number between 1 and 3 inclusive
+
+  return new Promise(function (resolve) {
+    window.requestAnimationFrame(function (timestamp) {
+      rotateDialStep(dial, rotateTo, rotateDirection, rotateQuantity, resolve)
+    })
+  })
 }
 
 // Have a 4th dial automatically and randomly select 3 more emojis
@@ -379,11 +391,30 @@ function autoRotateDial (dial) {
   // Make sure the dial picks up its initial position by calling update()
   dial.draggable.update()
 
-  rotateTo = getRandomRotation()
-  rotateDirection = Math.round(Math.random()) // 0 or 1.
-  rotateQuantity = Math.round(Math.random() * 3) + 1 // a number between 1 and 3 inclusive
+  const rotateTo = getRandomRotation()
+  rotatePromise(dial, rotateTo)
+    .then(function () {
+      console.log(selectedEmojis)
 
-  window.requestAnimationFrame(function (timestamp) {
-    rotateDialStep(dial, rotateTo, rotateDirection, rotateQuantity)
-  })
-}
+      // NOTE: un-nest these promises
+      const rotateTo = getRandomRotation()
+      rotatePromise(dial, rotateTo)
+        .then(function () {
+          console.log(selectedEmojis)
+    
+          const rotateTo = getRandomRotation()
+          rotatePromise(dial, rotateTo)
+            .then(function () {
+              console.log(selectedEmojis)
+              flavorTextEl.classList.add('hidden')
+              const emoji1 = selectedEmojis.slice(0, 3).map(function(i) { return i.emoji }).join(', ')
+              const emoji2 = selectedEmojis.slice(3, 6).map(function(i) { return i.emoji }).join(', ')
+              instructionTextEl.textContent = `
+                I asked the emoji alethiometer ${emoji1}, and it answered, ${emoji2}.
+                `
+              instructionTextEl.classList.remove('hidden')
+              instructionTextEl.classList.add('final')
+            })
+        })
+    })
+  }
