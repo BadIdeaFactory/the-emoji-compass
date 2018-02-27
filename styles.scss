@@ -153,7 +153,7 @@ $dial-1-width: 6vmin;
   margin-top: -6vmin;
 }
 
-.flavor-text {
+.text-box {
   display: flex;
   flex: 1;
   align-items: center;
@@ -192,4 +192,8 @@ $dial-1-width: 6vmin;
       width: 0;
     }
   }
+}
+
+.hidden {
+  display: none;
 }

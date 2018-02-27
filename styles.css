@@ -242,7 +242,7 @@ body {
   color: white;
   margin-top: -6vmin; }
 
-.flavor-text {
+.text-box {
   display: flex;
   flex: 1;
   align-items: center;
@@ -271,3 +271,6 @@ body {
     .text-container hr {
       height: 60%;
       width: 0; } }
+
+.hidden {
+  display: none; }

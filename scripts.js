@@ -183,7 +183,9 @@ const symbols = [
 
 const ringEl = document.getElementById('ring')
 const dialsEl = document.getElementById('dials')
-const flavorTextEl = document.getElementById('flavor-text-output')
+const flavorTextOutputEl = document.getElementById('flavor-text-output')
+const flavorTextEl = document.querySelector('.flavor-text')
+const instructionTextEl = document.querySelector('.instruction-text')
 
 // Create all the emoji items around the compass
 symbols.forEach((i) => {
@@ -222,6 +224,10 @@ function makeDial (id) {
 
   //     TweenMax.set(this.target, { rotation: clickRotation })
   //   },
+    onDragStart: function (e) {
+      flavorTextEl.classList.remove('hidden')
+      instructionTextEl.classList.add('hidden')
+    },
     onDrag: function (e) {
       onDialPositionUpdate(e, this.rotation)
     },
@@ -236,7 +242,7 @@ function makeDial (id) {
 function onDialPositionUpdate (event, rotation) {
   const position = getEmojiPosition(rotation, symbols)
   emojiOutputEl.textContent = symbols[position].emoji
-  flavorTextEl.textContent = symbols[position].text
+  flavorTextOutputEl.textContent = symbols[position].text
   // console.log(ringEl.querySelectorAll('li'))
   const allEmojis = ringEl.querySelectorAll('li')
   allEmojis.forEach((i) => {
