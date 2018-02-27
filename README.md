@@ -27,18 +27,29 @@ To use the compass, the user sets the three needles to three symbols that frame 
 
 The Bad Idea Factory has created a mobile app that replaces the 36 alethiometer symbols with emoji. The answers the app returns are appropriately shrouded in the symbology of the novels.
 
-### How is this project a bad idea?
+### Built with
+ *[TweenMax](https://cdnjs.cloudflare.com/ajax/libs/gsap/1.20.3/TweenMax.min.js)
+ *[Draggable](https://cdnjs.cloudflare.com/ajax/libs/gsap/1.20.3/utils/Draggable.min.js)
+ *[browser-sync](https://www.npmjs.com/package/browser-sync)
+ *[node-sass](https://www.npmjs.com/package/node-sass-cli)
+ *[Mixin to place items on a circle by Hugo Giraudel & Ana Tudor](https://css-tricks.com/snippets/sass/placing-items-circle/)
 
-This project takes a beloved fantasy novel's central artifact and makes light of it with inane emojis, potentially opening us up to lawsuits when someone misinterprets their answer and does something stupid.
+### License
+[Apache License 2.0](https://www.apache.org/licenses/LICENSE-2.0)
 
-### Who was involved?
+### Contributors
 
 Name: Matt Stempeck
 Twitter: @mstem
 Github ID: mstem
-Role: Alethiogeek
+Role: Instigator, alethiogeek, promoter
 
 Name: Lou Huang
 Twitter: @saikofish
 Github ID: louh
 Role: Pretty much all of the hard work
+
+### Bad Idea Factory? wut.
+
+Bad Idea Factory is a collective of chaotic creatives using technology to make people thinking face emoji. Depending on when you read this, we might have a website at the URL http://biffud.com.
+
