@@ -376,6 +376,9 @@ function rotateDialStep (dial, rotateTo, rotateDirection, rotateQuantity) {
 function autoRotateDial (dial) {
   dial.el.classList.add('active')
 
+  // Make sure the dial picks up its initial position by calling update()
+  dial.draggable.update()
+
   rotateTo = getRandomRotation()
   rotateDirection = Math.round(Math.random()) // 0 or 1.
   rotateQuantity = Math.round(Math.random() * 3) + 1 // a number between 1 and 3 inclusive
