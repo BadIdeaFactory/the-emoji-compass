@@ -297,6 +297,12 @@ const dial2 = makeDial('2')
 const dial3 = makeDial('3')
 const dial4 = makeDial('4')
 
+// Start all dials at a random position
+TweenLite.set(dial1.el, { rotation: Math.random() * 360 })
+TweenLite.set(dial2.el, { rotation: Math.random() * 360 })
+TweenLite.set(dial3.el, { rotation: Math.random() * 360 })
+TweenLite.set(dial4.el, { rotation: Math.random() * 360 })
+
 dial1.enable()
 window.addEventListener('dial-1:dragend', function (e) {
   dial2.enable()
@@ -338,15 +344,16 @@ function getRandomRotation () {
   return randomEmoji * increment
 }
 
-function rotateDialStep (dial, rotateTo, rotateDirection) {
+function rotateDialStep (dial, rotateTo, rotateDirection, rotateQuantity) {
   // rotateDirection = 0 => clockwise
   // rotateDirection = 1 => counterclockwise
   let rotated = false
+  const quantity = 360 * rotateQuantity
 
-  if (rotateDirection === 0 && dial.draggable.rotation <= rotateTo + 360) {
+  if (rotateDirection === 0 && dial.draggable.rotation <= rotateTo + quantity) {
     TweenLite.set(dial.el, { rotation: dial.draggable.rotation + 1 })
     rotated = true
-  } else if (rotateDirection === 1 && dial.draggable.rotation >= rotateTo - 360) {
+  } else if (rotateDirection === 1 && dial.draggable.rotation >= rotateTo - quantity) {
     TweenLite.set(dial.el, { rotation: dial.draggable.rotation - 1 })
     rotated = true
   }
@@ -357,14 +364,12 @@ function rotateDialStep (dial, rotateTo, rotateDirection) {
     onDialPositionUpdate(dial.draggable.rotation)
 
     window.requestAnimationFrame(function (timestamp) {
-      rotateDialStep(dial, rotateTo, rotateDirection)
+      rotateDialStep(dial, rotateTo, rotateDirection, rotateQuantity)
     })
   } else {
     const emoji = onDialPositionUpdate(dial.draggable.rotation)
     selectedEmojis.push(emoji)
   }
-  
-  console.log(selectedEmojis)
 }
 
 // Have a 4th dial automatically and randomly select 3 more emojis
@@ -373,8 +378,9 @@ function autoRotateDial (dial) {
 
   rotateTo = getRandomRotation()
   rotateDirection = Math.round(Math.random()) // 0 or 1.
+  rotateQuantity = Math.round(Math.random() * 3) + 1 // a number between 1 and 3 inclusive
 
   window.requestAnimationFrame(function (timestamp) {
-    rotateDialStep(dial, rotateTo, rotateDirection)
+    rotateDialStep(dial, rotateTo, rotateDirection, rotateQuantity)
   })
 }
