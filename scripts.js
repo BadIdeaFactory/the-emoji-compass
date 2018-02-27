@@ -225,18 +225,26 @@ function makeDial (id) {
 
   //     TweenMax.set(this.target, { rotation: clickRotation })
   //   },
+    // Only if ThrowProps is available
+    snap: {
+      rotation: function (value) {
+        const increment = 360 / symbols.length
+        return Math.round(value / increment) * increment
+      }
+    },
     onDragStart: function (e) {
       flavorTextEl.classList.remove('hidden')
       instructionTextEl.classList.add('hidden')
     },
     onDrag: function (e) {
-      onDialPositionUpdate(e, this.rotation)
+      onDialPositionUpdate(this.rotation)
     },
     onDragEnd: function (e) {
       // Select the emoji it's pointing at.
-      const emoji = onDialPositionUpdate(e, this.rotation)
+      const emoji = onDialPositionUpdate(this.rotation)
       selectedEmojis.push(emoji)
 
+      if (id === '4') console.log(emoji)
       // Disable this when it's done dragging.
       dial.disable()
 
@@ -244,7 +252,7 @@ function makeDial (id) {
       window.dispatchEvent(new window.CustomEvent(`dial-${id}:dragend`))
     },
     onThrowUpdate: function (e) {
-      onDialPositionUpdate(e, this.rotation)
+      onDialPositionUpdate(this.rotation)
     }
   })
 
@@ -272,7 +280,7 @@ function makeDial (id) {
   return dial
 }
 
-function onDialPositionUpdate (event, rotation) {
+function onDialPositionUpdate (rotation) {
   const position = getEmojiPosition(rotation, symbols)
   emojiOutputEl.textContent = symbols[position].emoji
   flavorTextOutputEl.textContent = symbols[position].text
@@ -300,10 +308,7 @@ window.addEventListener('dial-2:dragend', function (e) {
   showInstructions()
 })
 window.addEventListener('dial-3:dragend', function (e) {
-  console.log(selectedEmojis)
-
-  // Have a 4th dial automatically and randomly select 3 more emojis
-  dial4.el.classList.add('active')
+  autoRotateDial(dial4)
 })
 
 const emojiOutputEl = document.getElementById('emoji-output')
@@ -326,4 +331,39 @@ function showInstructions () {
   flavorTextEl.classList.add('hidden')
   instructionTextEl.textContent = 'Drag the next dial to select the next emoji.'
   instructionTextEl.classList.remove('hidden')
+}
+
+function getRandomRotation () {
+  const randomEmoji = Math.round(Math.random() * symbols.length)
+  const increment = 360 / symbols.length
+  return randomEmoji * increment
+}
+
+let rotateTo = null
+let finalDial
+
+function rotateDialStep (timestamp) {
+  if (finalDial.draggable.rotation <= rotateTo) {
+    TweenLite.set(finalDial.el, { rotation: finalDial.draggable.rotation + 1 })
+    
+    // Tell the Draggable to calibrate/synchronize/read the current value
+    finalDial.draggable.update()
+    onDialPositionUpdate(finalDial.draggable.rotation)
+
+    window.requestAnimationFrame(rotateDialStep)
+  } else {
+    const emoji = onDialPositionUpdate(finalDial.draggable.rotation)
+    selectedEmojis.push(emoji)
+  }
+  
+  console.log(selectedEmojis)
+}
+
+// Have a 4th dial automatically and randomly select 3 more emojis
+function autoRotateDial (dial) {
+  dial.el.classList.add('active')
+  finalDial = dial
+
+  rotateTo = getRandomRotation()
+  window.requestAnimationFrame(rotateDialStep)
 }
