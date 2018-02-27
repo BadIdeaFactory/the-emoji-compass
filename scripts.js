@@ -206,7 +206,7 @@ function makeDial (id) {
     transformOrigin: '2.5vmin'
   })
 
-  Draggable.create(el, {
+  const draggable = Draggable.create(el, {
     type: 'rotation',
     sticky: true,
     throwProps: true,
@@ -231,12 +231,22 @@ function makeDial (id) {
     onDrag: function (e) {
       onDialPositionUpdate(e, this.rotation)
     },
+    onDragEnd: function (e) {
+      // Disable this when it's done dragging.
+      draggable[0].disable()
+
+      // Emit an event to let other listeners know about this.
+      window.dispatchEvent(new window.CustomEvent(`dial-${id}:dragend`))
+    },
     onThrowUpdate: function (e) {
       onDialPositionUpdate(e, this.rotation)
     }
   })
 
-  return el
+  // Each dial starts disabled until enabled later
+  draggable[0].disable()
+
+  return draggable[0]
 }
 
 function onDialPositionUpdate (event, rotation) {
@@ -253,6 +263,11 @@ function onDialPositionUpdate (event, rotation) {
 
 const dial1 = makeDial('1')
 const dial2 = makeDial('2')
+
+dial1.enable()
+window.addEventListener('dial-1:dragend', function (e) {
+  dial2.enable()
+})
 
 const emojiOutputEl = document.getElementById('emoji-output')
 
