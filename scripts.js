@@ -288,6 +288,7 @@ function onDialPositionUpdate (event, rotation) {
 const dial1 = makeDial('1')
 const dial2 = makeDial('2')
 const dial3 = makeDial('3')
+const dial4 = makeDial('4')
 
 dial1.enable()
 window.addEventListener('dial-1:dragend', function (e) {
@@ -302,6 +303,7 @@ window.addEventListener('dial-3:dragend', function (e) {
   console.log(selectedEmojis)
 
   // Have a 4th dial automatically and randomly select 3 more emojis
+  dial4.el.classList.add('active')
 })
 
 const emojiOutputEl = document.getElementById('emoji-output')

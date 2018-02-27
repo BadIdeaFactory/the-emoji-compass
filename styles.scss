@@ -1,3 +1,5 @@
+$background-color: #090909;
+
 body {
   margin: 0;
   overflow: hidden;
@@ -14,7 +16,7 @@ body {
   display: flex;
   position: relative;
   flex-direction: column;
-  background-color: #090909;
+  background-color: $background-color;
 }
 
 .compass-container {
@@ -160,6 +162,15 @@ $dial-1-width: 6vmin;
   background-repeat: no-repeat;
 }
 
+.dial-4 {
+  width: 36vmin;
+  height: 3vmin;
+  background-image: url('./clock-hand4.png');
+  background-size: contain;
+  background-position: center left;
+  background-repeat: no-repeat;
+}
+
 #emoji-output {
   font-size: 16vmin;
   color: white;
@@ -209,4 +220,26 @@ $dial-1-width: 6vmin;
 
 .hidden {
   display: none;
+}
+
+.dials-cap {
+  position: absolute;
+  width: 5.25vmin;
+  height: 5.25vmin;
+  margin-left: -2.625vmin;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #868181;
+  z-index: 2000;
+
+  &::after {
+    width: 1.5vmin;
+    height: 1.5vmin;
+    content: '';
+    position: absolute;
+    background-color: $background-color;
+    border-radius: 50%;
+  }
 }
