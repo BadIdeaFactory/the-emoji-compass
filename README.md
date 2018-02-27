@@ -32,7 +32,7 @@ The Dark Materials trilogy is centered around a "Golden Compass". Its official n
 
 To use the compass, the user sets the three needles to three symbols that frame the question she is posing, and then the alethiometer spins the needles to three symbols to provide a cryptic answer. This answer is truth, but must be carefully interpreted. 
 
-I would like to create a mobile app that replaces the 36 alethiometer symbols with emoji. The answers the app returns to users' queries will be almost completely random, but shrouded in the symbology of the novels, it'll be really hard to prove that.
+I would like to create a mobile app that replaces the 36 alethiometer symbols with emoji. The answers the app returns will be shrouded in the symbology of the novels.
 
 There's an emoji equivalent for each symbol on the compass. (Twitter's open sourced emoji collection may do it, but is two years out of date, so we may need to purchase the license to use Emoji One's updated collection).
 
@@ -40,7 +40,7 @@ There's an emoji equivalent for each symbol on the compass. (Twitter's open sour
 
 ### How is this project a bad idea?
 
-This project takes a beloved fantasy novel's central artifact and makes light of it with inane emojis. Furthermore, the logic behind the app's "truth-telling" will be fairly random, potentially opening us up to lawsuits when someone misinterprets their answer and does something stupid.
+This project takes a beloved fantasy novel's central artifact and makes light of it with inane emojis, potentially opening us up to lawsuits when someone misinterprets their answer and does something stupid.
 
 ### If this project were a D&D Character, what alignment would it be and why?
 
