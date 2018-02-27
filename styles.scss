@@ -147,6 +147,15 @@ $dial-1-width: 6vmin;
   background-repeat: no-repeat;
 }
 
+.dial-3 {
+  width: 30vmin;
+  height: 8vmin;
+  background-image: url('./clock-hand2.png');
+  background-size: contain;
+  background-position: center left;
+  background-repeat: no-repeat;
+}
+
 #emoji-output {
   font-size: 16vmin;
   color: white;

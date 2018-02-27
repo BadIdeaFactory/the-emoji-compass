@@ -233,7 +233,7 @@ function makeDial (id) {
     },
     onDragEnd: function (e) {
       // Disable this when it's done dragging.
-      draggable[0].disable()
+      dial.disable()
 
       // Emit an event to let other listeners know about this.
       window.dispatchEvent(new window.CustomEvent(`dial-${id}:dragend`))
@@ -243,10 +243,26 @@ function makeDial (id) {
     }
   })
 
-  // Each dial starts disabled until enabled later
-  draggable[0].disable()
+  const dial = {
+    el,
+    draggable: draggable[0],
+    // Wrap original `enable()` to make element take z-index priority
+    enable: function () {
+      draggable[0].enable()
+      el.style.zIndex = 1000
+    },
+    // Wrap original `disable()` to make element keep non-selectable style
+    disable: function () {
+      draggable[0].disable()
+      el.style.userSelect = 'none'
+      el.style.touchAction = 'none'
+    }
+  }
 
-  return draggable[0]
+  // Each dial starts disabled until enabled later
+  dial.disable()
+
+  return dial
 }
 
 function onDialPositionUpdate (event, rotation) {
@@ -263,10 +279,14 @@ function onDialPositionUpdate (event, rotation) {
 
 const dial1 = makeDial('1')
 const dial2 = makeDial('2')
+const dial3 = makeDial('3')
 
 dial1.enable()
 window.addEventListener('dial-1:dragend', function (e) {
   dial2.enable()
+})
+window.addEventListener('dial-2:dragend', function (e) {
+  dial3.enable()
 })
 
 const emojiOutputEl = document.getElementById('emoji-output')
