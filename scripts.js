@@ -338,6 +338,34 @@ function showInstructions () {
   instructionTextEl.classList.remove('hidden')
 }
 
+/**
+ * Generate `amount` of unique random integers between 0 (inclusive)
+ * and `upper` bound (exclusive)
+ * 
+ * getUniqueRandomIntegers(3, 3)
+ *      // -> [1, 0, 2]
+ *
+ * @param {Number} upper - upper bound of random integers
+ * @param {Number} amount - number of random integers to generate
+ */
+function getUniqueRandomIntegers (upper, amount) {
+  // Avoid an infinite loop situation in the do-while
+  const allowRepeats = upper < amount
+
+  const integers = []
+  let i = 0
+
+  do {
+    const random = Math.round(Math.random() * (upper - 1))
+    if (allowRepeats || !integers.includes(random)) {
+      integers.push(random)
+      i++
+    }
+  } while (i < amount)
+
+  return integers
+}
+
 function getRandomRotation () {
   const randomEmoji = Math.round(Math.random() * symbols.length)
   const increment = 360 / symbols.length
@@ -395,21 +423,17 @@ function autoRotateDial (dial) {
   const rotateTo = getRandomRotation()
   rotatePromise(dial, rotateTo)
     .then(function (emoji) {
-      console.log(emoji)
       randomEmojis.push(emoji)
       const rotateTo = getRandomRotation()
       return rotatePromise(dial, rotateTo)
     })
     .then(function (emoji) {
-      console.log(emoji)
       randomEmojis.push(emoji)
       const rotateTo = getRandomRotation()
       return rotatePromise(dial, rotateTo)
     })
     .then(function (emoji) {
-      console.log(emoji)
       randomEmojis.push(emoji)
-      console.log(randomEmojis)
       flavorTextEl.classList.add('hidden')
       const emoji1 = selectedEmojis.map(function(i) { return i.emoji }).join(', ')
       const emoji2 = randomEmojis.map(function(i) { return i.emoji }).join(', ')
