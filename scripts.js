@@ -187,7 +187,6 @@ const flavorTextOutputEl = document.getElementById('flavor-text-output')
 const flavorTextEl = document.querySelector('.flavor-text')
 const instructionTextEl = document.querySelector('.instruction-text')
 const selectedEmojis = []
-const randomEmojis = []
 
 // Create all the emoji items around the compass
 symbols.forEach((i) => {
@@ -369,8 +368,7 @@ function rotateDialStep (dial, rotateTo, rotateDirection, rotateQuantity, resolv
     })
   } else {
     const emoji = onDialPositionUpdate(dial.draggable.rotation)
-    randomEmojis.push(emoji)
-    resolve()
+    resolve(emoji)
   }
 }
 
@@ -392,17 +390,26 @@ function autoRotateDial (dial) {
   // Make sure the dial picks up its initial position by calling update()
   dial.draggable.update()
 
+  const randomEmojis = []
+
   const rotateTo = getRandomRotation()
   rotatePromise(dial, rotateTo)
-    .then(function () {
+    .then(function (emoji) {
+      console.log(emoji)
+      randomEmojis.push(emoji)
       const rotateTo = getRandomRotation()
       return rotatePromise(dial, rotateTo)
     })
-    .then(function () {
+    .then(function (emoji) {
+      console.log(emoji)
+      randomEmojis.push(emoji)
       const rotateTo = getRandomRotation()
       return rotatePromise(dial, rotateTo)
     })
-    .then(function () {
+    .then(function (emoji) {
+      console.log(emoji)
+      randomEmojis.push(emoji)
+      console.log(randomEmojis)
       flavorTextEl.classList.add('hidden')
       const emoji1 = selectedEmojis.map(function(i) { return i.emoji }).join(', ')
       const emoji2 = randomEmojis.map(function(i) { return i.emoji }).join(', ')
