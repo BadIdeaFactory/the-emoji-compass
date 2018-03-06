@@ -187,6 +187,7 @@ const flavorTextOutputEl = document.getElementById('flavor-text-output')
 const flavorTextEl = document.querySelector('.flavor-text')
 const instructionTextEl = document.querySelector('.instruction-text')
 const selectedEmojis = []
+const randomEmojis = []
 
 // Create all the emoji items around the compass
 symbols.forEach((i) => {
@@ -368,7 +369,7 @@ function rotateDialStep (dial, rotateTo, rotateDirection, rotateQuantity, resolv
     })
   } else {
     const emoji = onDialPositionUpdate(dial.draggable.rotation)
-    selectedEmojis.push(emoji)
+    randomEmojis.push(emoji)
     resolve()
   }
 }
@@ -394,21 +395,16 @@ function autoRotateDial (dial) {
   const rotateTo = getRandomRotation()
   rotatePromise(dial, rotateTo)
     .then(function () {
-      console.log(selectedEmojis)
-
       // NOTE: un-nest these promises
       const rotateTo = getRandomRotation()
       rotatePromise(dial, rotateTo)
         .then(function () {
-          console.log(selectedEmojis)
-    
           const rotateTo = getRandomRotation()
           rotatePromise(dial, rotateTo)
             .then(function () {
-              console.log(selectedEmojis)
               flavorTextEl.classList.add('hidden')
-              const emoji1 = selectedEmojis.slice(0, 3).map(function(i) { return i.emoji }).join(', ')
-              const emoji2 = selectedEmojis.slice(3, 6).map(function(i) { return i.emoji }).join(', ')
+              const emoji1 = selectedEmojis.map(function(i) { return i.emoji }).join(', ')
+              const emoji2 = randomEmojis.map(function(i) { return i.emoji }).join(', ')
               instructionTextEl.textContent = `
                 I asked the emoji alethiometer ${emoji1}, and it answered, ${emoji2}.
                 `
