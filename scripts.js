@@ -395,22 +395,21 @@ function autoRotateDial (dial) {
   const rotateTo = getRandomRotation()
   rotatePromise(dial, rotateTo)
     .then(function () {
-      // NOTE: un-nest these promises
       const rotateTo = getRandomRotation()
-      rotatePromise(dial, rotateTo)
-        .then(function () {
-          const rotateTo = getRandomRotation()
-          rotatePromise(dial, rotateTo)
-            .then(function () {
-              flavorTextEl.classList.add('hidden')
-              const emoji1 = selectedEmojis.map(function(i) { return i.emoji }).join(', ')
-              const emoji2 = randomEmojis.map(function(i) { return i.emoji }).join(', ')
-              instructionTextEl.textContent = `
-                I asked the emoji alethiometer ${emoji1}, and it answered, ${emoji2}.
-                `
-              instructionTextEl.classList.remove('hidden')
-              instructionTextEl.classList.add('final')
-            })
-        })
+      return rotatePromise(dial, rotateTo)
+    })
+    .then(function () {
+      const rotateTo = getRandomRotation()
+      return rotatePromise(dial, rotateTo)
+    })
+    .then(function () {
+      flavorTextEl.classList.add('hidden')
+      const emoji1 = selectedEmojis.map(function(i) { return i.emoji }).join(', ')
+      const emoji2 = randomEmojis.map(function(i) { return i.emoji }).join(', ')
+      instructionTextEl.textContent = `
+        I asked the emoji alethiometer ${emoji1}, and it answered, ${emoji2}.
+        `
+      instructionTextEl.classList.remove('hidden')
+      instructionTextEl.classList.add('final')
     })
   }
