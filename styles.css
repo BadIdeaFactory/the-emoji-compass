@@ -162,8 +162,8 @@ body {
 
 @media (orientation: portrait) {
   .text-container {
-    max-height: 500px;
-    min-height: 300px; } }
+    max-height: 400px;
+    min-height: 250px; } }
 
 @media (orientation: landscape) {
   .container {
@@ -171,8 +171,8 @@ body {
   .text-container {
     flex-direction: row;
     align-items: center;
-    max-width: 500px;
-    min-width: 300px; }
+    max-width: 400px;
+    min-width: 250px; }
     .text-container hr {
       height: 60%;
       width: 0; } }

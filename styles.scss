@@ -198,8 +198,8 @@ $dial-1-width: 6vmin;
 
 @media (orientation: 'portrait') {
   .text-container {
-    max-height: 500px;
-    min-height: 300px;
+    max-height: 400px;
+    min-height: 250px;
   }
 }
 
@@ -211,8 +211,8 @@ $dial-1-width: 6vmin;
   .text-container {
     flex-direction: row;
     align-items: center;
-    max-width: 500px;
-    min-width: 300px;
+    max-width: 400px;
+    min-width: 250px;
   
     hr {
       height: 60%;
