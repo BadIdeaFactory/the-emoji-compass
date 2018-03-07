@@ -409,12 +409,23 @@ function rotateDialStep (dial, rotateTo, rotateDirection, rotateQuantity, resolv
 
 function rotatePromise (dial, rotateTo) {
   const rotateDirection = Math.round(Math.random()) // 0 or 1.
-  const rotateQuantity = Math.round(Math.random() * 3) + 1 // a number between 1 and 3 inclusive
+  const rotateQuantity = Math.round(Math.random() * 2) + 1 // a number between 1 and 3 inclusive
 
   return new Promise(function (resolve) {
     window.requestAnimationFrame(function (timestamp) {
       rotateDialStep(dial, rotateTo, rotateDirection, rotateQuantity, resolve)
     })
+  })
+}
+
+/**
+ * Wrap setTimeout so that it works like a promise
+ *
+ * @param {Number} delay - in milliseconds
+ */
+function wait (delay) {
+  return new Promise(function (resolve) {
+    window.setTimeout(resolve, delay)
   })
 }
 
@@ -425,6 +436,7 @@ function autoRotateDial (dial) {
   // Make sure the dial picks up its initial position by calling update()
   dial.draggable.update()
 
+  const DELAY_BETWEEN_PICKS = 200
   const numberOfSymbols = symbols.length
   const randomNumbers = getUniqueRandomIntegers(numberOfSymbols, 3)
   const randomEmojis = randomNumbers.map(function (num) {
@@ -433,10 +445,12 @@ function autoRotateDial (dial) {
 
   const rotateTo = getRotation(randomNumbers[0], numberOfSymbols)
   rotatePromise(dial, rotateTo)
+    .then(function () { return wait(DELAY_BETWEEN_PICKS) })
     .then(function () {
       const rotateTo = getRotation(randomNumbers[1], numberOfSymbols)
       return rotatePromise(dial, rotateTo)
     })
+    .then(function () { return wait(DELAY_BETWEEN_PICKS) })
     .then(function () {
       const rotateTo = getRotation(randomNumbers[2], numberOfSymbols)
       return rotatePromise(dial, rotateTo)
