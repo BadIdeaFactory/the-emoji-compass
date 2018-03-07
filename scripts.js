@@ -187,7 +187,41 @@ const compassEl = document.getElementById('compass')
 const flavorTextOutputEl = document.getElementById('flavor-text-output')
 const flavorTextEl = document.querySelector('.flavor-text')
 const instructionTextEl = document.querySelector('.instruction-text')
+const emojiOutputEl = document.getElementById('emoji-output')
 const selectedEmojis = []
+
+function init () {
+  repositionRing()
+  renderSymbols()
+  window.addEventListener('resize', function (e) {
+    repositionRing()
+    repositionSymbols()
+  })
+
+  const dial1 = makeDial('1')
+  const dial2 = makeDial('2')
+  const dial3 = makeDial('3')
+  const dial4 = makeDial('4')
+
+  // Start all dials at a random position
+  TweenLite.set(dial1.el, { rotation: Math.random() * 360 })
+  TweenLite.set(dial2.el, { rotation: Math.random() * 360 })
+  TweenLite.set(dial3.el, { rotation: Math.random() * 360 })
+  TweenLite.set(dial4.el, { rotation: Math.random() * 360 })
+
+  dial1.enable()
+  window.addEventListener('dial-1:dragend', function (e) {
+    dial2.enable()
+    showInstructions()
+  })
+  window.addEventListener('dial-2:dragend', function (e) {
+    dial3.enable()
+    showInstructions()
+  })
+  window.addEventListener('dial-3:dragend', function (e) {
+    autoRotateDial(dial4)
+  })
+}
 
 function repositionRing () {
   const dims = compassEl.getBoundingClientRect()
@@ -221,13 +255,6 @@ function repositionSymbols () {
     item.style.transform = 'rotate(' + rotation + 'deg) translate(' + circleSize / 2 + 'px) rotate(-' + rotation + 'deg)'
   })
 }
-
-repositionRing()
-renderSymbols()
-window.addEventListener('resize', function (e) {
-  repositionRing()
-  repositionSymbols()
-})
 
 // Create dials
 function makeDial (id) {
@@ -333,32 +360,6 @@ function onDialPositionUpdate (rotation) {
   allEmojis[position].classList.add('selected')
   return symbols[position]
 }
-
-const dial1 = makeDial('1')
-const dial2 = makeDial('2')
-const dial3 = makeDial('3')
-const dial4 = makeDial('4')
-
-// Start all dials at a random position
-TweenLite.set(dial1.el, { rotation: Math.random() * 360 })
-TweenLite.set(dial2.el, { rotation: Math.random() * 360 })
-TweenLite.set(dial3.el, { rotation: Math.random() * 360 })
-TweenLite.set(dial4.el, { rotation: Math.random() * 360 })
-
-dial1.enable()
-window.addEventListener('dial-1:dragend', function (e) {
-  dial2.enable()
-  showInstructions()
-})
-window.addEventListener('dial-2:dragend', function (e) {
-  dial3.enable()
-  showInstructions()
-})
-window.addEventListener('dial-3:dragend', function (e) {
-  autoRotateDial(dial4)
-})
-
-const emojiOutputEl = document.getElementById('emoji-output')
 
 function getEmojiPosition (rotation, emojis) {
   let position
@@ -507,4 +508,4 @@ function autoRotateDial (dial) {
       instructionTextEl.classList.remove('hidden')
       instructionTextEl.classList.add('final')
     })
-  }
+}
