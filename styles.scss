@@ -183,10 +183,10 @@ $dial-1-width: 6vmin;
   font-size: 5vmin;
 }
 
-// todo: fix overflowing elements in certain viewport dimensions
 @media (orientation: 'portrait') {
   .text-container {
-    min-height: 100px;
+    max-height: 500px;
+    min-height: 300px;
   }
 }
 
@@ -199,6 +199,7 @@ $dial-1-width: 6vmin;
     flex-direction: row;
     align-items: center;
     max-width: 500px;
+    min-width: 300px;
   
     hr {
       height: 60%;
