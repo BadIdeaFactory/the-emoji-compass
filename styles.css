@@ -9,7 +9,7 @@ body {
   margin: 0;
   overflow: hidden;
   user-select: none;
-  font-family: 'Berkshire Swash', cursive; }
+  font-family: 'Berkshire Swash', serif; }
 
 *, *::after, *::before {
   box-sizing: border-box; }
