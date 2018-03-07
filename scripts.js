@@ -204,10 +204,10 @@ function init () {
   const dial4 = makeDial('4')
 
   // Start all dials at a random position
-  TweenLite.set(dial1.el, { rotation: Math.random() * 360 })
-  TweenLite.set(dial2.el, { rotation: Math.random() * 360 })
-  TweenLite.set(dial3.el, { rotation: Math.random() * 360 })
-  TweenLite.set(dial4.el, { rotation: Math.random() * 360 })
+  TweenLite.set(dial1.el, { rotation: random() * 360 })
+  TweenLite.set(dial2.el, { rotation: random() * 360 })
+  TweenLite.set(dial3.el, { rotation: random() * 360 })
+  TweenLite.set(dial4.el, { rotation: random() * 360 })
 
   dial1.enable()
   window.addEventListener('dial-1:dragend', function (e) {
@@ -221,6 +221,22 @@ function init () {
   window.addEventListener('dial-3:dragend', function (e) {
     autoRotateDial(dial4)
   })
+}
+
+/**
+ * Generates a random number between 0 and 1. Uses a
+ * cryptographically secure random number generator, if available.
+ */
+function random () {
+  let rand
+  if (window.crypto && Uint8Array) {
+    const buf = new Uint8Array(1)
+    const arr = window.crypto.getRandomValues(buf)
+    rand = arr[0] / 255
+  } else {
+    rand = Math.random()
+  }
+  return rand
 }
 
 function repositionRing () {
@@ -400,9 +416,9 @@ function getUniqueRandomIntegers (upper, amount) {
   let i = 0
 
   do {
-    const random = Math.round(Math.random() * (upper - 1))
-    if (allowRepeats || !integers.includes(random)) {
-      integers.push(random)
+    const int = Math.round(random() * (upper - 1))
+    if (allowRepeats || !integers.includes(int)) {
+      integers.push(int)
       i++
     }
   } while (i < amount)
@@ -451,8 +467,8 @@ function rotateDialStep (dial, rotateTo, rotateDirection, rotateQuantity, resolv
 }
 
 function rotatePromise (dial, rotateTo) {
-  const rotateDirection = Math.round(Math.random()) // 0 or 1.
-  const rotateQuantity = Math.round(Math.random() * 2) + 1 // a number between 1 and 3 inclusive
+  const rotateDirection = Math.round(random()) // 0 or 1.
+  const rotateQuantity = Math.round(random() * 2) + 1 // a number between 1 and 3 inclusive
 
   return new Promise(function (resolve) {
     window.requestAnimationFrame(function (timestamp) {
