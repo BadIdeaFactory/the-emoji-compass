@@ -347,6 +347,7 @@ function showInstructions () {
  *
  * @param {Number} upper - upper bound of random integers
  * @param {Number} amount - number of random integers to generate
+ * @returns {Array} of random integers
  */
 function getUniqueRandomIntegers (upper, amount) {
   // Avoid an infinite loop situation in the do-while
@@ -366,10 +367,16 @@ function getUniqueRandomIntegers (upper, amount) {
   return integers
 }
 
-function getRandomRotation () {
-  const randomEmoji = Math.round(Math.random() * symbols.length)
-  const increment = 360 / symbols.length
-  return randomEmoji * increment
+/**
+ * Given `max` number of items evenly spaced around a circle, return
+ * the number of degrees of the item at `position`
+ *
+ * @param {Number} position 
+ * @param {Number} max
+ * @returns {Number}
+ */
+function getRotation (position, max) {
+  return position * (360 / max)
 }
 
 function rotateDialStep (dial, rotateTo, rotateDirection, rotateQuantity, resolve) {
@@ -395,8 +402,8 @@ function rotateDialStep (dial, rotateTo, rotateDirection, rotateQuantity, resolv
       rotateDialStep(dial, rotateTo, rotateDirection, rotateQuantity, resolve)
     })
   } else {
-    const emoji = onDialPositionUpdate(dial.draggable.rotation)
-    resolve(emoji)
+    onDialPositionUpdate(dial.draggable.rotation)
+    resolve()
   }
 }
 
@@ -418,22 +425,23 @@ function autoRotateDial (dial) {
   // Make sure the dial picks up its initial position by calling update()
   dial.draggable.update()
 
-  const randomEmojis = []
+  const numberOfSymbols = symbols.length
+  const randomNumbers = getUniqueRandomIntegers(numberOfSymbols, 3)
+  const randomEmojis = randomNumbers.map(function (num) {
+    return symbols[num]
+  })
 
-  const rotateTo = getRandomRotation()
+  const rotateTo = getRotation(randomNumbers[0], numberOfSymbols)
   rotatePromise(dial, rotateTo)
-    .then(function (emoji) {
-      randomEmojis.push(emoji)
-      const rotateTo = getRandomRotation()
+    .then(function () {
+      const rotateTo = getRotation(randomNumbers[1], numberOfSymbols)
       return rotatePromise(dial, rotateTo)
     })
-    .then(function (emoji) {
-      randomEmojis.push(emoji)
-      const rotateTo = getRandomRotation()
+    .then(function () {
+      const rotateTo = getRotation(randomNumbers[2], numberOfSymbols)
       return rotatePromise(dial, rotateTo)
     })
-    .then(function (emoji) {
-      randomEmojis.push(emoji)
+    .then(function () {
       flavorTextEl.classList.add('hidden')
       const emoji1 = selectedEmojis.map(function(i) { return i.emoji }).join(', ')
       const emoji2 = randomEmojis.map(function(i) { return i.emoji }).join(', ')
