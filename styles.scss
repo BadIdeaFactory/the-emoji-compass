@@ -42,69 +42,39 @@ body {
   }
 }
 
-/// Mixin to place items on a circle
-/// @author Hugo Giraudel
-/// @author Ana Tudor
-/// @param {Integer} $item-count - Number of items on the circle
-/// @param {Length} $circle-size - Large circle size
-/// @param {Length} $item-size - Single item size
-@mixin on-circle($item-count, $circle-size, $item-size) {
-  position: relative;
-  width:  $circle-size;
-  height: $circle-size;
-  padding: 0;
-  border-radius: 50%; 
-  list-style: none;       
-  
-  > * {
-    display: block;
-    position: absolute;
-    top:  50%; 
-    left: 50%;
-    width:  $item-size;
-    height: $item-size;
-    margin: -($item-size / 2);
-    
-    // Animate transform properties
-    transition: 0.15s;
-  
-    $angle: (360 / $item-count);
-    $rot: 0;
-
-    @for $i from 1 through $item-count {
-      &:nth-of-type(#{$i}) {
-        transform: 
-          rotate($rot * 1deg) 
-          translate($circle-size / 2) 
-          rotate($rot * -1deg);
-      }
-
-      &.selected:nth-of-type(#{$i}) {
-        transform: 
-          rotate($rot * 1deg) 
-          translate($circle-size / 2) 
-          rotate($rot * -1deg)
-          scale(1.5, 1.5)
-          ;
-      }
-
-      $rot: $rot + $angle;
-    }
-  }
-}
-
 .circle-container {
-  @include on-circle($item-count: 36, $circle-size: 80vmin, $item-size: 1.5em);
+  position: relative;
   margin: 0;
-  
-  li { 
+  padding: 0;
+  border-radius: 50%;
+  list-style: none;
+
+  > li {
+    $item-size: 1.5em;
+
     display: flex;
     align-items: center;
     justify-content: center;
+    position: absolute;
+    top: 50%; // Starting position; use JS to manipulate placement around circle
+    left: 50%; // Starting position; use JS to manipulate placement around circle
     max-width: 100%;
     font-size: 4vmin;
     border-radius: 50%;
     color: white;
+
+    width:  $item-size;
+    height: $item-size;
+    margin: -($item-size / 2);
+
+    // Animate transform properties
+    transition: 0.15s;
+
+    // TODO: add this to the transform property
+    &.selected {
+      transform:
+        scale(1.5, 1.5);
+    }
   }
 }
 

@@ -183,16 +183,48 @@ const symbols = [
 
 const ringEl = document.getElementById('ring')
 const dialsEl = document.getElementById('dials')
+const compassEl = document.getElementById('compass')
 const flavorTextOutputEl = document.getElementById('flavor-text-output')
 const flavorTextEl = document.querySelector('.flavor-text')
 const instructionTextEl = document.querySelector('.instruction-text')
 const selectedEmojis = []
 
+function repositionRing () {
+  const dims = compassEl.getBoundingClientRect()
+  const max = Math.min(dims.width, dims.height)
+  const actual = 0.8 * max
+  ringEl.style.height = actual + 'px'
+  ringEl.style.width = actual + 'px'
+}
+
 // Create all the emoji items around the compass
-symbols.forEach((i) => {
-  const li = document.createElement('li')
-  li.innerText = i.emoji
-  ringEl.appendChild(li)
+function renderSymbols () {
+  symbols.forEach(function (symbol, index, symbols) {
+    const li = document.createElement('li')
+    li.innerText = symbol.emoji
+    ringEl.appendChild(li)
+  })
+  repositionSymbols()
+}
+
+function repositionSymbols () {
+  const circleSize = ringEl.getBoundingClientRect().width
+  const items = ringEl.querySelectorAll('li')
+
+  // Add position styling
+  items.forEach(function (item, index, symbols) {
+    const count = symbols.length
+    const angle = 360 / count
+    const rotation = index * angle
+    item.style.transform = 'rotate(' + rotation + 'deg) translate(' + circleSize / 2 + 'px) rotate(-' + rotation + 'deg)'
+  })
+}
+
+repositionRing()
+renderSymbols()
+window.addEventListener('resize', function (e) {
+  repositionRing()
+  repositionSymbols()
 })
 
 // Create dials
