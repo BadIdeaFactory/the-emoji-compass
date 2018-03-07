@@ -40,25 +40,26 @@ body {
   border-radius: 50%;
   list-style: none; }
   .circle-container > li {
-    display: flex;
-    align-items: center;
-    justify-content: center;
     position: absolute;
     top: 50%;
     left: 50%;
     max-width: 100%;
     font-size: 4vmin;
-    border-radius: 50%;
     color: white;
     width: 1.5em;
     height: 1.5em;
-    margin: -0.75em;
-    transition: 0.15s; }
-    .circle-container > li.selected {
-      transform: scale(1.5, 1.5); }
-
-.selected {
-  background-color: rgba(255, 255, 255, 0.15); }
+    margin: -0.75em; }
+    .circle-container > li > span {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      transition: 0.15s; }
+    .circle-container > li.selected > span {
+      transform: scale(1.5, 1.5);
+      background-color: rgba(255, 255, 255, 0.15); }
 
 .dials-container {
   position: absolute;

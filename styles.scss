@@ -52,34 +52,34 @@ body {
   > li {
     $item-size: 1.5em;
 
-    display: flex;
-    align-items: center;
-    justify-content: center;
     position: absolute;
     top: 50%; // Starting position; use JS to manipulate placement around circle
     left: 50%; // Starting position; use JS to manipulate placement around circle
     max-width: 100%;
     font-size: 4vmin;
-    border-radius: 50%;
     color: white;
 
-    width:  $item-size;
+    width: $item-size;
     height: $item-size;
     margin: -($item-size / 2);
 
-    // Animate transform properties
-    transition: 0.15s;
+    > span {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
 
-    // TODO: add this to the transform property
-    &.selected {
-      transform:
-        scale(1.5, 1.5);
+      // Animate transform properties
+      transition: 0.15s;
+    }
+
+    &.selected > span {
+      transform: scale(1.5, 1.5);
+      background-color: rgba(255, 255, 255, 0.15);
     }
   }
-}
-
-.selected {
-  background-color: rgba(255,255,255,0.15);
 }
 
 .dials-container {

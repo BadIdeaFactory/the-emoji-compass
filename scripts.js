@@ -201,7 +201,9 @@ function repositionRing () {
 function renderSymbols () {
   symbols.forEach(function (symbol, index, symbols) {
     const li = document.createElement('li')
-    li.innerText = symbol.emoji
+    const inner = document.createElement('span')
+    inner.innerText = symbol.emoji
+    li.appendChild(inner)
     ringEl.appendChild(li)
   })
   repositionSymbols()
