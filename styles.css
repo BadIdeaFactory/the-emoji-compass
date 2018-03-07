@@ -125,9 +125,9 @@ body {
   background-repeat: no-repeat; }
 
 #emoji-output {
-  font-size: 16vmin;
-  color: white;
-  margin-top: -6vmin; }
+  font-size: 15vmin;
+  line-height: 15vmin;
+  color: white; }
 
 .text-container {
   text-align: center;
