@@ -235,7 +235,15 @@ function makeDial (id) {
   el.classList.add('dial')
   el.classList.add(`dial-${id}`)
   dialsEl.appendChild(el)
-  
+
+  // Set dial width according to actual circle dimensions
+  const circleSize = ringEl.getBoundingClientRect().width
+  el.style.width = (0.5 * circleSize) + 'px'
+  window.addEventListener('resize', function () {
+    const circleSize = ringEl.getBoundingClientRect().width
+    el.style.width = (0.5 * circleSize) + 'px'
+  })
+
   // Make dials draggable
   TweenLite.set(el, {
     transformOrigin: '2.5vmin'

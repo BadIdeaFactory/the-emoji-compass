@@ -17,29 +17,25 @@ body {
 .compass-container {
   display: flex;
   position: relative;
-  align-items: center;
-  justify-content: center;
   height: 100vmin;
   width: 100vmin;
   flex: 3; }
 
-.text-container {
-  text-align: center;
-  color: white;
-  flex: 1;
+.ring-container {
   display: flex;
-  flex-direction: column; }
-  .text-container hr {
-    width: 60%;
-    border: 1px solid #a9a9a977; }
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  width: 100%;
+  height: 100%; }
 
-.circle-container {
+.ring {
   position: relative;
   margin: 0;
   padding: 0;
   border-radius: 50%;
   list-style: none; }
-  .circle-container > li {
+  .ring > li {
     position: absolute;
     top: 50%;
     left: 50%;
@@ -48,8 +44,9 @@ body {
     color: white;
     width: 1.5em;
     height: 1.5em;
-    margin: -0.75em; }
-    .circle-container > li > span {
+    margin: -0.75em;
+    transition: 0.15s; }
+    .ring > li > span {
       display: flex;
       align-items: center;
       justify-content: center;
@@ -57,15 +54,22 @@ body {
       height: 100%;
       border-radius: 50%;
       transition: 0.15s; }
-    .circle-container > li.selected > span {
+    .ring > li.selected > span {
       transform: scale(1.5, 1.5);
       background-color: rgba(255, 255, 255, 0.15); }
 
 .dials-container {
   position: absolute;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center; }
+
+#dials {
+  display: flex;
   width: 0;
   height: 0;
-  display: flex;
   align-items: center; }
 
 .dial {
@@ -116,6 +120,16 @@ body {
   font-size: 16vmin;
   color: white;
   margin-top: -6vmin; }
+
+.text-container {
+  text-align: center;
+  color: white;
+  flex: 1;
+  display: flex;
+  flex-direction: column; }
+  .text-container hr {
+    width: 60%;
+    border: 1px solid #a9a9a977; }
 
 .text-box {
   display: flex;
