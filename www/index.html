@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, minimum-scale=1, user-scalable=no">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Emoji Alethiometer</title>
+  <link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+  <div class="container">
+    <div id="compass" class="compass-container">
+      <div class="ring-container">
+        <ul id="ring" class="ring"></ul>
+      </div>
+      <div class="dials-container">
+        <div id="dials">
+          <div class="dials-cap"></div>
+        </div>
+      </div>
+    </div>
+    <div class="text-container">
+      <hr />
+      <div class="text-box instruction-text">
+        Rotate a dial to start.
+      </div>
+      <div class="text-box flavor-text hidden">
+        <div id="emoji-output"></div>
+        <div id="flavor-text-output"></div>
+      </div>
+    </div>
+  </div>
+  <script src="./TweenMax.min.js"></script>
+  <script src="./Draggable.min.js"></script>
+  <script src="./scripts.js"></script>
+  <script>
+    init()
+  </script>
+</body>
+</html>
