@@ -443,12 +443,14 @@ function rotateDialStep (dial, rotateTo, rotateDirection, rotateQuantity, resolv
   // rotateDirection = 1 => counterclockwise
   let rotated = false
   const quantity = 360 * rotateQuantity
+  const randomAmount = Math.ceil(Math.random() * 5)
+  console.log(randomAmount)
 
   if (rotateDirection === 0 && dial.draggable.rotation <= rotateTo + quantity) {
-    TweenLite.set(dial.el, { rotation: dial.draggable.rotation + 1 })
+    TweenLite.set(dial.el, { rotation: dial.draggable.rotation + randomAmount })
     rotated = true
   } else if (rotateDirection === 1 && dial.draggable.rotation >= rotateTo - quantity) {
-    TweenLite.set(dial.el, { rotation: dial.draggable.rotation - 1 })
+    TweenLite.set(dial.el, { rotation: dial.draggable.rotation - randomAmount })
     rotated = true
   }
   
@@ -468,7 +470,7 @@ function rotateDialStep (dial, rotateTo, rotateDirection, rotateQuantity, resolv
 
 function rotatePromise (dial, rotateTo) {
   const rotateDirection = Math.round(random()) // 0 or 1.
-  const rotateQuantity = Math.round(random() * 2) + 1 // a number between 1 and 3 inclusive
+  const rotateQuantity = Math.ceil(random() * 2) // a number between 1 and 3 inclusive
 
   return new Promise(function (resolve) {
     window.requestAnimationFrame(function (timestamp) {
