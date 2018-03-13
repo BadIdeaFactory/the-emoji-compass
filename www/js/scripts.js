@@ -190,7 +190,10 @@ const instructionTextEl = document.querySelector('.instruction-text')
 const emojiOutputEl = document.getElementById('emoji-output')
 const selectedEmojis = []
 
+let dial1, dial2, dial3, dial4
+
 function init () {
+  resetInstructions()
   repositionRing()
   renderSymbols()
   window.addEventListener('resize', function (e) {
@@ -198,10 +201,10 @@ function init () {
     repositionSymbols()
   })
 
-  const dial1 = makeDial('1')
-  const dial2 = makeDial('2')
-  const dial3 = makeDial('3')
-  const dial4 = makeDial('4')
+  dial1 = makeDial('1')
+  dial2 = makeDial('2')
+  dial3 = makeDial('3')
+  dial4 = makeDial('4')
 
   // Start all dials at a random position
   TweenLite.set(dial1.el, { rotation: random() * 360 })
@@ -221,6 +224,29 @@ function init () {
   window.addEventListener('dial-3:dragend', function (e) {
     autoRotateDial(dial4)
   })
+
+  document.getElementById('ask-another').addEventListener('click', resetToInitialState)
+}
+
+function resetToInitialState () {
+  // Start all dials at a random position
+  TweenLite.set(dial1.el, { rotation: random() * 360 })
+  TweenLite.set(dial2.el, { rotation: random() * 360 })
+  TweenLite.set(dial3.el, { rotation: random() * 360 })
+  TweenLite.set(dial4.el, { rotation: random() * 360 })
+
+  dial2.disable()
+  dial3.disable()
+  dial4.disable()
+  dial1.enable()
+
+  while (selectedEmojis.length > 0) {
+    selectedEmojis.pop()
+  }
+
+  resetInstructions()
+  document.querySelector('.final-text').classList.add('hidden')
+  document.querySelector('.instruction-text').classList.remove('hidden')
 }
 
 /**
@@ -394,6 +420,12 @@ function getEmojiPosition (rotation, emojis) {
 function showInstructions () {
   flavorTextEl.classList.add('hidden')
   instructionTextEl.textContent = 'Drag the next dial to select the next emoji.'
+  instructionTextEl.classList.remove('hidden')
+}
+
+function resetInstructions () {
+  flavorTextEl.classList.add('hidden')
+  instructionTextEl.textContent = 'Rotate a dial to start.'
   instructionTextEl.classList.remove('hidden')
 }
 
