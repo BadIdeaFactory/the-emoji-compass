@@ -95,9 +95,9 @@ body {
   z-index: 1000; }
 
 .dial-1 {
-  width: 40vmin;
-  height: 6vmin;
-  background-image: url("../img/clock-hand.png");
+  width: 30vmin;
+  height: 8vmin;
+  background-image: url("../img/clock-hand2.png");
   background-size: contain;
   background-position: center left;
   background-repeat: no-repeat; }
@@ -119,9 +119,9 @@ body {
   background-repeat: no-repeat; }
 
 .dial-4 {
-  width: 36vmin;
-  height: 3vmin;
-  background-image: url("../img/clock-hand4.png");
+  width: 40vmin;
+  height: 6vmin;
+  background-image: url("../img/clock-hand.png");
   background-size: contain;
   background-position: center left;
   background-repeat: no-repeat; }
