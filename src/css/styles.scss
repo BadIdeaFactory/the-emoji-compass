@@ -186,16 +186,16 @@ $dial-1-width: 6vmin;
   font-size: 1.75em;
 }
 
+.final-text {
+  font-size: 4vmin;
+}
+
 #flavor-text-output {
   margin-top: 1em;
   margin-left: 2em;
   margin-right: 2em;
   color: #aaa;
   font-size: 1.25em;
-}
-
-.text-box.final {
-  font-size: 4vmin;
 }
 
 @media (orientation: 'portrait') {
@@ -246,5 +246,35 @@ $dial-1-width: 6vmin;
     position: absolute;
     background-color: $background-color;
     border-radius: 50%;
+  }
+}
+
+.final-buttons {
+  margin-top: 0.25em;
+}
+
+.final-buttons button {
+  appearance: none;
+  -moz-appearance: none;
+  -webkit-appearance: none;
+  border: 0;
+  background-color: #2a2a2a;
+  color: white;
+  font-size: 1.5rem;
+  font-family: 'Berkshire Swash', serif;
+  cursor: pointer;
+  padding: 0.5em 1em;
+  margin: 0.25em;
+  height: 50px;
+  line-height: 25px;
+  border-radius: 25px;
+  outline: none;
+
+  &:focus {
+    box-shadow: 0 0 10px 0 #5656e2;
+  }
+
+  &:hover {
+    color: yellow;
   }
 }

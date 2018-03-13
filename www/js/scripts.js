@@ -516,12 +516,13 @@ function autoRotateDial (dial) {
     })
     .then(function () {
       flavorTextEl.classList.add('hidden')
-      const emoji1 = selectedEmojis.map(function(i) { return i.emoji }).join(', ')
-      const emoji2 = randomEmojis.map(function(i) { return i.emoji }).join(', ')
-      instructionTextEl.textContent = `
-        I asked the emoji alethiometer ${emoji1}, and it answered, ${emoji2}.
-        `
-      instructionTextEl.classList.remove('hidden')
-      instructionTextEl.classList.add('final')
+      const finalEl = document.querySelector('.final-text')
+      const emoji1El = document.getElementById('final-emoji-1')
+      const emoji2El = document.getElementById('final-emoji-2')
+      const emoji1 = selectedEmojis.map(function(i) { return i.emoji }).join(' ')
+      const emoji2 = randomEmojis.map(function(i) { return i.emoji }).join(' ')
+      emoji1El.textContent = emoji1
+      emoji2El.textContent = emoji2
+      finalEl.classList.remove('hidden')
     })
 }
