@@ -443,14 +443,12 @@ function rotateDialStep (dial, rotateTo, rotateDirection, rotateQuantity, resolv
   // rotateDirection = 1 => counterclockwise
   let rotated = false
   const quantity = 360 * rotateQuantity
-  const randomAmount = Math.ceil(Math.random() * 5)
-  console.log(randomAmount)
 
   if (rotateDirection === 0 && dial.draggable.rotation <= rotateTo + quantity) {
-    TweenLite.set(dial.el, { rotation: dial.draggable.rotation + randomAmount })
+    TweenLite.set(dial.el, { rotation: dial.draggable.rotation + 1 })
     rotated = true
   } else if (rotateDirection === 1 && dial.draggable.rotation >= rotateTo - quantity) {
-    TweenLite.set(dial.el, { rotation: dial.draggable.rotation - randomAmount })
+    TweenLite.set(dial.el, { rotation: dial.draggable.rotation - 1 })
     rotated = true
   }
   
@@ -497,7 +495,7 @@ function autoRotateDial (dial) {
   // Make sure the dial picks up its initial position by calling update()
   dial.draggable.update()
 
-  const DELAY_BETWEEN_PICKS = 200
+  const DELAY_BETWEEN_PICKS = 2000
   const numberOfSymbols = symbols.length
   const randomNumbers = getUniqueRandomIntegers(numberOfSymbols, 3)
   const randomEmojis = randomNumbers.map(function (num) {
