@@ -1,4 +1,4 @@
-# The Emoji Compass
+﻿# The Emoji Compass
 
 ## Quick start
 

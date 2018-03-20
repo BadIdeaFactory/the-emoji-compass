@@ -3,14 +3,14 @@ const bs = require('browser-sync').create()
 const sass = require('node-sass')
 
 bs.init({
-  server: './',
+  server: './www/',
   files: [
-    'index.html',
-    'scripts.js',
-    'styles.css',
-    '*.png',
+    './www/index.html',
+    './www/js/scripts.js',
+    './www/css/styles.css',
+    './www/img/*.png',
     {
-      match: 'styles.scss',
+      match: './src/css/styles.scss',
       fn: function (event, file) {
         // windows systems has trouble reading edited scss files sometimes
         // this hack with setTimeout seems to work. see here:
@@ -21,7 +21,7 @@ bs.init({
             outFile: 'styles.css'
           }, function (err, result) {
             if (err) return console.error(err)
-            fs.writeFile('styles.css', result.css, function (err) {
+            fs.writeFile('./www/css/styles.css', result.css, function (err) {
               if (err) return console.error(err)
             })
           })
