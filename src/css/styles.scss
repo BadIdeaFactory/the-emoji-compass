@@ -1,4 +1,6 @@
 $background-color: #090909;
+$ring-track-color: #49241b;
+$ring-face-color: #906732;
 
 @font-face {
   font-family: 'Berkshire Swash';
@@ -84,6 +86,29 @@ body {
       background-color: rgba(255, 255, 255, 0.15);
     }
   }
+
+  &::before {
+    content: ' ';
+    position: absolute;
+    width: 116%;
+    height: 116%;
+    background-color: $ring-track-color;
+    border-radius: 50%;
+    top: -8%;
+    right: -8%;
+    border: 0.9vmin solid $ring-face-color;
+  }
+
+  &::after {
+    content: ' ';
+    background-color: $ring-face-color;
+    position: absolute;
+    width: 87%;
+    height: 87%;
+    border-radius: 50%;
+    top: 6.5%;
+    right: 6.5%;
+  }
 }
 
 .dials-container {
@@ -114,44 +139,59 @@ body {
 $dial-1-width: 6vmin;
 
 .dial.active {
-  filter: grayscale(100%) brightness(30%) sepia(100%) hue-rotate(-40deg) saturate(600%) contrast(1.5);
   z-index: 1000;
 }
 
 .dial-1 {
   width: 30vmin;
   height: 8vmin;
-  background-image: url('../img/clock-hand2.png');
+  background-image: url('../img/clock-hand2-inactive.png');
   background-size: contain;
   background-position: center left;
   background-repeat: no-repeat;
+
+  &.active {
+    background-image: url('../img/clock-hand2-active.png');
+  }
 }
 
 .dial-2 {
   width: 30vmin;
   height: 8vmin;
-  background-image: url('../img/clock-hand2.png');
+  background-image: url('../img/clock-hand2-inactive.png');
   background-size: contain;
   background-position: center left;
   background-repeat: no-repeat;
+
+  &.active {
+    background-image: url('../img/clock-hand2-active.png');
+  }
 }
 
 .dial-3 {
   width: 30vmin;
   height: 8vmin;
-  background-image: url('../img/clock-hand2.png');
+  background-image: url('../img/clock-hand2-inactive.png');
   background-size: contain;
   background-position: center left;
   background-repeat: no-repeat;
+
+  &.active {
+    background-image: url('../img/clock-hand2-active.png');
+  }
 }
 
 .dial-4 {
   width: 40vmin;
   height: $dial-1-width;
-  background-image: url('../img/clock-hand.png');
+  background-image: url('../img/clock-hand-inactive.png');
   background-size: contain;
   background-position: center left;
   background-repeat: no-repeat;
+
+  &.active {
+    background-image: url('../img/clock-hand-active.png');
+  }
 }
 
 #emoji-output {
@@ -236,7 +276,7 @@ $dial-1-width: 6vmin;
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: #868181;
+  background-color: #8d3200;
   z-index: 2000;
 
   &::after {
@@ -244,7 +284,7 @@ $dial-1-width: 6vmin;
     height: 1.5vmin;
     content: '';
     position: absolute;
-    background-color: $background-color;
+    background-color: $ring-face-color;
     border-radius: 50%;
   }
 }

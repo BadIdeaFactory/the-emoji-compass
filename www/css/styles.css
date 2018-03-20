@@ -67,6 +67,25 @@ body {
     .ring > li.selected > span {
       transform: scale(1.5, 1.5);
       background-color: rgba(255, 255, 255, 0.15); }
+  .ring::before {
+    content: ' ';
+    position: absolute;
+    width: 116%;
+    height: 116%;
+    background-color: #49241b;
+    border-radius: 50%;
+    top: -8%;
+    right: -8%;
+    border: 0.9vmin solid #906732; }
+  .ring::after {
+    content: ' ';
+    background-color: #906732;
+    position: absolute;
+    width: 87%;
+    height: 87%;
+    border-radius: 50%;
+    top: 6.5%;
+    right: 6.5%; }
 
 .dials-container {
   position: absolute;
@@ -91,40 +110,47 @@ body {
   margin-left: -2.5vmin; }
 
 .dial.active {
-  filter: grayscale(100%) brightness(30%) sepia(100%) hue-rotate(-40deg) saturate(600%) contrast(1.5);
   z-index: 1000; }
 
 .dial-1 {
   width: 30vmin;
   height: 8vmin;
-  background-image: url("../img/clock-hand2.png");
+  background-image: url("../img/clock-hand2-inactive.png");
   background-size: contain;
   background-position: center left;
   background-repeat: no-repeat; }
+  .dial-1.active {
+    background-image: url("../img/clock-hand2-active.png"); }
 
 .dial-2 {
   width: 30vmin;
   height: 8vmin;
-  background-image: url("../img/clock-hand2.png");
+  background-image: url("../img/clock-hand2-inactive.png");
   background-size: contain;
   background-position: center left;
   background-repeat: no-repeat; }
+  .dial-2.active {
+    background-image: url("../img/clock-hand2-active.png"); }
 
 .dial-3 {
   width: 30vmin;
   height: 8vmin;
-  background-image: url("../img/clock-hand2.png");
+  background-image: url("../img/clock-hand2-inactive.png");
   background-size: contain;
   background-position: center left;
   background-repeat: no-repeat; }
+  .dial-3.active {
+    background-image: url("../img/clock-hand2-active.png"); }
 
 .dial-4 {
   width: 40vmin;
   height: 6vmin;
-  background-image: url("../img/clock-hand.png");
+  background-image: url("../img/clock-hand-inactive.png");
   background-size: contain;
   background-position: center left;
   background-repeat: no-repeat; }
+  .dial-4.active {
+    background-image: url("../img/clock-hand-active.png"); }
 
 #emoji-output {
   font-size: 15vmin;
@@ -191,14 +217,14 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: #868181;
+  background-color: #8d3200;
   z-index: 2000; }
   .dials-cap::after {
     width: 1.5vmin;
     height: 1.5vmin;
     content: '';
     position: absolute;
-    background-color: #090909;
+    background-color: #906732;
     border-radius: 50%; }
 
 .final-buttons {
