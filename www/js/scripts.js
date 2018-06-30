@@ -425,7 +425,7 @@ function showInstructions () {
 
 function resetInstructions () {
   flavorTextEl.classList.add('hidden')
-  instructionTextEl.textContent = 'Rotate a dial to start.'
+  instructionTextEl.textContent = 'To ask a question of the compass, rotate the highlighted dial.'
   instructionTextEl.classList.remove('hidden')
 }
 
