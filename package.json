@@ -20,7 +20,7 @@
   },
   "homepage": "https://github.com/BadIdeaFactory/the-emoji-compass#readme",
   "devDependencies": {
-    "browser-sync": "2.23.6",
-    "node-sass": "4.7.2"
+    "browser-sync": "2.24.6",
+    "node-sass": "4.9.2"
   }
 }
