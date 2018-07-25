@@ -475,12 +475,13 @@ function rotateDialStep (dial, rotateTo, rotateDirection, rotateQuantity, resolv
   // rotateDirection = 1 => counterclockwise
   let rotated = false
   const quantity = 360 * rotateQuantity
+  const STEP_AMOUNT = 2.5
 
   if (rotateDirection === 0 && dial.draggable.rotation <= rotateTo + quantity) {
-    TweenLite.set(dial.el, { rotation: dial.draggable.rotation + 1 })
+    TweenLite.set(dial.el, { rotation: dial.draggable.rotation + STEP_AMOUNT })
     rotated = true
   } else if (rotateDirection === 1 && dial.draggable.rotation >= rotateTo - quantity) {
-    TweenLite.set(dial.el, { rotation: dial.draggable.rotation - 1 })
+    TweenLite.set(dial.el, { rotation: dial.draggable.rotation - STEP_AMOUNT })
     rotated = true
   }
   
@@ -527,7 +528,8 @@ function autoRotateDial (dial) {
   // Make sure the dial picks up its initial position by calling update()
   dial.draggable.update()
 
-  const DELAY_BETWEEN_PICKS = 2000
+  const DELAY_BETWEEN_PICKS = 1250
+  const DELAY_AFTER_ALL_PICKS = 450
   const numberOfSymbols = symbols.length
   const randomNumbers = getUniqueRandomIntegers(numberOfSymbols, 3)
   const randomEmojis = randomNumbers.map(function (num) {
@@ -546,6 +548,7 @@ function autoRotateDial (dial) {
       const rotateTo = getRotation(randomNumbers[2], numberOfSymbols)
       return rotatePromise(dial, rotateTo)
     })
+    .then(function () { return wait(DELAY_AFTER_ALL_PICKS) })
     .then(function () {
       flavorTextEl.classList.add('hidden')
       const finalEl = document.querySelector('.final-text')
