@@ -248,7 +248,7 @@ body {
   border: 0;
   background-color: #2a2a2a;
   color: white;
-  font-size: 1.5rem;
+  font-size: 28px;
   font-family: 'Berkshire Swash', serif;
   cursor: pointer;
   padding: 0.5em 1em;
@@ -286,3 +286,16 @@ body {
 .emoji-table-symbol {
   margin-right: 0.5em;
   font-size: 10vmin; }
+
+@media (orientation: landscape) {
+  .final-text {
+    font-size: 5vmin; }
+  #final-emoji-1 {
+    font-size: 6vmin; }
+  .emoji-table {
+    margin-top: 0.5em;
+    margin-bottom: 0.5em; }
+  .emoji-table-row > td {
+    padding-bottom: 1vmin; }
+  .emoji-table-symbol {
+    font-size: 6vmin; } }
