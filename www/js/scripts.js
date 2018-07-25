@@ -373,11 +373,13 @@ function makeDial (id) {
     // Wrap original `enable()` to make element take z-index priority
     enable: function () {
       el.classList.add('active')
+      TweenLite.set(el, { zIndex: 1 })
       draggable[0].enable()
     },
     // Wrap original `disable()` to make element keep non-selectable style
     disable: function () {
       el.classList.remove('active')
+      TweenLite.set(el, {zIndex: 0 })
       draggable[0].disable()
       el.style.userSelect = 'none'
       el.style.touchAction = 'none'
