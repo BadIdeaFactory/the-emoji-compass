@@ -189,7 +189,7 @@ const DIAL_ROTATION_SPEED = 2.5
 // If a viewer tabs away or minimizes the browser, and returns after
 // this amount of time, fast forward to final screen instead of
 // continuing with the animation. Value is stored as milliseconds.
-const IMPATIENCE_TIME_LIMIT = 20000
+const IMPATIENCE_TIME_LIMIT = 1000 //20000
 
 const ringEl = document.getElementById('ring')
 const dialsEl = document.getElementById('dials')
@@ -203,6 +203,7 @@ const responseEmojis = []
 
 let dial1, dial2, dial3, dial4
 let lastViewedTimestamp = Date.now()
+let dialAnimation
 
 function init () {
   resetInstructions()
@@ -247,6 +248,7 @@ function handleVisibilityChange () {
     lastViewedTimestamp = Date.now()
   } else {
     if (Date.now() - lastViewedTimestamp > IMPATIENCE_TIME_LIMIT && responseEmojis.length > 0) {
+      window.cancelAnimationFrame(dialAnimation)
       displayFinalScreen(requestEmojis, responseEmojis)
     }
   }
@@ -263,6 +265,12 @@ function resetToInitialState () {
   dial3.disable()
   dial4.disable()
   dial1.enable()
+
+  // Resets all highlighted emoji
+  const allEmojis = ringEl.querySelectorAll('li')
+  allEmojis.forEach((i) => {
+    i.classList.remove('selected')
+  })
 
   while (requestEmojis.length > 0) {
     requestEmojis.pop()
@@ -518,7 +526,7 @@ function rotateDialStep (dial, rotateTo, rotateDirection, rotateQuantity, resolv
     dial.draggable.update()
     onDialPositionUpdate(dial.draggable.rotation)
 
-    window.requestAnimationFrame(function (timestamp) {
+    dialAnimation = window.requestAnimationFrame(function (timestamp) {
       rotateDialStep(dial, rotateTo, rotateDirection, rotateQuantity, resolve)
     })
   } else {
@@ -532,7 +540,7 @@ function rotatePromise (dial, rotateTo) {
   const rotateQuantity = random() * 2 + 1 // a number between 1 and 3 inclusive, fractional allowed
 
   return new Promise(function (resolve) {
-    window.requestAnimationFrame(function (timestamp) {
+    dialAnimation = window.requestAnimationFrame(function (timestamp) {
       rotateDialStep(dial, rotateTo, rotateDirection, rotateQuantity, resolve)
     })
   })
@@ -582,6 +590,9 @@ function autoRotateDial (dial) {
 }
 
 function displayFinalScreen (requestEmojis, responseEmojis) {
+  // Bail if nothing to show
+  if (requestEmojis.length === 0 || responseEmojis.length === 0) return
+
   flavorTextEl.classList.add('hidden')
   const finalEl = document.querySelector('.final-text')
 
