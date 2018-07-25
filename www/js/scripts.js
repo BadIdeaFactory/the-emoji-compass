@@ -547,7 +547,7 @@ function rotateDialStep (dial, rotateTo, rotateDirection, rotateQuantity, resolv
 
 function rotatePromise (dial, rotateTo) {
   const rotateDirection = Math.round(random()) // 0 or 1.
-  const rotateQuantity = random() * 2 + 1 // a number between 1 and 3 inclusive, fractional allowed
+  const rotateQuantity = Math.ceil(random() * 1) // a number between 1 and 2 inclusive
 
   return new Promise(function (resolve) {
     dialAnimation = window.requestAnimationFrame(function (timestamp) {
