@@ -181,6 +181,16 @@ const symbols = [
   }
 ]
 
+// adjustable values
+const DELAY_BETWEEN_PICKS = 1250
+const DELAY_AFTER_ALL_PICKS = 450
+const DIAL_ROTATION_SPEED = 2.5
+
+// If a viewer tabs away or minimizes the browser, and returns after
+// this amount of time, fast forward to final screen instead of
+// continuing with the animation. Value is stored as milliseconds.
+const IMPATIENCE_TIME_LIMIT = 1000 //20000
+
 const ringEl = document.getElementById('ring')
 const dialsEl = document.getElementById('dials')
 const compassEl = document.getElementById('compass')
@@ -188,9 +198,12 @@ const flavorTextOutputEl = document.getElementById('flavor-text-output')
 const flavorTextEl = document.querySelector('.flavor-text')
 const instructionTextEl = document.querySelector('.instruction-text')
 const emojiOutputEl = document.getElementById('emoji-output')
-const selectedEmojis = []
+const requestEmojis = []
+const responseEmojis = []
 
 let dial1, dial2, dial3, dial4
+let lastViewedTimestamp = Date.now()
+let dialAnimation
 
 function init () {
   resetInstructions()
@@ -226,6 +239,19 @@ function init () {
   })
 
   document.getElementById('ask-another').addEventListener('click', resetToInitialState)
+
+  document.addEventListener('visibilitychange', handleVisibilityChange)
+}
+
+function handleVisibilityChange () {
+  if (document.hidden) {
+    lastViewedTimestamp = Date.now()
+  } else {
+    if (Date.now() - lastViewedTimestamp > IMPATIENCE_TIME_LIMIT && responseEmojis.length > 0) {
+      window.cancelAnimationFrame(dialAnimation)
+      displayFinalScreen(requestEmojis, responseEmojis)
+    }
+  }
 }
 
 function resetToInitialState () {
@@ -240,8 +266,19 @@ function resetToInitialState () {
   dial4.disable()
   dial1.enable()
 
-  while (selectedEmojis.length > 0) {
-    selectedEmojis.pop()
+  // Resets all highlighted emoji
+  const allEmojis = ringEl.querySelectorAll('li')
+  allEmojis.forEach((i) => {
+    i.classList.remove('selected')
+    i.classList.remove('requested')
+    i.classList.remove('responded')
+  })
+
+  while (requestEmojis.length > 0) {
+    requestEmojis.pop()
+  }
+  while (responseEmojis.length > 0) {
+    responseEmojis.pop()
   }
 
   resetInstructions()
@@ -352,10 +389,13 @@ function makeDial (id) {
     },
     onDragEnd: function (e) {
       // Select the emoji it's pointing at.
-      const emoji = onDialPositionUpdate(this.rotation)
-      selectedEmojis.push(emoji)
+      const position = onDialPositionUpdate(this.rotation)
+      requestEmojis.push(symbols[position])
 
-      if (id === '4') console.log(emoji)
+      // Highlight it
+      const allEmojis = ringEl.querySelectorAll('li')
+      allEmojis[position].classList.add('requested')
+
       // Disable this when it's done dragging.
       dial.disable()
 
@@ -373,11 +413,13 @@ function makeDial (id) {
     // Wrap original `enable()` to make element take z-index priority
     enable: function () {
       el.classList.add('active')
+      TweenLite.set(el, { zIndex: 1 })
       draggable[0].enable()
     },
     // Wrap original `disable()` to make element keep non-selectable style
     disable: function () {
       el.classList.remove('active')
+      TweenLite.set(el, {zIndex: 0 })
       draggable[0].disable()
       el.style.userSelect = 'none'
       el.style.touchAction = 'none'
@@ -400,7 +442,7 @@ function onDialPositionUpdate (rotation) {
     i.classList.remove('selected')
   })
   allEmojis[position].classList.add('selected')
-  return symbols[position]
+  return position
 }
 
 function getEmojiPosition (rotation, emojis) {
@@ -477,10 +519,10 @@ function rotateDialStep (dial, rotateTo, rotateDirection, rotateQuantity, resolv
   const quantity = 360 * rotateQuantity
 
   if (rotateDirection === 0 && dial.draggable.rotation <= rotateTo + quantity) {
-    TweenLite.set(dial.el, { rotation: dial.draggable.rotation + 1 })
+    TweenLite.set(dial.el, { rotation: dial.draggable.rotation + DIAL_ROTATION_SPEED })
     rotated = true
   } else if (rotateDirection === 1 && dial.draggable.rotation >= rotateTo - quantity) {
-    TweenLite.set(dial.el, { rotation: dial.draggable.rotation - 1 })
+    TweenLite.set(dial.el, { rotation: dial.draggable.rotation - DIAL_ROTATION_SPEED })
     rotated = true
   }
   
@@ -489,21 +531,26 @@ function rotateDialStep (dial, rotateTo, rotateDirection, rotateQuantity, resolv
     dial.draggable.update()
     onDialPositionUpdate(dial.draggable.rotation)
 
-    window.requestAnimationFrame(function (timestamp) {
+    dialAnimation = window.requestAnimationFrame(function (timestamp) {
       rotateDialStep(dial, rotateTo, rotateDirection, rotateQuantity, resolve)
     })
   } else {
-    onDialPositionUpdate(dial.draggable.rotation)
+    const position = onDialPositionUpdate(dial.draggable.rotation)
+
+    // Highlight it
+    const allEmojis = ringEl.querySelectorAll('li')
+    allEmojis[position].classList.add('responded')
+
     resolve()
   }
 }
 
 function rotatePromise (dial, rotateTo) {
   const rotateDirection = Math.round(random()) // 0 or 1.
-  const rotateQuantity = Math.ceil(random() * 2) // a number between 1 and 3 inclusive
+  const rotateQuantity = random() * 2 + 1 // a number between 1 and 3 inclusive, fractional allowed
 
   return new Promise(function (resolve) {
-    window.requestAnimationFrame(function (timestamp) {
+    dialAnimation = window.requestAnimationFrame(function (timestamp) {
       rotateDialStep(dial, rotateTo, rotateDirection, rotateQuantity, resolve)
     })
   })
@@ -527,11 +574,11 @@ function autoRotateDial (dial) {
   // Make sure the dial picks up its initial position by calling update()
   dial.draggable.update()
 
-  const DELAY_BETWEEN_PICKS = 2000
   const numberOfSymbols = symbols.length
   const randomNumbers = getUniqueRandomIntegers(numberOfSymbols, 3)
-  const randomEmojis = randomNumbers.map(function (num) {
-    return symbols[num]
+  
+  randomNumbers.forEach(function (num) {
+    responseEmojis.push(symbols[num])
   })
 
   const rotateTo = getRotation(randomNumbers[0], numberOfSymbols)
@@ -546,15 +593,72 @@ function autoRotateDial (dial) {
       const rotateTo = getRotation(randomNumbers[2], numberOfSymbols)
       return rotatePromise(dial, rotateTo)
     })
+    .then(function () { return wait(DELAY_AFTER_ALL_PICKS) })
     .then(function () {
-      flavorTextEl.classList.add('hidden')
-      const finalEl = document.querySelector('.final-text')
-      const emoji1El = document.getElementById('final-emoji-1')
-      const emoji2El = document.getElementById('final-emoji-2')
-      const emoji1 = selectedEmojis.map(function(i) { return i.emoji }).join(' ')
-      const emoji2 = randomEmojis.map(function(i) { return i.emoji }).join(' ')
-      emoji1El.textContent = emoji1
-      emoji2El.textContent = emoji2
-      finalEl.classList.remove('hidden')
+      displayFinalScreen(requestEmojis, responseEmojis)
     })
+}
+
+function displayFinalScreen (requestEmojis, responseEmojis) {
+  // Bail if nothing to show
+  if (requestEmojis.length === 0 || responseEmojis.length === 0) return
+
+  flavorTextEl.classList.add('hidden')
+  const finalEl = document.querySelector('.final-text')
+
+  // show user selected emoji
+  const emoji1El = document.getElementById('final-emoji-1')
+  const emoji1 = requestEmojis.map(function(i) { return i.emoji }).join(' ')
+  emoji1El.textContent = emoji1
+
+  // show randomly selected emoji
+  const emoji2El = document.getElementById('final-emoji-2')
+  const emojiTable = generateEmojiTable(responseEmojis)
+  // remove contents of emoji2
+  while (emoji2El.firstChild) {
+    emoji2El.removeChild(emoji2El.firstChild);
+  }
+  // then append the table
+  emoji2El.appendChild(emojiTable)
+
+  finalEl.classList.remove('hidden')
+}
+
+/**
+ * Returns a table of emojis and their meaning inside of a document
+ * fragment, ready to be appended to DOM.
+ *
+ * @param {array} emoji objects - { symbol, title, text }
+ * @returns {HTMLDocumentFragment}
+ */
+function generateEmojiTable (emojis) {
+  const el = document.createDocumentFragment()
+  const tableEl = document.createElement('table')
+  const tbodyEl = document.createElement('tbody')
+  tableEl.appendChild(tbodyEl)
+  tableEl.className = 'emoji-table'
+  el.appendChild(tableEl)
+
+  emojis.forEach(function (emoji) {
+    const rowEl = document.createElement('tr')
+    rowEl.className = 'emoji-table-row'
+
+    const emojiCellEl = document.createElement('td')
+    const emojiEl = document.createElement('span')
+    emojiEl.className = 'emoji-table-symbol'
+    emojiEl.title = emoji.title
+    emojiEl.textContent = emoji.emoji
+    emojiCellEl.appendChild(emojiEl)
+    emojiCellEl.className = 'emoji-table-cell'
+    rowEl.appendChild(emojiCellEl)
+
+    const descriptionCellEl = document.createElement('td')
+    descriptionCellEl.textContent = emoji.text
+    descriptionCellEl.className = 'emoji-table-cell emoji-table-description'
+    rowEl.appendChild(descriptionCellEl)
+
+    tbodyEl.appendChild(rowEl)
+  })
+
+  return el
 }

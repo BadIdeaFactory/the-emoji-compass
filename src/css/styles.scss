@@ -85,6 +85,16 @@ body {
       transform: scale(1.5, 1.5);
       background-color: rgba(255, 255, 255, 0.15);
     }
+
+    &.requested > span {
+      transform: scale(1.5, 1.5);
+      background-color: rgba(155, 230, 255, 0.75);
+    }
+
+    &.responded > span {
+      transform: scale(1.5, 1.5);
+      background-color: yellow !important;
+    }
   }
 
   &::before {
@@ -137,10 +147,6 @@ body {
 }
 
 $dial-1-width: 6vmin;
-
-.dial.active {
-  z-index: 1000;
-}
 
 .dial-1 {
   width: 30vmin;
@@ -227,7 +233,17 @@ $dial-1-width: 6vmin;
 }
 
 .final-text {
-  font-size: 4vmin;
+  font-size: 8vmin;
+
+  // Display the whole thing large
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background: black;
+  z-index: 20000;
+  padding: 6vmin;
 }
 
 #flavor-text-output {
@@ -317,4 +333,35 @@ $dial-1-width: 6vmin;
   &:hover {
     color: yellow;
   }
+}
+
+#final-emoji-1 {
+  display: block;
+  margin: 0.75em;
+  margin-top: 1em;
+  font-size: 10vmin;
+}
+
+.emoji-table {
+  margin-top: 1em;
+  margin-bottom: 1em;
+}
+
+.emoji-table-row > td {
+  padding-bottom: 2vmin;
+}
+
+.emoji-table-cell {
+  vertical-align: middle
+}
+
+.emoji-table-description {
+  color: #aaa;
+  font-size: 4vmin;
+  text-align: left;
+}
+
+.emoji-table-symbol {
+  margin-right: 0.5em;
+  font-size: 10vmin;
 }
