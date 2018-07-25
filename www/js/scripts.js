@@ -512,16 +512,15 @@ function getRotation (position, max) {
   return position * (360 / max)
 }
 
-function rotateDialStep (dial, rotateTo, rotateDirection, rotateQuantity, resolve) {
+function rotateDialStep (dial, rotateTo, rotateDirection, resolve) {
   // rotateDirection = 0 => clockwise
   // rotateDirection = 1 => counterclockwise
   let rotated = false
-  const quantity = 360 * rotateQuantity
 
-  if (rotateDirection === 0 && dial.draggable.rotation <= rotateTo + quantity) {
+  if (rotateDirection === 0 && dial.draggable.rotation <= rotateTo) {
     TweenLite.set(dial.el, { rotation: dial.draggable.rotation + DIAL_ROTATION_SPEED })
     rotated = true
-  } else if (rotateDirection === 1 && dial.draggable.rotation >= rotateTo - quantity) {
+  } else if (rotateDirection === 1 && dial.draggable.rotation >= rotateTo) {
     TweenLite.set(dial.el, { rotation: dial.draggable.rotation - DIAL_ROTATION_SPEED })
     rotated = true
   }
@@ -532,7 +531,7 @@ function rotateDialStep (dial, rotateTo, rotateDirection, rotateQuantity, resolv
     onDialPositionUpdate(dial.draggable.rotation)
 
     dialAnimation = window.requestAnimationFrame(function (timestamp) {
-      rotateDialStep(dial, rotateTo, rotateDirection, rotateQuantity, resolve)
+      rotateDialStep(dial, rotateTo, rotateDirection, resolve)
     })
   } else {
     const position = onDialPositionUpdate(dial.draggable.rotation)
@@ -546,12 +545,25 @@ function rotateDialStep (dial, rotateTo, rotateDirection, rotateQuantity, resolv
 }
 
 function rotatePromise (dial, rotateTo) {
+  // rotateDirection = 0 => clockwise
+  // rotateDirection = 1 => counterclockwise
   const rotateDirection = Math.round(random()) // 0 or 1.
   const rotateQuantity = Math.ceil(random() * 1) // a number between 1 and 2 inclusive
 
+  // rotation is cumulative so calculate actual ending degrees
+  let circs
+  if (rotateDirection === 0) {
+    // clockwise degrees go up
+    circs = Math.ceil(dial.draggable.rotation / 360) + rotateQuantity
+  } else {
+    // counterclockwise degrees go down
+    circs = Math.floor(dial.draggable.rotation / 360) - rotateQuantity
+  }
+  const rotateToActual = circs * 360 + rotateTo
+
   return new Promise(function (resolve) {
     dialAnimation = window.requestAnimationFrame(function (timestamp) {
-      rotateDialStep(dial, rotateTo, rotateDirection, rotateQuantity, resolve)
+      rotateDialStep(dial, rotateToActual, rotateDirection, resolve)
     })
   })
 }
