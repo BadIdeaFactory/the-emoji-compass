@@ -549,12 +549,22 @@ function autoRotateDial (dial) {
     .then(function () {
       flavorTextEl.classList.add('hidden')
       const finalEl = document.querySelector('.final-text')
+
+      // show user selected emoji
       const emoji1El = document.getElementById('final-emoji-1')
-      const emoji2El = document.getElementById('final-emoji-2')
       const emoji1 = selectedEmojis.map(function(i) { return i.emoji }).join(' ')
-      const emojiTable = generateEmojiTable(randomEmojis)
       emoji1El.textContent = emoji1
+
+      // show randomly selected emoji
+      const emoji2El = document.getElementById('final-emoji-2')
+      const emojiTable = generateEmojiTable(randomEmojis)
+      // remove contents of emoji2
+      while (emoji2El.firstChild) {
+        emoji2El.removeChild(emoji2El.firstChild);
+      }
+      // then append the table
       emoji2El.appendChild(emojiTable)
+
       finalEl.classList.remove('hidden')
     })
 }
