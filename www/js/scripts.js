@@ -181,6 +181,16 @@ const symbols = [
   }
 ]
 
+// adjustable values
+const DELAY_BETWEEN_PICKS = 1250
+const DELAY_AFTER_ALL_PICKS = 450
+const DIAL_ROTATION_SPEED = 2.5
+
+// If a viewer tabs away or minimizes the browser, and returns after
+// this amount of time, fast forward to final screen instead of
+// continuing with the animation. Value is stored as milliseconds.
+const IMPATIENCE_TIME_LIMIT = 20000
+
 const ringEl = document.getElementById('ring')
 const dialsEl = document.getElementById('dials')
 const compassEl = document.getElementById('compass')
@@ -190,11 +200,6 @@ const instructionTextEl = document.querySelector('.instruction-text')
 const emojiOutputEl = document.getElementById('emoji-output')
 const requestEmojis = []
 const responseEmojis = []
-
-// If a viewer tabs away or minimizes the browser, and returns after
-// this amount of time, fast forward to final screen instead of
-// continuing with the animation. Value is stored as milliseconds.
-const IMPATIENCE_TIME_LIMIT = 20000
 
 let dial1, dial2, dial3, dial4
 let lastViewedTimestamp = Date.now()
@@ -499,13 +504,12 @@ function rotateDialStep (dial, rotateTo, rotateDirection, rotateQuantity, resolv
   // rotateDirection = 1 => counterclockwise
   let rotated = false
   const quantity = 360 * rotateQuantity
-  const STEP_AMOUNT = 2.5
 
   if (rotateDirection === 0 && dial.draggable.rotation <= rotateTo + quantity) {
-    TweenLite.set(dial.el, { rotation: dial.draggable.rotation + STEP_AMOUNT })
+    TweenLite.set(dial.el, { rotation: dial.draggable.rotation + DIAL_ROTATION_SPEED })
     rotated = true
   } else if (rotateDirection === 1 && dial.draggable.rotation >= rotateTo - quantity) {
-    TweenLite.set(dial.el, { rotation: dial.draggable.rotation - STEP_AMOUNT })
+    TweenLite.set(dial.el, { rotation: dial.draggable.rotation - DIAL_ROTATION_SPEED })
     rotated = true
   }
   
@@ -552,8 +556,6 @@ function autoRotateDial (dial) {
   // Make sure the dial picks up its initial position by calling update()
   dial.draggable.update()
 
-  const DELAY_BETWEEN_PICKS = 1250
-  const DELAY_AFTER_ALL_PICKS = 450
   const numberOfSymbols = symbols.length
   const randomNumbers = getUniqueRandomIntegers(numberOfSymbols, 3)
   
