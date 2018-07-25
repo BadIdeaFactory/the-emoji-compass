@@ -552,9 +552,48 @@ function autoRotateDial (dial) {
       const emoji1El = document.getElementById('final-emoji-1')
       const emoji2El = document.getElementById('final-emoji-2')
       const emoji1 = selectedEmojis.map(function(i) { return i.emoji }).join(' ')
-      const emoji2 = randomEmojis.map(function(i) { return i.emoji }).join(' ')
+      const emojiTable = generateEmojiTable(randomEmojis)
       emoji1El.textContent = emoji1
-      emoji2El.textContent = emoji2
+      emoji2El.appendChild(emojiTable)
       finalEl.classList.remove('hidden')
     })
+}
+
+/**
+ * Returns a table of emojis and their meaning inside of a document
+ * fragment, ready to be appended to DOM.
+ *
+ * @param {array} emoji objects - { symbol, title, text }
+ * @returns {HTMLDocumentFragment}
+ */
+function generateEmojiTable (emojis) {
+  const el = document.createDocumentFragment()
+  const tableEl = document.createElement('table')
+  const tbodyEl = document.createElement('tbody')
+  tableEl.appendChild(tbodyEl)
+  tableEl.className = 'emoji-table'
+  el.appendChild(tableEl)
+
+  emojis.forEach(function (emoji) {
+    const rowEl = document.createElement('tr')
+    rowEl.className = 'emoji-table-row'
+
+    const emojiCellEl = document.createElement('td')
+    const emojiEl = document.createElement('span')
+    emojiEl.className = 'emoji-table-symbol'
+    emojiEl.title = emoji.title
+    emojiEl.textContent = emoji.emoji
+    emojiCellEl.appendChild(emojiEl)
+    emojiCellEl.className = 'emoji-table-cell'
+    rowEl.appendChild(emojiCellEl)
+
+    const descriptionCellEl = document.createElement('td')
+    descriptionCellEl.textContent = emoji.text
+    descriptionCellEl.className = 'emoji-table-cell emoji-table-description'
+    rowEl.appendChild(descriptionCellEl)
+
+    tbodyEl.appendChild(rowEl)
+  })
+
+  return el
 }
