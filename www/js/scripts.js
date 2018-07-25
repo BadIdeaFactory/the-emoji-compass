@@ -270,6 +270,8 @@ function resetToInitialState () {
   const allEmojis = ringEl.querySelectorAll('li')
   allEmojis.forEach((i) => {
     i.classList.remove('selected')
+    i.classList.remove('requested')
+    i.classList.remove('responded')
   })
 
   while (requestEmojis.length > 0) {
@@ -387,10 +389,13 @@ function makeDial (id) {
     },
     onDragEnd: function (e) {
       // Select the emoji it's pointing at.
-      const emoji = onDialPositionUpdate(this.rotation)
-      requestEmojis.push(emoji)
+      const position = onDialPositionUpdate(this.rotation)
+      requestEmojis.push(symbols[position])
 
-      if (id === '4') console.log(emoji)
+      // Highlight it
+      const allEmojis = ringEl.querySelectorAll('li')
+      allEmojis[position].classList.add('requested')
+
       // Disable this when it's done dragging.
       dial.disable()
 
@@ -437,7 +442,7 @@ function onDialPositionUpdate (rotation) {
     i.classList.remove('selected')
   })
   allEmojis[position].classList.add('selected')
-  return symbols[position]
+  return position
 }
 
 function getEmojiPosition (rotation, emojis) {
@@ -530,7 +535,12 @@ function rotateDialStep (dial, rotateTo, rotateDirection, rotateQuantity, resolv
       rotateDialStep(dial, rotateTo, rotateDirection, rotateQuantity, resolve)
     })
   } else {
-    onDialPositionUpdate(dial.draggable.rotation)
+    const position = onDialPositionUpdate(dial.draggable.rotation)
+
+    // Highlight it
+    const allEmojis = ringEl.querySelectorAll('li')
+    allEmojis[position].classList.add('responded')
+
     resolve()
   }
 }

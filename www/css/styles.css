@@ -67,6 +67,12 @@ body {
     .ring > li.selected > span {
       transform: scale(1.5, 1.5);
       background-color: rgba(255, 255, 255, 0.15); }
+    .ring > li.requested > span {
+      transform: scale(1.5, 1.5);
+      background-color: rgba(155, 230, 255, 0.75); }
+    .ring > li.responded > span {
+      transform: scale(1.5, 1.5);
+      background-color: yellow !important; }
   .ring::before {
     content: ' ';
     position: absolute;
