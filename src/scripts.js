@@ -1,3 +1,4 @@
+/* global TweenLite, Draggable */
 const symbols = [
   {
     emoji: '🐘',
@@ -674,3 +675,5 @@ function generateEmojiTable (emojis) {
 
   return el
 }
+
+init()
