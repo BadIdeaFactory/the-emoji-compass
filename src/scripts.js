@@ -2,6 +2,7 @@ import { TweenLite } from 'gsap'
 import Draggable from 'gsap/Draggable'
 
 import symbols from './emojis.json'
+import { random, getEmojiPosition, getUniqueRandomIntegers, getRotation } from './utils'
 
 // adjustable values
 const DELAY_BETWEEN_PICKS = 1250
@@ -106,22 +107,6 @@ function resetToInitialState () {
   resetInstructions()
   document.querySelector('.final-text').classList.add('hidden')
   document.querySelector('.instruction-text').classList.remove('hidden')
-}
-
-/**
- * Generates a random number between 0 and 1. Uses a
- * cryptographically secure random number generator, if available.
- */
-function random () {
-  let rand
-  if (window.crypto && Uint8Array) {
-    const buf = new Uint8Array(1)
-    const arr = window.crypto.getRandomValues(buf)
-    rand = arr[0] / 255
-  } else {
-    rand = Math.random()
-  }
-  return rand
 }
 
 function repositionRing () {
@@ -267,20 +252,6 @@ function onDialPositionUpdate (rotation) {
   return position
 }
 
-function getEmojiPosition (rotation, emojis) {
-  let position
-  const modulo = rotation % 360
-  if (modulo < 0) {
-    position = 360 + modulo
-  } else {
-    position = modulo
-  }
-  const range = 360 / emojis.length
-  position = Math.round(position / range)
-  if (position >= emojis.length) position = 0
-  return position
-}
-
 function showInstructions () {
   flavorTextEl.classList.add('hidden')
   instructionTextEl.textContent = 'Drag the next dial to select the next emoji.'
@@ -293,46 +264,6 @@ function resetInstructions () {
   instructionTextEl.classList.remove('hidden')
 }
 
-/**
- * Generate `amount` of unique random integers between 0 (inclusive)
- * and `upper` bound (exclusive)
- * 
- * getUniqueRandomIntegers(3, 3)
- *      // -> [1, 0, 2]
- *
- * @param {Number} upper - upper bound of random integers
- * @param {Number} amount - number of random integers to generate
- * @returns {Array} of random integers
- */
-function getUniqueRandomIntegers (upper, amount) {
-  // Avoid an infinite loop situation in the do-while
-  const allowRepeats = upper < amount
-
-  const integers = []
-  let i = 0
-
-  do {
-    const int = Math.round(random() * (upper - 1))
-    if (allowRepeats || !integers.includes(int)) {
-      integers.push(int)
-      i++
-    }
-  } while (i < amount)
-
-  return integers
-}
-
-/**
- * Given `max` number of items evenly spaced around a circle, return
- * the number of degrees of the item at `position`
- *
- * @param {Number} position 
- * @param {Number} max
- * @returns {Number}
- */
-function getRotation (position, max) {
-  return position * (360 / max)
-}
 
 function rotateDialStep (dial, rotateTo, rotateDirection, resolve) {
   // rotateDirection = 0 => clockwise
