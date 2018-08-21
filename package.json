@@ -3,11 +3,15 @@
   "version": "0.0.1",
   "description": "",
   "main": "index.js",
+  "private": true,
   "scripts": {
-    "start": "node index.js",
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "npm run build:css",
-    "build:css": "node-sass styles.scss styles.css"
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test --env=jsdom",
+    "eject": "react-scripts eject",
+    "start-old": "node index.js",
+    "build-old": "npm run build:css",
+    "build-old:css": "node-sass styles.scss styles.css"
   },
   "repository": {
     "type": "git",
@@ -19,8 +23,9 @@
     "url": "https://github.com/BadIdeaFactory/the-emoji-compass/issues"
   },
   "homepage": "https://github.com/BadIdeaFactory/the-emoji-compass#readme",
-  "devDependencies": {
-    "browser-sync": "2.24.6",
-    "node-sass": "4.9.2"
+  "dependencies": {
+    "react": "^16.4.2",
+    "react-dom": "^16.4.2",
+    "react-scripts": "1.1.4"
   }
 }
