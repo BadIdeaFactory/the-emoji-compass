@@ -1,4 +1,6 @@
-/* global TweenLite, Draggable */
+import { TweenLite } from 'gsap'
+import Draggable from 'gsap/Draggable'
+
 const symbols = [
   {
     emoji: '🐘',
