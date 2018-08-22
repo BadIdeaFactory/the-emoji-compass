@@ -1,5 +1,8 @@
+import React from 'react'
+import ReactDOM from 'react-dom'
 import { TweenLite } from 'gsap'
 import Draggable from 'gsap/Draggable'
+import AnswerScreen from './components/AnswerScreen'
 
 import symbols from './emojis.json'
 import { random, getEmojiPosition, getUniqueRandomIntegers, getRotation } from './utils'
@@ -28,7 +31,11 @@ let dial1, dial2, dial3, dial4
 let lastViewedTimestamp = Date.now()
 let dialAnimation
 
+let reactRootNode
+
 function init () {
+  reactRootNode = document.getElementById('root')
+
   resetInstructions()
   repositionRing()
   renderSymbols()
@@ -60,8 +67,6 @@ function init () {
   window.addEventListener('dial-3:dragend', function (e) {
     autoRotateDial(dial4)
   })
-
-  document.getElementById('ask-another').addEventListener('click', resetToInitialState)
 
   document.addEventListener('visibilitychange', handleVisibilityChange)
 }
@@ -105,8 +110,10 @@ function resetToInitialState () {
   }
 
   resetInstructions()
-  document.querySelector('.final-text').classList.add('hidden')
   document.querySelector('.instruction-text').classList.remove('hidden')
+
+  // Clean up React mounted final screen
+  ReactDOM.unmountComponentAtNode(reactRootNode)
 }
 
 function repositionRing () {
@@ -365,67 +372,13 @@ function autoRotateDial (dial) {
 }
 
 function displayFinalScreen (requestEmojis, responseEmojis) {
-  // Bail if nothing to show
-  if (requestEmojis.length === 0 || responseEmojis.length === 0) return
-
-  flavorTextEl.classList.add('hidden')
-  const finalEl = document.querySelector('.final-text')
-
-  // show user selected emoji
-  const emoji1El = document.getElementById('final-emoji-1')
-  const emoji1 = requestEmojis.map(function(i) { return i.emoji }).join(' ')
-  emoji1El.textContent = emoji1
-
-  // show randomly selected emoji
-  const emoji2El = document.getElementById('final-emoji-2')
-  const emojiTable = generateEmojiTable(responseEmojis)
-  // remove contents of emoji2
-  while (emoji2El.firstChild) {
-    emoji2El.removeChild(emoji2El.firstChild);
-  }
-  // then append the table
-  emoji2El.appendChild(emojiTable)
-
-  finalEl.classList.remove('hidden')
-}
-
-/**
- * Returns a table of emojis and their meaning inside of a document
- * fragment, ready to be appended to DOM.
- *
- * @param {array} emoji objects - { symbol, title, text }
- * @returns {HTMLDocumentFragment}
- */
-function generateEmojiTable (emojis) {
-  const el = document.createDocumentFragment()
-  const tableEl = document.createElement('table')
-  const tbodyEl = document.createElement('tbody')
-  tableEl.appendChild(tbodyEl)
-  tableEl.className = 'emoji-table'
-  el.appendChild(tableEl)
-
-  emojis.forEach(function (emoji) {
-    const rowEl = document.createElement('tr')
-    rowEl.className = 'emoji-table-row'
-
-    const emojiCellEl = document.createElement('td')
-    const emojiEl = document.createElement('span')
-    emojiEl.className = 'emoji-table-symbol'
-    emojiEl.title = emoji.title
-    emojiEl.textContent = emoji.emoji
-    emojiCellEl.appendChild(emojiEl)
-    emojiCellEl.className = 'emoji-table-cell'
-    rowEl.appendChild(emojiCellEl)
-
-    const descriptionCellEl = document.createElement('td')
-    descriptionCellEl.textContent = emoji.text
-    descriptionCellEl.className = 'emoji-table-cell emoji-table-description'
-    rowEl.appendChild(descriptionCellEl)
-
-    tbodyEl.appendChild(rowEl)
-  })
-
-  return el
+  ReactDOM.render(
+    <AnswerScreen
+      handleAskAnother={resetToInitialState}
+      requestEmojis={requestEmojis}
+      responseEmojis={responseEmojis}
+    />
+  , reactRootNode)
 }
 
 init()
