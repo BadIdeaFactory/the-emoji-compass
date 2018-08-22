@@ -2,6 +2,7 @@
   font-size: 8vmin;
   color: white;
   text-align: center;
+  line-height: 1.2;
 
   /* Display the whole thing large */
   position: absolute;
@@ -32,7 +33,7 @@
   background-color: #2a2a2a;
   color: white;
   font-size: 28px;
-  font-family: 'Berkshire Swash', serif;
+  font-family: 'Gentium Book Basic', serif;
   cursor: pointer;
   padding: 0.5em 1em;
   margin: 0.25em;
