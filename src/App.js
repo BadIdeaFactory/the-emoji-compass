@@ -20,10 +20,24 @@ class App extends Component {
 
   componentDidMount () {
     init()
+
+    window.addEventListener('compass:show_answer', this.setAnswerScreen)
+  }
+
+  componentWillUnmount () {
+    window.removeEventListener('compass:show_answer', this.setAnswerScreen)
   }
 
   resetToInitialState = () => {
     this.setState({ route: ROUTES.MAIN })
+  }
+
+  setAnswerScreen = (event) => {
+    this.setState({
+      route: ROUTES.ANSWER,
+      requestEmojis: event.detail.requestEmojis,
+      responseEmojis: event.detail.responseEmojis
+    })
   }
 
   renderAnswerScreen = () => {

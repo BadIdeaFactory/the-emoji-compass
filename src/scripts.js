@@ -1,8 +1,6 @@
-import React from 'react'
 import ReactDOM from 'react-dom'
 import { TweenLite } from 'gsap'
 import Draggable from 'gsap/Draggable'
-import AnswerScreen from './components/AnswerScreen'
 
 import symbols from './emojis.json'
 import { random, getEmojiPosition, getUniqueRandomIntegers, getRotation } from './utils'
@@ -86,7 +84,11 @@ function handleVisibilityChange () {
   } else {
     if (Date.now() - lastViewedTimestamp > IMPATIENCE_TIME_LIMIT && responseEmojis.length > 0) {
       window.cancelAnimationFrame(dialAnimation)
-      displayFinalScreen(requestEmojis, responseEmojis)
+      window.dispatchEvent(new CustomEvent('compass:show_answer', {
+        detail: {
+          requestEmojis, responseEmojis
+        }
+      }))
     }
   }
 }
@@ -376,16 +378,10 @@ function autoRotateDial (dial) {
     })
     .then(function () { return wait(DELAY_AFTER_ALL_PICKS) })
     .then(function () {
-      displayFinalScreen(requestEmojis, responseEmojis)
+      window.dispatchEvent(new CustomEvent('compass:show_answer', {
+        detail: {
+          requestEmojis, responseEmojis
+        }
+      }))
     })
-}
-
-function displayFinalScreen (requestEmojis, responseEmojis) {
-  ReactDOM.render(
-    <AnswerScreen
-      handleAskAnother={resetToInitialState}
-      requestEmojis={requestEmojis}
-      responseEmojis={responseEmojis}
-    />
-  , reactRootNode)
 }
