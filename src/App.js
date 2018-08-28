@@ -1,4 +1,6 @@
 import React, { Component } from 'react'
+import AnswerScreen from './components/AnswerScreen'
+import { init } from './scripts'
 
 const ROUTES = {
   MAIN: 'MAIN',
@@ -7,24 +9,30 @@ const ROUTES = {
 
 class App extends Component {
   constructor(props) {
+    super(props)
+
     this.state = {
-      route: ROUTE.MAIN,
+      route: ROUTES.MAIN,
       requestEmojis: [],
       responseEmojis: []
     }
   }
 
+  componentDidMount () {
+    init()
+  }
+
   resetToInitialState = () => {
-    this.setState({ route: ROUTE.MAIN })
+    this.setState({ route: ROUTES.MAIN })
   }
 
   renderAnswerScreen = () => {
-    if (this.state.route === ROUTE.ANSWER) {
+    if (this.state.route === ROUTES.ANSWER) {
       return (
         <AnswerScreen
-          handleAskAnother={resetToInitialState}
-          requestEmojis={requestEmojis}
-          responseEmojis={responseEmojis}
+          handleAskAnother={this.resetToInitialState}
+          requestEmojis={this.state.requestEmojis}
+          responseEmojis={this.state.responseEmojis}
         />
       )
     }
@@ -33,22 +41,22 @@ class App extends Component {
   render () {
     return (
       <div id="main">
-        <div class="container">
-          <div id="compass" class="compass-container">
-            <div class="ring-container">
-              <ul id="ring" class="ring"></ul>
+        <div className="container">
+          <div id="compass" className="compass-container">
+            <div className="ring-container">
+              <ul id="ring" className="ring"></ul>
             </div>
-            <div class="dials-container">
+            <div className="dials-container">
               <div id="dials">
-                <div class="dials-cap"></div>
+                <div className="dials-cap"></div>
               </div>
             </div>
           </div>
-          <div class="text-container">
+          <div className="text-container">
             <hr />
-            <div class="text-box instruction-text">
+            <div className="text-box instruction-text">
             </div>
-            <div class="text-box flavor-text hidden">
+            <div className="text-box flavor-text hidden">
               <div id="emoji-output"></div>
               <div id="flavor-text-output"></div>
             </div>

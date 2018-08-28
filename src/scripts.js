@@ -17,13 +17,14 @@ const DIAL_ROTATION_SPEED = 2.5
 // continuing with the animation. Value is stored as milliseconds.
 const IMPATIENCE_TIME_LIMIT = 1000 //20000
 
-const ringEl = document.getElementById('ring')
-const dialsEl = document.getElementById('dials')
-const compassEl = document.getElementById('compass')
-const flavorTextOutputEl = document.getElementById('flavor-text-output')
-const flavorTextEl = document.querySelector('.flavor-text')
-const instructionTextEl = document.querySelector('.instruction-text')
-const emojiOutputEl = document.getElementById('emoji-output')
+let ringEl
+let dialsEl
+let compassEl
+let flavorTextOutputEl
+let flavorTextEl
+let instructionTextEl
+let emojiOutputEl
+
 const requestEmojis = []
 const responseEmojis = []
 
@@ -33,8 +34,16 @@ let dialAnimation
 
 let reactRootNode
 
-function init () {
+export function init () {
   reactRootNode = document.getElementById('root')
+
+  ringEl = document.getElementById('ring')
+  dialsEl = document.getElementById('dials')
+  compassEl = document.getElementById('compass')
+  flavorTextOutputEl = document.getElementById('flavor-text-output')
+  flavorTextEl = document.querySelector('.flavor-text')
+  instructionTextEl = document.querySelector('.instruction-text')
+  emojiOutputEl = document.getElementById('emoji-output')
 
   resetInstructions()
   repositionRing()
@@ -380,5 +389,3 @@ function displayFinalScreen (requestEmojis, responseEmojis) {
     />
   , reactRootNode)
 }
-
-init()
