@@ -26,6 +26,18 @@ class App extends Component {
     window.removeEventListener('compass:show_answer', this.setAnswerScreen)
   }
 
+  addRequestEmoji = (emoji) => {
+    this.setState({
+      requestEmojis: [...this.state.requestEmojis, emoji]
+    })
+  }
+
+  addResponseEmoji = (emoji) => {
+    this.setState({
+      responseEmojis: [...this.state.responseEmojis, emoji]
+    })
+  }
+
   resetToInitialState = () => {
     this.setState({ route: ROUTES.MAIN })
   }
@@ -54,7 +66,12 @@ class App extends Component {
       default:
         return (
           <div id="main">
-            <MainScreen />
+            <MainScreen
+              requestEmojis={this.state.requestEmojis}
+              responseEmojis={this.state.responseEmojis}
+              addRequestEmoji={this.addRequestEmoji}
+              addResponseEmoji={this.addResponseEmoji}
+            />
           </div>
         )
     }

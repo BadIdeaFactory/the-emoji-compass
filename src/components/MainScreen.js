@@ -1,7 +1,15 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import { init } from '../scripts'
 
 export default class MainScreen extends React.Component {
+  static propTypes = {
+    requestEmojis: PropTypes.array,
+    responseEmojis: PropTypes.array,
+    addRequestEmoji: PropTypes.func,
+    addResponseEmoji: PropTypes.func
+  }
+
   componentDidMount () {
     init()
   }
