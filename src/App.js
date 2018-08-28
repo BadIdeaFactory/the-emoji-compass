@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
+import MainScreen from './components/MainScreen'
 import AnswerScreen from './components/AnswerScreen'
-import { init } from './scripts'
 
 const ROUTES = {
   MAIN: 'MAIN',
@@ -19,8 +19,6 @@ class App extends Component {
   }
 
   componentDidMount () {
-    init()
-
     window.addEventListener('compass:show_answer', this.setAnswerScreen)
   }
 
@@ -40,45 +38,26 @@ class App extends Component {
     })
   }
 
-  renderAnswerScreen = () => {
-    if (this.state.route === ROUTES.ANSWER) {
-      return (
-        <AnswerScreen
-          handleAskAnother={this.resetToInitialState}
-          requestEmojis={this.state.requestEmojis}
-          responseEmojis={this.state.responseEmojis}
-        />
-      )
-    }
-  }
-
   render () {
-    return (
-      <div id="main">
-        <div className="container">
-          <div id="compass" className="compass-container">
-            <div className="ring-container">
-              <ul id="ring" className="ring"></ul>
-            </div>
-            <div className="dials-container">
-              <div id="dials">
-                <div className="dials-cap"></div>
-              </div>
-            </div>
+    switch (this.state.route) {
+      case ROUTES.ANSWER:
+        return (
+          <div id="main">
+            <AnswerScreen
+              handleAskAnother={this.resetToInitialState}
+              requestEmojis={this.state.requestEmojis}
+              responseEmojis={this.state.responseEmojis}
+            />
           </div>
-          <div className="text-container">
-            <hr />
-            <div className="text-box instruction-text">
-            </div>
-            <div className="text-box flavor-text hidden">
-              <div id="emoji-output"></div>
-              <div id="flavor-text-output"></div>
-            </div>
+        )
+      case ROUTES.MAIN:
+      default:
+        return (
+          <div id="main">
+            <MainScreen />
           </div>
-        </div>
-        {this.renderAnswerScreen()}
-      </div>
-    )
+        )
+    }
   }
 }
 
