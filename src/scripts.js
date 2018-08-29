@@ -109,9 +109,10 @@ function makeDial (id) {
       onDialPositionUpdate(this.rotation)
     },
     onDragEnd: function (e) {
-      // Select the emoji it's pointing at.
-      const position = onDialPositionUpdate(this.rotation)
+      onDialPositionUpdate(this.rotation)
 
+      // Select the emoji it's pointing at.
+      const position = getEmojiPosition(this.rotation, symbols)
       window.dispatchEvent(new CustomEvent('compass:add_request_emoji', {
         detail: {
           emoji: symbols[position]
@@ -158,8 +159,6 @@ function onDialPositionUpdate (rotation) {
   window.dispatchEvent(new CustomEvent('compass:hand_position_update', {
     detail: { rotation }
   }))
-
-  return getEmojiPosition(rotation, symbols)
 }
 
 function rotateDialStep (dial, rotateTo, rotateDirection, resolve) {
@@ -184,7 +183,7 @@ function rotateDialStep (dial, rotateTo, rotateDirection, resolve) {
       rotateDialStep(dial, rotateTo, rotateDirection, resolve)
     })
   } else {
-    const position = onDialPositionUpdate(dial.draggable.rotation)
+    onDialPositionUpdate(dial.draggable.rotation)
 
     resolve()
   }
