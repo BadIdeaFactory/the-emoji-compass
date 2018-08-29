@@ -16,7 +16,7 @@ export default class Symbol extends React.Component {
         <span title={this.props.symbol.title}>
           {this.props.symbol.emoji}
         </span>
-      </li> 
+      </li>
     )
   }
 }

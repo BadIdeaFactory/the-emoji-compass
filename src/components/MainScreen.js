@@ -2,6 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import Compass from './Compass'
 import { init } from '../scripts'
+import './MainScreen.css'
 
 export default class MainScreen extends React.Component {
   static propTypes = {
@@ -26,8 +27,14 @@ export default class MainScreen extends React.Component {
         <Compass
           symbols={this.props.symbols}
         />
+        <div className="emoji-requested">
+          {this.props.requestEmojis.map((symbol, i) => (
+            <span key={i}>
+              {symbol.emoji}
+            </span>
+          ))}
+        </div>
         <div className="text-container">
-          <hr />
           <div className="text-box instruction-text">
           </div>
           <div className="text-box flavor-text hidden">

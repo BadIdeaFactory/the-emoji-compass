@@ -105,9 +105,6 @@ body {
   flex: 1;
   display: flex;
   flex-direction: column; }
-  .text-container hr {
-    width: 60%;
-    border: 1px solid #a9a9a977; }
 
 .text-box {
   display: flex;
@@ -140,11 +137,9 @@ body {
     align-items: center;
     max-width: 400px;
     min-width: 250px; }
-    .text-container hr {
-      height: 60%;
-      width: 0; } }
+}
 
-.hidden {
+  .hidden {
   display: none; }
 
 .dials-cap {
