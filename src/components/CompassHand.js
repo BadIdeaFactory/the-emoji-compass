@@ -25,7 +25,7 @@ export default class CompassHand extends React.Component {
     super(props)
 
     this.el = React.createRef()
-    this.dial = null
+    this.draggable = null
   }
 
   componentDidMount () {
@@ -41,89 +41,93 @@ export default class CompassHand extends React.Component {
       rotation: random() * 360 // Set at random start position
     })
 
-    const { id, symbols } = this.props
-    const dial = this.dial
-  
-    const draggable = Draggable.create(el, {
+    this.draggable = Draggable.create(el, {
       type: 'rotation',
       sticky: true,
       throwProps: true,
       // Only if ThrowProps is available
       snap: {
-        rotation: function (value) {
-          const increment = 360 / symbols.length
+        rotation: (value) => {
+          const increment = 360 / this.props.symbols.length
           return Math.round(value / increment) * increment
         }
       },
-      onDragStart: function (e) {
+      // Set scope of Draggable callback functions to this component.
+      callbackScope: this,
+      onDragStart: (event) => {
         window.dispatchEvent(new CustomEvent('compass:hand_drag_start'))
       },
-      onDrag: function (e) {
-        onDialPositionUpdate(this.rotation)
+      onDrag: (event) => {
+        onDialPositionUpdate(this.draggable[0].rotation)
       },
-      onDragEnd: function (e) {
-        onDialPositionUpdate(this.rotation)
+      onDragEnd: (event) => {
+        onDialPositionUpdate(this.draggable[0].rotation)
   
         // Select the emoji it's pointing at.
-        const position = getEmojiPosition(this.rotation, symbols)
+        const position = getEmojiPosition(this.draggable[0].rotation, this.props.symbols)
         window.dispatchEvent(new CustomEvent('compass:add_request_emoji', {
           detail: {
-            emoji: symbols[position]
+            emoji: this.props.symbols[position]
           }
         }))
   
         // Disable this when it's done dragging.
-        dial.disable()
+        this.disable()
   
         // Emit an event to let other listeners know about this.
-        window.dispatchEvent(new window.CustomEvent(`dial-${id}:dragend`))
+        // window.dispatchEvent(new window.CustomEvent(`dial-${id}:dragend`))
       },
-      onThrowUpdate: function (e) {
+      onThrowUpdate: (event) => {
         onDialPositionUpdate(this.rotation)
       }
     })
   
-    this.dial = {
-      el,
-      draggable: draggable[0],
-      // Wrap original `enable()` to make element take z-index priority
-      enable: function () {
-        el.classList.add('active')
-        TweenLite.set(el, { zIndex: 1 })
-        draggable[0].enable()
-      },
-      // Wrap original `disable()` to make element keep non-selectable style
-      disable: function () {
-        el.classList.remove('active')
-        TweenLite.set(el, {zIndex: 0 })
-        draggable[0].disable()
-        el.style.userSelect = 'none'
-        el.style.touchAction = 'none'
-      }
-    }
-  
     // Each dial starts disabled until enabled later
     if (!this.props.enabled) {
-      this.dial.disable()
+      this.disable()
+    } else {
+      this.enable()
     }
   }
 
   componentDidUpdate (prevProps) {
     if (!prevProps.enabled && this.props.enabled) {
-      this.dial.enable()
+      this.enable()
     }
     if (prevProps.enabled && !this.props.enabled) {
-      this.dial.disable()
+      this.disable()
     }
   }
 
   componentWillUnmount () {
     window.removeEventListener('resize', this.setElementSize)
+    this.draggable[0].kill()
   }
 
   setElementSize = () => {
     const circleSize = document.getElementById('ring').getBoundingClientRect().width
     this.el.current.style.width = (0.5 * circleSize) + 'px'
+  }
+  
+  // Wrap Draggable object's `enable()` to make element take z-index priority
+  enable = () => {
+    const el = this.el.current
+
+    el.classList.add('active')
+    TweenLite.set(el, { zIndex: 1 })
+
+    this.draggable[0].enable()
+  }
+
+  disable = () => {
+    const el = this.el.current
+
+    el.classList.remove('active')
+    TweenLite.set(el, { zIndex: 0 })
+
+    this.draggable[0].disable()
+    el.style.userSelect = 'none'
+    el.style.touchAction = 'none'
   }
 
   render () {
