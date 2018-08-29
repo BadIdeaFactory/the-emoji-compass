@@ -2,6 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import Compass from './Compass'
 import { init } from '../scripts'
+import { getEmojiPosition } from '../utils'
 import './MainScreen.css'
 
 const TEXT_DISPLAY = {
@@ -28,7 +29,7 @@ export default class MainScreen extends React.Component {
 
     this.state = {
       textDisplay: TEXT_DISPLAY.INSTRUCTION1,
-      flavorEmoji: null
+      pointingAt: null
     }
   }
 
@@ -36,14 +37,13 @@ export default class MainScreen extends React.Component {
     init()
 
     window.addEventListener('compass:hand_drag_start', this.handleDragStart)
-    window.addEventListener('compass:show_flavor_text', this.showFlavorText)
+    window.addEventListener('compass:hand_position_update', this.handleHandPositionUpdate)
     window.addEventListener('dial-1:dragend', this.showInstruction2)
     window.addEventListener('dial-2:dragend', this.showInstruction2)
   }
 
   componentWillUnmount () {
     window.removeEventListener('compass:hand_drag_start', this.handleDragStart)
-    window.removeEventListener('compass:show_flavor_text', this.showFlavorText)
     window.removeEventListener('dial-1:dragend', this.showInstruction2)
     window.removeEventListener('dial-2:dragend', this.showInstruction2)
   }
@@ -54,9 +54,12 @@ export default class MainScreen extends React.Component {
     })
   }
 
-  showFlavorText = (event) => {
+  handleHandPositionUpdate = (event) => {
+    const position = getEmojiPosition(event.detail.rotation, this.props.symbols)
+
     this.setState({
-      flavorEmoji: event.detail.emoji
+      pointingAt: position,
+      textDisplay: TEXT_DISPLAY.EMOJI_DESCRIPTION
     })
   }
 
@@ -68,14 +71,18 @@ export default class MainScreen extends React.Component {
 
   renderTextContents = () => {
     switch (this.state.textDisplay) {
-      case TEXT_DISPLAY.EMOJI_DESCRIPTION:
-        if (!this.state.flavorEmoji) return null
+      case TEXT_DISPLAY.EMOJI_DESCRIPTION: {
+        const symbol = this.props.symbols[this.state.pointingAt]
+
+        if (!symbol) return null
+
         return (
           <div className="text-box flavor-text">
-            <div id="emoji-output">{this.state.flavorEmoji.emoji}</div>
-            <div id="flavor-text-output">{this.state.flavorEmoji.text}</div>
+            <div id="emoji-output">{symbol.emoji}</div>
+            <div id="flavor-text-output">{symbol.text}</div>
           </div>
         )
+      }
       case TEXT_DISPLAY.INSTRUCTION2:
         return (
           <div className="text-box instruction-text">
@@ -97,6 +104,7 @@ export default class MainScreen extends React.Component {
       <div className="container">
         <Compass
           symbols={this.props.symbols}
+          pointingAt={this.state.pointingAt}
         />
         <div className="emoji-requested">
           {this.props.requestEmojis.map((symbol, i) => (

@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 
 export default class Symbol extends React.Component {
   static propTypes = {
+    className: PropTypes.string,
     symbol: PropTypes.shape({
       emoji: PropTypes.string,
       title: PropTypes.string,
@@ -12,7 +13,7 @@ export default class Symbol extends React.Component {
 
   render () {
     return (
-      <li>
+      <li className={this.props.className}>
         <span title={this.props.symbol.title}>
           {this.props.symbol.emoji}
         </span>

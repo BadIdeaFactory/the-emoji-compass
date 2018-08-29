@@ -9,13 +9,14 @@ export default class Compass extends React.Component {
       emoji: PropTypes.string,
       title: PropTypes.string,
       text: PropTypes.string
-    }))
+    })),
+    pointingAt: PropTypes.number
   }
 
   render () {
     return (
       <div className="compass-container" ref={this.compassEl}>
-        <CompassDial symbols={this.props.symbols} />
+        <CompassDial symbols={this.props.symbols} pointingAt={this.props.pointingAt} />
         <CompassHands />
       </div>
     )

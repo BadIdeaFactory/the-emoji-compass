@@ -155,21 +155,11 @@ function makeDial (id) {
 }
 
 function onDialPositionUpdate (rotation) {
-  const position = getEmojiPosition(rotation, symbols)
- 
-  window.dispatchEvent(new CustomEvent('compass:show_flavor_text', {
-    detail: {
-      emoji: symbols[position]
-    }
+  window.dispatchEvent(new CustomEvent('compass:hand_position_update', {
+    detail: { rotation }
   }))
 
-  // console.log(ringEl.querySelectorAll('li'))
-  const allEmojis = document.getElementById('ring').querySelectorAll('li')
-  allEmojis.forEach((i) => {
-    i.classList.remove('selected')
-  })
-  allEmojis[position].classList.add('selected')
-  return position
+  return getEmojiPosition(rotation, symbols)
 }
 
 function rotateDialStep (dial, rotateTo, rotateDirection, resolve) {

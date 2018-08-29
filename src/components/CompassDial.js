@@ -9,7 +9,8 @@ export default class CompassDial extends React.Component {
       emoji: PropTypes.string,
       title: PropTypes.string,
       text: PropTypes.string
-    }))
+    })),
+    pointingAt: PropTypes.number
   }
 
   constructor(props) {
@@ -37,7 +38,13 @@ export default class CompassDial extends React.Component {
 
   // Create all the emoji items around the compass
   renderSymbols = () => {
-    return this.props.symbols.map((symbol) => <Symbol symbol={symbol} key={symbol.emoji} />)
+    return this.props.symbols.map((symbol, i) => (
+      <Symbol
+        symbol={symbol}
+        key={symbol.emoji}
+        className={(this.props.pointingAt === i) ? 'selected' : null}
+      />
+    ))
   }
 
   repositionSymbols = () => {
