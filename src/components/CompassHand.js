@@ -2,34 +2,47 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { TweenLite } from 'gsap'
 import Draggable from 'gsap/Draggable'
+import { random, getEmojiPosition } from '../utils'
+
+function onDialPositionUpdate (rotation) {
+  window.dispatchEvent(new CustomEvent('compass:hand_position_update', {
+    detail: { rotation }
+  }))
+}
 
 export default class CompassHand extends React.Component {
   static propTypes = {
-    id: PropTypes.number
+    id: PropTypes.string,
+    enabled: PropTypes.bool,
+    symbols: PropTypes.arrayOf(PropTypes.shape({
+      emoji: PropTypes.string,
+      title: PropTypes.string,
+      text: PropTypes.string
+    }))
   }
 
   constructor (props) {
     super(props)
 
     this.el = React.createRef()
+    this.dial = null
   }
 
   componentDidMount () {
     const el = this.el.current
 
     // Set dial width according to actual circle dimensions
-    const circleSize = document.getElementById('ring').getBoundingClientRect().width
-    el.style.width = (0.5 * circleSize) + 'px'
-
-    window.addEventListener('resize', function () {
-      const circleSize = document.getElementById('ring').getBoundingClientRect().width
-      el.style.width = (0.5 * circleSize) + 'px'
-    })
+    this.setElementSize()
+    window.addEventListener('resize', this.setElementSize)
   
     // Make dials draggable
     TweenLite.set(el, {
-      transformOrigin: '2.5vmin'
+      transformOrigin: '2.5vmin',
+      rotation: random() * 360 // Set at random start position
     })
+
+    const { id, symbols } = this.props
+    const dial = this.dial
   
     const draggable = Draggable.create(el, {
       type: 'rotation',
@@ -43,16 +56,21 @@ export default class CompassHand extends React.Component {
         }
       },
       onDragStart: function (e) {
-        // flavorTextEl.classList.remove('hidden')
-        // instructionTextEl.classList.add('hidden')
+        window.dispatchEvent(new CustomEvent('compass:hand_drag_start'))
       },
       onDrag: function (e) {
         onDialPositionUpdate(this.rotation)
       },
       onDragEnd: function (e) {
+        onDialPositionUpdate(this.rotation)
+  
         // Select the emoji it's pointing at.
-        const position = onDialPositionUpdate(this.rotation)
-        requestEmojis.push(symbols[position])
+        const position = getEmojiPosition(this.rotation, symbols)
+        window.dispatchEvent(new CustomEvent('compass:add_request_emoji', {
+          detail: {
+            emoji: symbols[position]
+          }
+        }))
   
         // Disable this when it's done dragging.
         dial.disable()
@@ -65,7 +83,7 @@ export default class CompassHand extends React.Component {
       }
     })
   
-    const dial = {
+    this.dial = {
       el,
       draggable: draggable[0],
       // Wrap original `enable()` to make element take z-index priority
@@ -85,14 +103,32 @@ export default class CompassHand extends React.Component {
     }
   
     // Each dial starts disabled until enabled later
-    dial.disable()
-  
-    return dial
+    if (!this.props.enabled) {
+      this.dial.disable()
+    }
+  }
+
+  componentDidUpdate (prevProps) {
+    if (!prevProps.enabled && this.props.enabled) {
+      this.dial.enable()
+    }
+    if (prevProps.enabled && !this.props.enabled) {
+      this.dial.disable()
+    }
+  }
+
+  componentWillUnmount () {
+    window.removeEventListener('resize', this.setElementSize)
+  }
+
+  setElementSize = () => {
+    const circleSize = document.getElementById('ring').getBoundingClientRect().width
+    this.el.current.style.width = (0.5 * circleSize) + 'px'
   }
 
   render () {
     return (
-      <div className={`dial dial-${id}`} ref={this.el } />
+      <div className={`dial dial-${this.props.id}`} ref={this.el } />
     )
   }
 }

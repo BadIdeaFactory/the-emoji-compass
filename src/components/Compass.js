@@ -18,7 +18,7 @@ export default class Compass extends React.Component {
     return (
       <div className="compass-container" ref={this.compassEl}>
         <CompassDial symbols={this.props.symbols} pointingAt={this.props.pointingAt} />
-        <CompassHandsContainer />
+        <CompassHandsContainer symbols={this.props.symbols} />
       </div>
     )
   }
