@@ -21,21 +21,25 @@ class App extends Component {
 
   componentDidMount () {
     window.addEventListener('compass:show_answer', this.setAnswerScreen)
+    window.addEventListener('compass:add_request_emoji', this.addRequestEmoji)
+    window.addEventListener('compass:set_response_emoji', this.setResponseEmojis)
   }
 
   componentWillUnmount () {
     window.removeEventListener('compass:show_answer', this.setAnswerScreen)
+    window.removeEventListener('compass:add_request_emoji', this.addRequestEmoji)
+    window.removeEventListener('compass:set_response_emoji', this.setResponseEmojis)
   }
 
-  addRequestEmoji = (emoji) => {
+  addRequestEmoji = (event) => {
     this.setState({
-      requestEmojis: [...this.state.requestEmojis, emoji]
+      requestEmojis: [...this.state.requestEmojis, event.detail.emoji]
     })
   }
 
-  addResponseEmoji = (emoji) => {
+  setResponseEmojis = (event) => {
     this.setState({
-      responseEmojis: [...this.state.responseEmojis, emoji]
+      responseEmojis: [...event.detail.responseEmojis]
     })
   }
 
@@ -49,9 +53,7 @@ class App extends Component {
 
   setAnswerScreen = (event) => {
     this.setState({
-      route: ROUTES.ANSWER,
-      requestEmojis: event.detail.requestEmojis,
-      responseEmojis: event.detail.responseEmojis
+      route: ROUTES.ANSWER
     })
   }
 

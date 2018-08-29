@@ -20,8 +20,7 @@ let flavorTextEl
 let instructionTextEl
 let emojiOutputEl
 
-const requestEmojis = []
-const responseEmojis = []
+let responseEmojis = []
 
 let dial1, dial2, dial3, dial4
 let lastViewedTimestamp = Date.now()
@@ -69,11 +68,7 @@ function handleVisibilityChange () {
   } else {
     if (Date.now() - lastViewedTimestamp > IMPATIENCE_TIME_LIMIT && responseEmojis.length > 0) {
       window.cancelAnimationFrame(dialAnimation)
-      window.dispatchEvent(new CustomEvent('compass:show_answer', {
-        detail: {
-          requestEmojis, responseEmojis
-        }
-      }))
+      window.dispatchEvent(new CustomEvent('compass:show_answer'))
     }
   }
 }
@@ -149,7 +144,12 @@ function makeDial (id) {
     onDragEnd: function (e) {
       // Select the emoji it's pointing at.
       const position = onDialPositionUpdate(this.rotation)
-      requestEmojis.push(symbols[position])
+
+      window.dispatchEvent(new CustomEvent('compass:add_request_emoji', {
+        detail: {
+          emoji: symbols[position]
+        }
+      }))
 
       // Disable this when it's done dragging.
       dial.disable()
@@ -286,10 +286,13 @@ function autoRotateDial (dial) {
 
   const numberOfSymbols = symbols.length
   const randomNumbers = getUniqueRandomIntegers(numberOfSymbols, 3)
-  
-  randomNumbers.forEach(function (num) {
-    responseEmojis.push(symbols[num])
-  })
+  responseEmojis = randomNumbers.map((num) => symbols[num])
+
+  window.dispatchEvent(new CustomEvent('compass:set_response_emoji', {
+    detail: {
+      responseEmojis
+    }
+  }))
 
   const rotateTo = getRotation(randomNumbers[0], numberOfSymbols)
   rotatePromise(dial, rotateTo)
@@ -305,10 +308,6 @@ function autoRotateDial (dial) {
     })
     .then(function () { return wait(DELAY_AFTER_ALL_PICKS) })
     .then(function () {
-      window.dispatchEvent(new CustomEvent('compass:show_answer', {
-        detail: {
-          requestEmojis, responseEmojis
-        }
-      }))
+      window.dispatchEvent(new CustomEvent('compass:show_answer'))
     })
 }
