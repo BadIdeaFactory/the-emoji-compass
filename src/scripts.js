@@ -9,17 +9,9 @@ const DELAY_BETWEEN_PICKS = 1250
 const DELAY_AFTER_ALL_PICKS = 450
 const DIAL_ROTATION_SPEED = 2.5
 
-// If a viewer tabs away or minimizes the browser, and returns after
-// this amount of time, fast forward to final screen instead of
-// continuing with the animation. Value is stored as milliseconds.
-const IMPATIENCE_TIME_LIMIT = 1000 //20000
-
 let dialsEl
-
-let responseEmojis = []
-
 let dial1, dial2, dial3, dial4
-let lastViewedTimestamp = Date.now()
+
 let dialAnimation
 
 export function init () {
@@ -47,18 +39,9 @@ export function init () {
     autoRotateDial(dial4)
   })
 
-  document.addEventListener('visibilitychange', handleVisibilityChange)
-}
-
-function handleVisibilityChange () {
-  if (document.hidden) {
-    lastViewedTimestamp = Date.now()
-  } else {
-    if (Date.now() - lastViewedTimestamp > IMPATIENCE_TIME_LIMIT && responseEmojis.length > 0) {
-      window.cancelAnimationFrame(dialAnimation)
-      window.dispatchEvent(new CustomEvent('compass:show_answer'))
-    }
-  }
+  window.addEventListener('compass:legacy:cancel_dial_animation', function (e) {
+    window.cancelAnimationFrame(dialAnimation)
+  })
 }
 
 function resetToInitialState () {
@@ -261,7 +244,7 @@ function autoRotateDial (dial) {
 
   const numberOfSymbols = symbols.length
   const randomNumbers = getUniqueRandomIntegers(numberOfSymbols, 3)
-  responseEmojis = randomNumbers.map((num) => symbols[num])
+  const responseEmojis = randomNumbers.map((num) => symbols[num])
 
   window.dispatchEvent(new CustomEvent('compass:set_response_emoji', {
     detail: {
