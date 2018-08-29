@@ -151,10 +151,6 @@ function makeDial (id) {
       const position = onDialPositionUpdate(this.rotation)
       requestEmojis.push(symbols[position])
 
-      // Highlight it
-      const allEmojis = document.getElementById('ring').querySelectorAll('li')
-      allEmojis[position].classList.add('requested')
-
       // Disable this when it's done dragging.
       dial.disable()
 
@@ -195,6 +191,7 @@ function onDialPositionUpdate (rotation) {
   const position = getEmojiPosition(rotation, symbols)
   emojiOutputEl.textContent = symbols[position].emoji
   flavorTextOutputEl.textContent = symbols[position].text
+
   // console.log(ringEl.querySelectorAll('li'))
   const allEmojis = document.getElementById('ring').querySelectorAll('li')
   allEmojis.forEach((i) => {
@@ -240,10 +237,6 @@ function rotateDialStep (dial, rotateTo, rotateDirection, resolve) {
     })
   } else {
     const position = onDialPositionUpdate(dial.draggable.rotation)
-
-    // Highlight it
-    const allEmojis = document.getElementById('ring').querySelectorAll('li')
-    allEmojis[position].classList.add('responded')
 
     resolve()
   }
