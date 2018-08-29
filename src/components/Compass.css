@@ -1,0 +1,7 @@
+.compass-container {
+  display: flex;
+  position: relative;
+  height: 100vmin;
+  width: 100vmin;
+  flex: 3;
+}

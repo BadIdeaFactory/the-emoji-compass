@@ -78,8 +78,8 @@ export default class MainScreen extends React.Component {
 
         return (
           <div className="text-box flavor-text">
-            <div id="emoji-output">{symbol.emoji}</div>
-            <div id="flavor-text-output">{symbol.text}</div>
+            <div className="flavor-text-emoji">{symbol.emoji}</div>
+            <div className="flavor-text-description">{symbol.text}</div>
           </div>
         )
       }

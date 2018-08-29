@@ -42,14 +42,14 @@ export default class CompassDial extends React.Component {
       <Symbol
         symbol={symbol}
         key={symbol.emoji}
-        className={(this.props.pointingAt === i) ? 'selected' : null}
+        className={'compass-dial-emoji' + ((this.props.pointingAt === i) ? ' compass-dial-emoji-highlighted' : '')}
       />
     ))
   }
 
   repositionSymbols = () => {
     const circleSize = this.ringEl.current.getBoundingClientRect().width
-    const items = this.ringEl.current.querySelectorAll('li')
+    const items = this.ringEl.current.querySelectorAll('.compass-dial-emoji')
     const offset = (circleSize / 2) * .9
 
     // Add position styling
@@ -64,9 +64,9 @@ export default class CompassDial extends React.Component {
   render () {
     return (
       <div className="compass-dial-container">
-        <ul id="ring" className="compass-dial" ref={this.ringEl}>
+        <div id="ring" className="compass-dial" ref={this.ringEl}>
           {this.renderSymbols()}
-        </ul>
+        </div>
       </div>
     )
   }

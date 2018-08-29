@@ -13,11 +13,11 @@ export default class Symbol extends React.Component {
 
   render () {
     return (
-      <li className={this.props.className}>
-        <span title={this.props.symbol.title}>
+      <div className={this.props.className}>
+        <span>
           {this.props.symbol.emoji}
         </span>
-      </li>
+      </div>
     )
   }
 }
