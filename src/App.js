@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import MainScreen from './components/MainScreen'
 import AnswerScreen from './components/AnswerScreen'
+import symbols from './symbols.json'
 
 const ROUTES = {
   MAIN: 'MAIN',
@@ -39,7 +40,11 @@ class App extends Component {
   }
 
   resetToInitialState = () => {
-    this.setState({ route: ROUTES.MAIN })
+    this.setState({
+      route: ROUTES.MAIN,
+      requestEmojis: [],
+      responseEmojis: []
+    })
   }
 
   setAnswerScreen = (event) => {
@@ -67,6 +72,7 @@ class App extends Component {
         return (
           <div id="main">
             <MainScreen
+              symbols={symbols}
               requestEmojis={this.state.requestEmojis}
               responseEmojis={this.state.responseEmojis}
               addRequestEmoji={this.addRequestEmoji}

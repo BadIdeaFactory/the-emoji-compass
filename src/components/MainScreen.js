@@ -1,9 +1,15 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import Compass from './Compass'
 import { init } from '../scripts'
 
 export default class MainScreen extends React.Component {
   static propTypes = {
+    symbols: PropTypes.arrayOf(PropTypes.shape({
+      emoji: PropTypes.string,
+      title: PropTypes.string,
+      text: PropTypes.string
+    })),
     requestEmojis: PropTypes.array,
     responseEmojis: PropTypes.array,
     addRequestEmoji: PropTypes.func,
@@ -17,16 +23,9 @@ export default class MainScreen extends React.Component {
   render () {
     return (
       <div className="container">
-        <div id="compass" className="compass-container">
-          <div className="ring-container">
-            <ul id="ring" className="ring"></ul>
-          </div>
-          <div className="dials-container">
-            <div id="dials">
-              <div className="dials-cap"></div>
-            </div>
-          </div>
-        </div>
+        <Compass
+          symbols={this.props.symbols}
+        />
         <div className="text-container">
           <hr />
           <div className="text-box instruction-text">

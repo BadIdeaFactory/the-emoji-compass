@@ -1,8 +1,7 @@
-import ReactDOM from 'react-dom'
 import { TweenLite } from 'gsap'
 import Draggable from 'gsap/Draggable'
 
-import symbols from './emojis.json'
+import symbols from './symbols.json'
 import { random, getEmojiPosition, getUniqueRandomIntegers, getRotation } from './utils'
 
 // adjustable values
@@ -15,9 +14,7 @@ const DIAL_ROTATION_SPEED = 2.5
 // continuing with the animation. Value is stored as milliseconds.
 const IMPATIENCE_TIME_LIMIT = 1000 //20000
 
-let ringEl
 let dialsEl
-let compassEl
 let flavorTextOutputEl
 let flavorTextEl
 let instructionTextEl
@@ -30,26 +27,14 @@ let dial1, dial2, dial3, dial4
 let lastViewedTimestamp = Date.now()
 let dialAnimation
 
-let reactRootNode
-
 export function init () {
-  reactRootNode = document.getElementById('root')
-
-  ringEl = document.getElementById('ring')
   dialsEl = document.getElementById('dials')
-  compassEl = document.getElementById('compass')
   flavorTextOutputEl = document.getElementById('flavor-text-output')
   flavorTextEl = document.querySelector('.flavor-text')
   instructionTextEl = document.querySelector('.instruction-text')
   emojiOutputEl = document.getElementById('emoji-output')
 
   resetInstructions()
-  repositionRing()
-  renderSymbols()
-  window.addEventListener('resize', function (e) {
-    repositionRing()
-    repositionSymbols()
-  })
 
   dial1 = makeDial('1')
   dial2 = makeDial('2')
@@ -105,59 +90,8 @@ function resetToInitialState () {
   dial4.disable()
   dial1.enable()
 
-  // Resets all highlighted emoji
-  const allEmojis = ringEl.querySelectorAll('li')
-  allEmojis.forEach((i) => {
-    i.classList.remove('selected')
-    i.classList.remove('requested')
-    i.classList.remove('responded')
-  })
-
-  while (requestEmojis.length > 0) {
-    requestEmojis.pop()
-  }
-  while (responseEmojis.length > 0) {
-    responseEmojis.pop()
-  }
-
   resetInstructions()
   document.querySelector('.instruction-text').classList.remove('hidden')
-
-  // Clean up React mounted final screen
-  ReactDOM.unmountComponentAtNode(reactRootNode)
-}
-
-function repositionRing () {
-  const dims = compassEl.getBoundingClientRect()
-  const max = Math.min(dims.width, dims.height)
-  const actual = 0.8 * max
-  ringEl.style.height = actual + 'px'
-  ringEl.style.width = actual + 'px'
-}
-
-// Create all the emoji items around the compass
-function renderSymbols () {
-  symbols.forEach(function (symbol, index, symbols) {
-    const li = document.createElement('li')
-    const inner = document.createElement('span')
-    inner.innerText = symbol.emoji
-    li.appendChild(inner)
-    ringEl.appendChild(li)
-  })
-  repositionSymbols()
-}
-
-function repositionSymbols () {
-  const circleSize = ringEl.getBoundingClientRect().width
-  const items = ringEl.querySelectorAll('li')
-
-  // Add position styling
-  items.forEach(function (item, index, symbols) {
-    const count = symbols.length
-    const angle = 360 / count
-    const rotation = index * angle
-    item.style.transform = 'rotate(' + rotation + 'deg) translate(' + circleSize / 2 + 'px) rotate(-' + rotation + 'deg)'
-  })
 }
 
 // Create dials
@@ -168,10 +102,10 @@ function makeDial (id) {
   dialsEl.appendChild(el)
 
   // Set dial width according to actual circle dimensions
-  const circleSize = ringEl.getBoundingClientRect().width
+  const circleSize = document.getElementById('ring').getBoundingClientRect().width
   el.style.width = (0.5 * circleSize) + 'px'
   window.addEventListener('resize', function () {
-    const circleSize = ringEl.getBoundingClientRect().width
+    const circleSize = document.getElementById('ring').getBoundingClientRect().width
     el.style.width = (0.5 * circleSize) + 'px'
   })
 
@@ -218,7 +152,7 @@ function makeDial (id) {
       requestEmojis.push(symbols[position])
 
       // Highlight it
-      const allEmojis = ringEl.querySelectorAll('li')
+      const allEmojis = document.getElementById('ring').querySelectorAll('li')
       allEmojis[position].classList.add('requested')
 
       // Disable this when it's done dragging.
@@ -262,7 +196,7 @@ function onDialPositionUpdate (rotation) {
   emojiOutputEl.textContent = symbols[position].emoji
   flavorTextOutputEl.textContent = symbols[position].text
   // console.log(ringEl.querySelectorAll('li'))
-  const allEmojis = ringEl.querySelectorAll('li')
+  const allEmojis = document.getElementById('ring').querySelectorAll('li')
   allEmojis.forEach((i) => {
     i.classList.remove('selected')
   })
@@ -308,7 +242,7 @@ function rotateDialStep (dial, rotateTo, rotateDirection, resolve) {
     const position = onDialPositionUpdate(dial.draggable.rotation)
 
     // Highlight it
-    const allEmojis = ringEl.querySelectorAll('li')
+    const allEmojis = document.getElementById('ring').querySelectorAll('li')
     allEmojis[position].classList.add('responded')
 
     resolve()
