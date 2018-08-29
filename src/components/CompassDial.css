@@ -20,11 +20,7 @@
   background-size: 110%;
 }
 
-.compass-dial-container ul {
-  list-style: none;
-}
-
-.compass-dial > li {
+.compass-dial-emoji {
   position: absolute;
   top: 50%;
   left: 50%;
@@ -34,10 +30,9 @@
   width: 1.5em;
   height: 1.5em;
   margin: -0.75em;
-  transition: 0.15s;
 }
 
-.compass-dial > li > span {
+.compass-dial-emoji > span {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -47,7 +42,7 @@
   transition: 0.15s;
 }
 
-.compass-dial > li.selected > span {
+.compass-dial-emoji-highlighted > span {
   transform: scale(1.5, 1.5);
   background-color: rgba(255, 255, 255, 0.15);
 }

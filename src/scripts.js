@@ -9,32 +9,13 @@ const DELAY_BETWEEN_PICKS = 1250
 const DELAY_AFTER_ALL_PICKS = 450
 const DIAL_ROTATION_SPEED = 2.5
 
-// If a viewer tabs away or minimizes the browser, and returns after
-// this amount of time, fast forward to final screen instead of
-// continuing with the animation. Value is stored as milliseconds.
-const IMPATIENCE_TIME_LIMIT = 1000 //20000
-
 let dialsEl
-let flavorTextOutputEl
-let flavorTextEl
-let instructionTextEl
-let emojiOutputEl
-
-const requestEmojis = []
-const responseEmojis = []
-
 let dial1, dial2, dial3, dial4
-let lastViewedTimestamp = Date.now()
+
 let dialAnimation
 
 export function init () {
   dialsEl = document.getElementById('dials')
-  flavorTextOutputEl = document.getElementById('flavor-text-output')
-  flavorTextEl = document.querySelector('.flavor-text')
-  instructionTextEl = document.querySelector('.instruction-text')
-  emojiOutputEl = document.getElementById('emoji-output')
-
-  resetInstructions()
 
   dial1 = makeDial('1')
   dial2 = makeDial('2')
@@ -50,32 +31,17 @@ export function init () {
   dial1.enable()
   window.addEventListener('dial-1:dragend', function (e) {
     dial2.enable()
-    showInstructions()
   })
   window.addEventListener('dial-2:dragend', function (e) {
     dial3.enable()
-    showInstructions()
   })
   window.addEventListener('dial-3:dragend', function (e) {
     autoRotateDial(dial4)
   })
 
-  document.addEventListener('visibilitychange', handleVisibilityChange)
-}
-
-function handleVisibilityChange () {
-  if (document.hidden) {
-    lastViewedTimestamp = Date.now()
-  } else {
-    if (Date.now() - lastViewedTimestamp > IMPATIENCE_TIME_LIMIT && responseEmojis.length > 0) {
-      window.cancelAnimationFrame(dialAnimation)
-      window.dispatchEvent(new CustomEvent('compass:show_answer', {
-        detail: {
-          requestEmojis, responseEmojis
-        }
-      }))
-    }
-  }
+  window.addEventListener('compass:legacy:cancel_dial_animation', function (e) {
+    window.cancelAnimationFrame(dialAnimation)
+  })
 }
 
 function resetToInitialState () {
@@ -89,9 +55,6 @@ function resetToInitialState () {
   dial3.disable()
   dial4.disable()
   dial1.enable()
-
-  resetInstructions()
-  document.querySelector('.instruction-text').classList.remove('hidden')
 }
 
 // Create dials
@@ -140,16 +103,21 @@ function makeDial (id) {
       }
     },
     onDragStart: function (e) {
-      flavorTextEl.classList.remove('hidden')
-      instructionTextEl.classList.add('hidden')
+      window.dispatchEvent(new CustomEvent('compass:hand_drag_start'))
     },
     onDrag: function (e) {
       onDialPositionUpdate(this.rotation)
     },
     onDragEnd: function (e) {
+      onDialPositionUpdate(this.rotation)
+
       // Select the emoji it's pointing at.
-      const position = onDialPositionUpdate(this.rotation)
-      requestEmojis.push(symbols[position])
+      const position = getEmojiPosition(this.rotation, symbols)
+      window.dispatchEvent(new CustomEvent('compass:add_request_emoji', {
+        detail: {
+          emoji: symbols[position]
+        }
+      }))
 
       // Disable this when it's done dragging.
       dial.disable()
@@ -188,31 +156,10 @@ function makeDial (id) {
 }
 
 function onDialPositionUpdate (rotation) {
-  const position = getEmojiPosition(rotation, symbols)
-  emojiOutputEl.textContent = symbols[position].emoji
-  flavorTextOutputEl.textContent = symbols[position].text
-
-  // console.log(ringEl.querySelectorAll('li'))
-  const allEmojis = document.getElementById('ring').querySelectorAll('li')
-  allEmojis.forEach((i) => {
-    i.classList.remove('selected')
-  })
-  allEmojis[position].classList.add('selected')
-  return position
+  window.dispatchEvent(new CustomEvent('compass:hand_position_update', {
+    detail: { rotation }
+  }))
 }
-
-function showInstructions () {
-  flavorTextEl.classList.add('hidden')
-  instructionTextEl.textContent = 'Drag the next dial to select the next emoji.'
-  instructionTextEl.classList.remove('hidden')
-}
-
-function resetInstructions () {
-  flavorTextEl.classList.add('hidden')
-  instructionTextEl.textContent = 'To ask a question of the compass, rotate the highlighted dial.'
-  instructionTextEl.classList.remove('hidden')
-}
-
 
 function rotateDialStep (dial, rotateTo, rotateDirection, resolve) {
   // rotateDirection = 0 => clockwise
@@ -236,7 +183,7 @@ function rotateDialStep (dial, rotateTo, rotateDirection, resolve) {
       rotateDialStep(dial, rotateTo, rotateDirection, resolve)
     })
   } else {
-    const position = onDialPositionUpdate(dial.draggable.rotation)
+    onDialPositionUpdate(dial.draggable.rotation)
 
     resolve()
   }
@@ -286,10 +233,13 @@ function autoRotateDial (dial) {
 
   const numberOfSymbols = symbols.length
   const randomNumbers = getUniqueRandomIntegers(numberOfSymbols, 3)
-  
-  randomNumbers.forEach(function (num) {
-    responseEmojis.push(symbols[num])
-  })
+  const responseEmojis = randomNumbers.map((num) => symbols[num])
+
+  window.dispatchEvent(new CustomEvent('compass:set_response_emoji', {
+    detail: {
+      responseEmojis
+    }
+  }))
 
   const rotateTo = getRotation(randomNumbers[0], numberOfSymbols)
   rotatePromise(dial, rotateTo)
@@ -305,10 +255,6 @@ function autoRotateDial (dial) {
     })
     .then(function () { return wait(DELAY_AFTER_ALL_PICKS) })
     .then(function () {
-      window.dispatchEvent(new CustomEvent('compass:show_answer', {
-        detail: {
-          requestEmojis, responseEmojis
-        }
-      }))
+      window.dispatchEvent(new CustomEvent('compass:show_answer'))
     })
 }

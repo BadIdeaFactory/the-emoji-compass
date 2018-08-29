@@ -15,7 +15,8 @@ body {
 }
 
 *, *::after, *::before {
-  box-sizing: border-box; }
+  box-sizing: border-box;
+}
 
 .container {
   width: 100vw;
@@ -23,14 +24,8 @@ body {
   display: flex;
   position: relative;
   flex-direction: column;
-  background-color: #090909; }
-
-.compass-container {
-  display: flex;
-  position: relative;
-  height: 100vmin;
-  width: 100vmin;
-  flex: 3; }
+  background-color: #090909;
+}
 
 .dials-container {
   position: absolute;
@@ -93,59 +88,6 @@ body {
   background-repeat: no-repeat; }
   .dial-4.active {
     background-image: url("../img/clock-hand-active.png"); }
-
-#emoji-output {
-  font-size: 15vmin;
-  line-height: 15vmin;
-  color: white; }
-
-.text-container {
-  text-align: center;
-  color: white;
-  flex: 1;
-  display: flex;
-  flex-direction: column; }
-  .text-container hr {
-    width: 60%;
-    border: 1px solid #a9a9a977; }
-
-.text-box {
-  display: flex;
-  flex: 1;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-  padding: 2em; }
-
-.instruction-text {
-  font-size: 1.75em; }
-
-#flavor-text-output {
-  margin-top: 1em;
-  margin-left: 2em;
-  margin-right: 2em;
-  color: #aaa;
-  font-size: 1.25em; }
-
-@media (orientation: portrait) {
-  .text-container {
-    max-height: 400px;
-    min-height: 250px; } }
-
-@media (orientation: landscape) {
-  .container {
-    flex-direction: row; }
-  .text-container {
-    flex-direction: row;
-    align-items: center;
-    max-width: 400px;
-    min-width: 250px; }
-    .text-container hr {
-      height: 60%;
-      width: 0; } }
-
-.hidden {
-  display: none; }
 
 .dials-cap {
   position: absolute;
