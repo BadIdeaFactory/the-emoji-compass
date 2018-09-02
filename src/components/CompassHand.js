@@ -3,12 +3,13 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { TweenLite } from 'gsap'
 import Draggable from 'gsap/Draggable'
-import { addRequestEmoji, updateHandPosition } from '../store/actions/app'
+import { addRequestEmoji, updateHandPosition, setActiveDial } from '../store/actions/app'
 import { random, getEmojiPosition } from '../utils'
+import { autoRotateDial } from '../scripts'
 
 class CompassHand extends React.Component {
   static propTypes = {
-    id: PropTypes.string,
+    id: PropTypes.number,
     enabled: PropTypes.bool,
 
     // Provided by Redux
@@ -17,6 +18,7 @@ class CompassHand extends React.Component {
       title: PropTypes.string,
       text: PropTypes.string
     })),
+    activeDial: PropTypes.number,
     addRequestEmoji: PropTypes.func,
     updateHandPosition: PropTypes.func
   }
@@ -75,27 +77,32 @@ class CompassHand extends React.Component {
         // Disable this when it's done dragging.
         this.disable()
   
-        // Emit an event to let other listeners know about this.
-        // window.dispatchEvent(new window.CustomEvent(`dial-${id}:dragend`))
+        // Set the active dial to the next dial.
+        this.props.setActiveDial(this.props.id + 1)
       },
       onThrowUpdate: (event) => {
         this.props.updateHandPosition(this.rotation)
       }
     })
   
-    // Each dial starts disabled until enabled later
-    if (!this.props.enabled) {
-      this.disable()
-    } else {
+    // Activate if this is the currently active dial.
+    if (this.props.activeDial === this.props.id) {
       this.enable()
+    } else {
+      this.disable()
     }
   }
 
   componentDidUpdate (prevProps) {
-    if (!prevProps.enabled && this.props.enabled) {
-      this.enable()
-    }
-    if (prevProps.enabled && !this.props.enabled) {
+    // Activate if this is the currently active dial.
+    if (this.props.activeDial === this.props.id) {
+      // special case the last one
+      if (this.props.id === 4) {
+        autoRotateDial(this)
+      } else {
+        this.enable()
+      }
+    } else {
       this.disable()
     }
   }
@@ -140,14 +147,16 @@ class CompassHand extends React.Component {
 
 function mapStateToProps (state) {
   return {
-    symbols: state.app.symbols
+    symbols: state.app.symbols,
+    activeDial: state.app.activeDial
   }
 }
 
 function mapDispatchToProps (dispatch) {
   return {
     addRequestEmoji: (emoji) => { dispatch(addRequestEmoji(emoji)) },
-    updateHandPosition: (rotation) => { dispatch(updateHandPosition(rotation)) }
+    updateHandPosition: (rotation) => { dispatch(updateHandPosition(rotation)) },
+    setActiveDial: (dial) => { dispatch(setActiveDial(dial)) }
   }
 }
 

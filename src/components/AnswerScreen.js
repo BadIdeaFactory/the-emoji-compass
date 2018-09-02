@@ -64,7 +64,7 @@ function mapStateToProps (state) {
 
 function mapDispatchToProps (dispatch) {
   return {
-    resetAppState: () => { dispatch(resetAppState) }
+    resetAppState: () => { dispatch(resetAppState()) }
   }
 }
 

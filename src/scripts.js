@@ -10,20 +10,9 @@ const DELAY_BETWEEN_PICKS = 1250
 const DELAY_AFTER_ALL_PICKS = 450
 const DIAL_ROTATION_SPEED = 2.5
 
-let dial2, dial3, dial4
 let dialAnimation
 
 export function init () {
-  window.addEventListener('dial-1:dragend', function (e) {
-    dial2.enable()
-  })
-  window.addEventListener('dial-2:dragend', function (e) {
-    dial3.enable()
-  })
-  window.addEventListener('dial-3:dragend', function (e) {
-    autoRotateDial(dial4)
-  })
-
   window.addEventListener('compass:legacy:cancel_dial_animation', function (e) {
     window.cancelAnimationFrame(dialAnimation)
   })
@@ -33,35 +22,35 @@ function onDialPositionUpdate (rotation) {
   store.dispatch(updateHandPosition(rotation))
 }
 
-function rotateDialStep (dial, rotateTo, rotateDirection, resolve) {
+function rotateDialStep (el, draggable, rotateTo, rotateDirection, resolve) {
   // rotateDirection = 0 => clockwise
   // rotateDirection = 1 => counterclockwise
   let rotated = false
 
-  if (rotateDirection === 0 && dial.draggable.rotation <= rotateTo) {
-    TweenLite.set(dial.el, { rotation: dial.draggable.rotation + DIAL_ROTATION_SPEED })
+  if (rotateDirection === 0 && draggable.rotation <= rotateTo) {
+    TweenLite.set(el, { rotation: draggable.rotation + DIAL_ROTATION_SPEED })
     rotated = true
-  } else if (rotateDirection === 1 && dial.draggable.rotation >= rotateTo) {
-    TweenLite.set(dial.el, { rotation: dial.draggable.rotation - DIAL_ROTATION_SPEED })
+  } else if (rotateDirection === 1 && draggable.rotation >= rotateTo) {
+    TweenLite.set(el, { rotation: draggable.rotation - DIAL_ROTATION_SPEED })
     rotated = true
   }
   
   if (rotated) {
     // Tell the Draggable to calibrate/synchronize/read the current value
-    dial.draggable.update()
-    onDialPositionUpdate(dial.draggable.rotation)
+    draggable.update()
+    onDialPositionUpdate(draggable.rotation)
 
     dialAnimation = window.requestAnimationFrame(function (timestamp) {
-      rotateDialStep(dial, rotateTo, rotateDirection, resolve)
+      rotateDialStep(el, draggable, rotateTo, rotateDirection, resolve)
     })
   } else {
-    onDialPositionUpdate(dial.draggable.rotation)
+    onDialPositionUpdate(draggable.rotation)
 
     resolve()
   }
 }
 
-function rotatePromise (dial, rotateTo) {
+function rotatePromise (el, draggable, rotateTo) {
   // rotateDirection = 0 => clockwise
   // rotateDirection = 1 => counterclockwise
   const rotateDirection = Math.round(random()) // 0 or 1.
@@ -71,16 +60,16 @@ function rotatePromise (dial, rotateTo) {
   let circs
   if (rotateDirection === 0) {
     // clockwise degrees go up
-    circs = Math.ceil(dial.draggable.rotation / 360) + rotateQuantity
+    circs = Math.ceil(draggable.rotation / 360) + rotateQuantity
   } else {
     // counterclockwise degrees go down
-    circs = Math.floor(dial.draggable.rotation / 360) - rotateQuantity
+    circs = Math.floor(draggable.rotation / 360) - rotateQuantity
   }
   const rotateToActual = circs * 360 + rotateTo
 
   return new Promise(function (resolve) {
     dialAnimation = window.requestAnimationFrame(function (timestamp) {
-      rotateDialStep(dial, rotateToActual, rotateDirection, resolve)
+      rotateDialStep(el, draggable, rotateToActual, rotateDirection, resolve)
     })
   })
 }
@@ -97,11 +86,14 @@ function wait (delay) {
 }
 
 // Have a 4th dial automatically and randomly select 3 more emojis
-function autoRotateDial (dial) {
-  dial.el.classList.add('active')
+export function autoRotateDial (dial) {
+  const el = dial.el.current
+  const draggable = dial.draggable[0]
+
+  el.classList.add('active')
 
   // Make sure the dial picks up its initial position by calling update()
-  dial.draggable.update()
+  draggable.update()
 
   const numberOfSymbols = symbols.length
   const randomNumbers = getUniqueRandomIntegers(numberOfSymbols, 3)
@@ -110,16 +102,17 @@ function autoRotateDial (dial) {
   store.dispatch(setResponseEmoji(responseEmojis))
 
   const rotateTo = getRotation(randomNumbers[0], numberOfSymbols)
-  rotatePromise(dial, rotateTo)
+
+  rotatePromise(el, draggable, rotateTo)
     .then(function () { return wait(DELAY_BETWEEN_PICKS) })
     .then(function () {
       const rotateTo = getRotation(randomNumbers[1], numberOfSymbols)
-      return rotatePromise(dial, rotateTo)
+      return rotatePromise(el, draggable, rotateTo)
     })
     .then(function () { return wait(DELAY_BETWEEN_PICKS) })
     .then(function () {
       const rotateTo = getRotation(randomNumbers[2], numberOfSymbols)
-      return rotatePromise(dial, rotateTo)
+      return rotatePromise(el, draggable, rotateTo)
     })
     .then(function () { return wait(DELAY_AFTER_ALL_PICKS) })
     .then(function () {

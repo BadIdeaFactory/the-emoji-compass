@@ -3,7 +3,6 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import Compass from './Compass'
 import { init } from '../scripts'
-import { getEmojiPosition } from '../utils'
 import './MainScreen.css'
 
 const TEXT_DISPLAY = {
@@ -20,7 +19,8 @@ class MainScreen extends React.Component {
       text: PropTypes.string
     })),
     requestEmojis: PropTypes.array,
-    handPosition: PropTypes.number
+    handPosition: PropTypes.number,
+    activeDial: PropTypes.number
   }
 
   constructor (props) {
@@ -35,25 +35,31 @@ class MainScreen extends React.Component {
     init()
 
     window.addEventListener('compass:hand_drag_start', this.handleDragStart)
-    window.addEventListener('dial-1:dragend', this.showInstruction2)
-    window.addEventListener('dial-2:dragend', this.showInstruction2)
   }
 
   componentWillUnmount () {
     window.removeEventListener('compass:hand_drag_start', this.handleDragStart)
-    window.removeEventListener('dial-1:dragend', this.showInstruction2)
-    window.removeEventListener('dial-2:dragend', this.showInstruction2)
+  }
+
+  static getDerivedStateFromProps(props, state) {
+    if (props.activeDial && props.activeDial > 1 && !props.handPosition) {
+      return {
+        textDisplay: TEXT_DISPLAY.INSTRUCTION2
+      }
+    }
+
+    if (props.handPosition) {
+      return {
+        textDisplay: TEXT_DISPLAY.EMOJI_DESCRIPTION
+      }
+    }
+
+    return null
   }
 
   handleDragStart = (event) => {
     this.setState({
       textDisplay: TEXT_DISPLAY.EMOJI_DESCRIPTION
-    })
-  }
-
-  showInstruction2 = (event) => {
-    this.setState({
-      textDisplay: TEXT_DISPLAY.INSTRUCTION2
     })
   }
 
@@ -110,7 +116,8 @@ function mapStateToProps (state) {
   return {
     symbols: state.app.symbols,
     requestEmojis: state.app.requestEmojis,
-    handPosition: state.app.handPosition
+    handPosition: state.app.handPosition,
+    activeDial: state.app.activeDial
   }
 }
 

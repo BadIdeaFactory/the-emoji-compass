@@ -6,10 +6,10 @@ export default class CompassHandsContainer extends React.Component {
     return (
       <div className="compass-hands-container">
         <div className="compass-hands">
-          <CompassHand id="1" enabled />
-          <CompassHand id="2" enabled={false} />
-          <CompassHand id="3" enabled={false} />
-          <CompassHand id="4" enabled={false} />
+          <CompassHand id={1} />
+          <CompassHand id={2} />
+          <CompassHand id={3} />
+          <CompassHand id={4} />
           <div className="compass-hub" />
         </div>
       </div>

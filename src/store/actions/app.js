@@ -3,7 +3,8 @@ import {
   SET_RESPONSE_EMOJI,
   RESET_APP_STATE,
   SHOW_ANSWER_SCREEN,
-  UPDATE_HAND_POSITION
+  UPDATE_HAND_POSITION,
+  SET_ACTIVE_DIAL
 } from './'
 
 export function addRequestEmoji (emoji) {
@@ -36,5 +37,12 @@ export function updateHandPosition (rotation) {
   return {
     type: UPDATE_HAND_POSITION,
     rotation
+  }
+}
+
+export function setActiveDial (dial) {
+  return {
+    type: SET_ACTIVE_DIAL,
+    dial
   }
 }
