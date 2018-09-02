@@ -3,7 +3,7 @@ import { TweenLite } from 'gsap'
 import symbols from './symbols.json'
 import { random, getUniqueRandomIntegers, getRotation } from './utils'
 import store from './store'
-import { setResponseEmoji, showAnswerScreen } from './store/actions/app'
+import { setResponseEmoji, showAnswerScreen, updateHandPosition } from './store/actions/app'
 
 // adjustable values
 const DELAY_BETWEEN_PICKS = 1250
@@ -30,9 +30,7 @@ export function init () {
 }
 
 function onDialPositionUpdate (rotation) {
-  window.dispatchEvent(new CustomEvent('compass:hand_position_update', {
-    detail: { rotation }
-  }))
+  store.dispatch(updateHandPosition(rotation))
 }
 
 function rotateDialStep (dial, rotateTo, rotateDirection, resolve) {

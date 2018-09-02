@@ -2,16 +2,19 @@ import {
   ADD_REQUEST_EMOJI,
   SET_RESPONSE_EMOJI,
   RESET_APP_STATE,
-  SHOW_ANSWER_SCREEN
+  SHOW_ANSWER_SCREEN,
+  UPDATE_HAND_POSITION
 } from '../actions'
-import { ROUTES } from '../../constants'
 import symbols from '../../symbols.json'
+import { ROUTES } from '../../constants'
+import { getEmojiPosition } from '../../utils'
 
 const initialState = {
   symbols: symbols,
   route: ROUTES.MAIN,
   requestEmojis: [],
-  responseEmojis: []
+  responseEmojis: [],
+  handPosition: null
 }
 
 const app = (state = initialState, action) => {
@@ -33,6 +36,11 @@ const app = (state = initialState, action) => {
       }
     case RESET_APP_STATE:
       return initialState
+    case UPDATE_HAND_POSITION: 
+      return {
+        ...state,
+        handPosition: getEmojiPosition(action.rotation, state.symbols)
+      }
     default:
       return state
   }

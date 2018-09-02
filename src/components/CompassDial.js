@@ -11,7 +11,7 @@ class CompassDial extends React.Component {
       title: PropTypes.string,
       text: PropTypes.string
     })),
-    pointingAt: PropTypes.number
+    handPosition: PropTypes.number
   }
 
   constructor(props) {
@@ -43,7 +43,7 @@ class CompassDial extends React.Component {
       <Symbol
         symbol={symbol}
         key={symbol.emoji}
-        className={'compass-dial-emoji' + ((this.props.pointingAt === i) ? ' compass-dial-emoji-highlighted' : '')}
+        className={'compass-dial-emoji' + ((this.props.handPosition === i) ? ' compass-dial-emoji-highlighted' : '')}
       />
     ))
   }
@@ -51,7 +51,7 @@ class CompassDial extends React.Component {
   repositionSymbols = () => {
     const circleSize = this.ringEl.current.getBoundingClientRect().width
     const items = this.ringEl.current.querySelectorAll('.compass-dial-emoji')
-    const offset = (circleSize / 2) * .9
+    const offset = (circleSize / 2) * .82
 
     // Add position styling
     items.forEach(function (item, index, symbols) {
@@ -75,7 +75,8 @@ class CompassDial extends React.Component {
 
 function mapStateToProps (state) {
   return {
-    symbols: state.app.symbols
+    symbols: state.app.symbols,
+    handPosition: state.app.handPosition
   }
 }
 

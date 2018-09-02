@@ -19,15 +19,15 @@ class MainScreen extends React.Component {
       title: PropTypes.string,
       text: PropTypes.string
     })),
-    requestEmojis: PropTypes.array
+    requestEmojis: PropTypes.array,
+    handPosition: PropTypes.number
   }
 
   constructor (props) {
     super(props)
 
     this.state = {
-      textDisplay: TEXT_DISPLAY.INSTRUCTION1,
-      pointingAt: null
+      textDisplay: TEXT_DISPLAY.INSTRUCTION1
     }
   }
 
@@ -35,7 +35,6 @@ class MainScreen extends React.Component {
     init()
 
     window.addEventListener('compass:hand_drag_start', this.handleDragStart)
-    window.addEventListener('compass:hand_position_update', this.handleHandPositionUpdate)
     window.addEventListener('dial-1:dragend', this.showInstruction2)
     window.addEventListener('dial-2:dragend', this.showInstruction2)
   }
@@ -52,15 +51,6 @@ class MainScreen extends React.Component {
     })
   }
 
-  handleHandPositionUpdate = (event) => {
-    const position = getEmojiPosition(event.detail.rotation, this.props.symbols)
-
-    this.setState({
-      pointingAt: position,
-      textDisplay: TEXT_DISPLAY.EMOJI_DESCRIPTION
-    })
-  }
-
   showInstruction2 = (event) => {
     this.setState({
       textDisplay: TEXT_DISPLAY.INSTRUCTION2
@@ -70,7 +60,7 @@ class MainScreen extends React.Component {
   renderTextContents = () => {
     switch (this.state.textDisplay) {
       case TEXT_DISPLAY.EMOJI_DESCRIPTION: {
-        const symbol = this.props.symbols[this.state.pointingAt]
+        const symbol = this.props.symbols[this.props.handPosition]
 
         if (!symbol) return null
 
@@ -100,10 +90,7 @@ class MainScreen extends React.Component {
   render () {
     return (
       <div className="container">
-        <Compass
-          symbols={this.props.symbols}
-          pointingAt={this.state.pointingAt}
-        />
+        <Compass />
         <div className="emoji-requested">
           {this.props.requestEmojis.map((symbol, i) => (
             <span key={i}>
@@ -122,7 +109,8 @@ class MainScreen extends React.Component {
 function mapStateToProps (state) {
   return {
     symbols: state.app.symbols,
-    requestEmojis: state.app.requestEmojis
+    requestEmojis: state.app.requestEmojis,
+    handPosition: state.app.handPosition
   }
 }
 

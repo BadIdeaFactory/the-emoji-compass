@@ -2,7 +2,8 @@ import {
   ADD_REQUEST_EMOJI,
   SET_RESPONSE_EMOJI,
   RESET_APP_STATE,
-  SHOW_ANSWER_SCREEN
+  SHOW_ANSWER_SCREEN,
+  UPDATE_HAND_POSITION
 } from './'
 
 export function addRequestEmoji (emoji) {
@@ -28,5 +29,12 @@ export function resetAppState () {
 export function showAnswerScreen () {
   return {
     type: SHOW_ANSWER_SCREEN
+  }
+}
+
+export function updateHandPosition (rotation) {
+  return {
+    type: UPDATE_HAND_POSITION,
+    rotation
   }
 }

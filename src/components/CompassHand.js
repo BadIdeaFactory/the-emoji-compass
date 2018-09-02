@@ -3,14 +3,8 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { TweenLite } from 'gsap'
 import Draggable from 'gsap/Draggable'
-import { addRequestEmoji } from '../store/actions/app'
+import { addRequestEmoji, updateHandPosition } from '../store/actions/app'
 import { random, getEmojiPosition } from '../utils'
-
-function onDialPositionUpdate (rotation) {
-  window.dispatchEvent(new CustomEvent('compass:hand_position_update', {
-    detail: { rotation }
-  }))
-}
 
 class CompassHand extends React.Component {
   static propTypes = {
@@ -23,7 +17,8 @@ class CompassHand extends React.Component {
       title: PropTypes.string,
       text: PropTypes.string
     })),
-    addRequestEmoji: PropTypes.func
+    addRequestEmoji: PropTypes.func,
+    updateHandPosition: PropTypes.func
   }
 
   static defaultProps = {
@@ -67,10 +62,10 @@ class CompassHand extends React.Component {
         window.dispatchEvent(new CustomEvent('compass:hand_drag_start'))
       },
       onDrag: (event) => {
-        onDialPositionUpdate(this.draggable[0].rotation)
+        this.props.updateHandPosition(this.draggable[0].rotation)
       },
       onDragEnd: (event) => {
-        onDialPositionUpdate(this.draggable[0].rotation)
+        this.props.updateHandPosition(this.draggable[0].rotation)
   
         // Select the emoji it's pointing at.
         const position = getEmojiPosition(this.draggable[0].rotation, this.props.symbols)
@@ -84,7 +79,7 @@ class CompassHand extends React.Component {
         // window.dispatchEvent(new window.CustomEvent(`dial-${id}:dragend`))
       },
       onThrowUpdate: (event) => {
-        onDialPositionUpdate(this.rotation)
+        this.props.updateHandPosition(this.rotation)
       }
     })
   
@@ -151,7 +146,8 @@ function mapStateToProps (state) {
 
 function mapDispatchToProps (dispatch) {
   return {
-    addRequestEmoji: (emoji) => { dispatch(addRequestEmoji(emoji)) }
+    addRequestEmoji: (emoji) => { dispatch(addRequestEmoji(emoji)) },
+    updateHandPosition: (rotation) => { dispatch(updateHandPosition(rotation)) }
   }
 }
 
