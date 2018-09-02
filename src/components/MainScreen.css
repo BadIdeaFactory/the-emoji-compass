@@ -1,6 +1,7 @@
 .emoji-requested {
   text-align: center;
   font-size: 12vmin;
+  height: 20vmin;
 }
 
 .emoji-requested span:not(:last-child) {
@@ -20,8 +21,9 @@
   flex: 1;
   align-items: center;
   justify-content: center;
-  flex-direction: column;
+  flex-direction: row;
   padding: 2em;
+  padding-top: 0;
 }
 
 .instruction-text {
@@ -29,35 +31,15 @@
 }
 
 .flavor-text-emoji {
-  font-size: 15vmin;
-  line-height: 15vmin;
+  font-size: 24vmin;
+  line-height: 24vmin;
   color: white;
 }
 
 .flavor-text-description {
-  margin-top: 1em;
-  margin-left: 2em;
-  margin-right: 2em;
-  color: #aaa;
-  font-size: 1.25em;
-}
-
-@media (orientation: portrait) {
-  .text-container {
-    max-height: 400px;
-    min-height: 250px;
-  }
-}
-
-@media (orientation: landscape) {
-  .container {
-    flex-direction: row;
-  }
-
-  .text-container {
-    flex-direction: row;
-    align-items: center;
-    max-width: 400px;
-    min-width: 250px;
-  }
+  margin-left: 1.5em;
+  color: #fff;
+  font-size: 1.15em;
+  text-align: left;
+  line-height: 1.4;
 }

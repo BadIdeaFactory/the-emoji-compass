@@ -31,7 +31,7 @@ class AnswerScreen extends React.Component {
     if (requestEmojis.length === 0 || responseEmojis.length === 0) return null
 
     return (
-      <div className="text-box final-text">
+      <div className="final-text">
         <span>
           I asked the emoji compass
           <span id="final-emoji-1">
@@ -47,8 +47,8 @@ class AnswerScreen extends React.Component {
           </span>
         </span>
         <span className="final-buttons">
-          <button id="share">Share this</button>
-          <button id="ask-another" onClick={resetAppState}>Ask again</button>
+          <button id="share" title="Share this"></button>
+          <button id="ask-another" title="Ask again" onClick={resetAppState}></button>
         </span>
       </div>
     )

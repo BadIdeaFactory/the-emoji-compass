@@ -29,17 +29,16 @@
   appearance: none;
   -moz-appearance: none;
   -webkit-appearance: none;
-  border: 0;
-  background-color: #2a2a2a;
+  border: 1px solid #ddc272;
+  background-color: #c4a660;
   color: white;
+  width: 44px;
+  height: 44px;
   font-size: 28px;
   font-family: 'Gentium Book Basic', serif;
   cursor: pointer;
-  padding: 0.5em 1em;
-  margin: 0.25em;
-  height: 50px;
-  line-height: 25px;
-  border-radius: 25px;
+  margin: 0.75em;
+  border-radius: 50%;
   outline: none;
 }
 
