@@ -1,7 +1,16 @@
 import React from 'react'
+import PropTypes from 'prop-types'
+import { connect } from 'react-redux'
+import { resetAppState } from '../store/actions/app'
 import './AnswerScreen.css'
 
-export default class AnswerScreen extends React.Component {
+class AnswerScreen extends React.Component {
+  static propTypes = {
+    requestEmojis: PropTypes.array,
+    responseEmojis: PropTypes.array,
+    resetAppState: PropTypes.func
+  }
+
   renderEmojiResultRow (emoji) {
     return (
       <tr key={emoji.emoji} className="emoji-table-row">
@@ -16,7 +25,7 @@ export default class AnswerScreen extends React.Component {
   }
 
   render () {
-    const { requestEmojis, responseEmojis, handleAskAnother } = this.props
+    const { requestEmojis, responseEmojis, resetAppState } = this.props
 
     // Bail if nothing to show
     if (requestEmojis.length === 0 || responseEmojis.length === 0) return null
@@ -39,9 +48,24 @@ export default class AnswerScreen extends React.Component {
         </span>
         <span className="final-buttons">
           <button id="share">Share this</button>
-          <button id="ask-another" onClick={handleAskAnother}>Ask again</button>
+          <button id="ask-another" onClick={resetAppState}>Ask again</button>
         </span>
       </div>
     )
   }
 }
+
+function mapStateToProps (state) {
+  return {
+    requestEmojis: state.app.requestEmojis,
+    responseEmojis: state.app.responseEmojis
+  }
+}
+
+function mapDispatchToProps (dispatch) {
+  return {
+    resetAppState: () => { dispatch(resetAppState) }
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(AnswerScreen)

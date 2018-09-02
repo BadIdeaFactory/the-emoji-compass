@@ -1,5 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import { connect } from 'react-redux'
 import Compass from './Compass'
 import { init } from '../scripts'
 import { getEmojiPosition } from '../utils'
@@ -11,17 +12,14 @@ const TEXT_DISPLAY = {
   EMOJI_DESCRIPTION: 'EMOJI_DESCRIPTION'
 }
 
-export default class MainScreen extends React.Component {
+class MainScreen extends React.Component {
   static propTypes = {
     symbols: PropTypes.arrayOf(PropTypes.shape({
       emoji: PropTypes.string,
       title: PropTypes.string,
       text: PropTypes.string
     })),
-    requestEmojis: PropTypes.array,
-    responseEmojis: PropTypes.array,
-    addRequestEmoji: PropTypes.func,
-    addResponseEmoji: PropTypes.func
+    requestEmojis: PropTypes.array
   }
 
   constructor (props) {
@@ -120,3 +118,12 @@ export default class MainScreen extends React.Component {
     )
   }
 }
+
+function mapStateToProps (state) {
+  return {
+    symbols: state.app.symbols,
+    requestEmojis: state.app.requestEmojis
+  }
+}
+
+export default connect(mapStateToProps)(MainScreen)

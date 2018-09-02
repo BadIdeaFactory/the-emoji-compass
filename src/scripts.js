@@ -2,6 +2,8 @@ import { TweenLite } from 'gsap'
 
 import symbols from './symbols.json'
 import { random, getUniqueRandomIntegers, getRotation } from './utils'
+import store from './store'
+import { setResponseEmoji, showAnswerScreen } from './store/actions/app'
 
 // adjustable values
 const DELAY_BETWEEN_PICKS = 1250
@@ -107,11 +109,7 @@ function autoRotateDial (dial) {
   const randomNumbers = getUniqueRandomIntegers(numberOfSymbols, 3)
   const responseEmojis = randomNumbers.map((num) => symbols[num])
 
-  window.dispatchEvent(new CustomEvent('compass:set_response_emoji', {
-    detail: {
-      responseEmojis
-    }
-  }))
+  store.dispatch(setResponseEmoji(responseEmojis))
 
   const rotateTo = getRotation(randomNumbers[0], numberOfSymbols)
   rotatePromise(dial, rotateTo)
@@ -127,6 +125,6 @@ function autoRotateDial (dial) {
     })
     .then(function () { return wait(DELAY_AFTER_ALL_PICKS) })
     .then(function () {
-      window.dispatchEvent(new CustomEvent('compass:show_answer'))
+      store.dispatch(showAnswerScreen())
     })
 }

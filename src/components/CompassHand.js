@@ -1,7 +1,9 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import { connect } from 'react-redux'
 import { TweenLite } from 'gsap'
 import Draggable from 'gsap/Draggable'
+import { addRequestEmoji } from '../store/actions/app'
 import { random, getEmojiPosition } from '../utils'
 
 function onDialPositionUpdate (rotation) {
@@ -10,15 +12,22 @@ function onDialPositionUpdate (rotation) {
   }))
 }
 
-export default class CompassHand extends React.Component {
+class CompassHand extends React.Component {
   static propTypes = {
     id: PropTypes.string,
     enabled: PropTypes.bool,
+
+    // Provided by Redux
     symbols: PropTypes.arrayOf(PropTypes.shape({
       emoji: PropTypes.string,
       title: PropTypes.string,
       text: PropTypes.string
-    }))
+    })),
+    addRequestEmoji: PropTypes.func
+  }
+
+  static defaultProps = {
+    addRequestEmoji: () => {}
   }
 
   constructor (props) {
@@ -65,11 +74,8 @@ export default class CompassHand extends React.Component {
   
         // Select the emoji it's pointing at.
         const position = getEmojiPosition(this.draggable[0].rotation, this.props.symbols)
-        window.dispatchEvent(new CustomEvent('compass:add_request_emoji', {
-          detail: {
-            emoji: this.props.symbols[position]
-          }
-        }))
+
+        this.props.addRequestEmoji(this.props.symbols[position])
   
         // Disable this when it's done dragging.
         this.disable()
@@ -136,3 +142,17 @@ export default class CompassHand extends React.Component {
     )
   }
 }
+
+function mapStateToProps (state) {
+  return {
+    symbols: state.app.symbols
+  }
+}
+
+function mapDispatchToProps (dispatch) {
+  return {
+    addRequestEmoji: (emoji) => { dispatch(addRequestEmoji(emoji)) }
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(CompassHand)

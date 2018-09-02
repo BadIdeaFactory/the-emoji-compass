@@ -6,19 +6,14 @@ import './Compass.css'
 
 export default class Compass extends React.Component {
   static propTypes = {
-    symbols: PropTypes.arrayOf(PropTypes.shape({
-      emoji: PropTypes.string,
-      title: PropTypes.string,
-      text: PropTypes.string
-    })),
     pointingAt: PropTypes.number
   }
 
   render () {
     return (
       <div className="compass-container" ref={this.compassEl}>
-        <CompassDial symbols={this.props.symbols} pointingAt={this.props.pointingAt} />
-        <CompassHandsContainer symbols={this.props.symbols} />
+        <CompassDial pointingAt={this.props.pointingAt} />
+        <CompassHandsContainer />
       </div>
     )
   }

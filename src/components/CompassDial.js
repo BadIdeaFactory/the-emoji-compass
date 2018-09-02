@@ -1,9 +1,10 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import { connect } from 'react-redux'
 import Symbol from './Symbol'
 import './CompassDial.css'
 
-export default class CompassDial extends React.Component {
+class CompassDial extends React.Component {
   static propTypes = {
     symbols: PropTypes.arrayOf(PropTypes.shape({
       emoji: PropTypes.string,
@@ -71,3 +72,11 @@ export default class CompassDial extends React.Component {
     )
   }
 }
+
+function mapStateToProps (state) {
+  return {
+    symbols: state.app.symbols
+  }
+}
+
+export default connect(mapStateToProps)(CompassDial)
