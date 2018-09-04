@@ -19,7 +19,14 @@ const initialState = {
   activeHand: 1
 }
 
-const app = (state = initialState, action) => {
+const testAnswerScreenState = {
+  symbols: symbols,
+  route: ROUTES.ANSWER,
+  requestEmojis: [symbols[4], symbols[12], symbols[22]],
+  responseEmojis: [symbols[31], symbols[8], symbols[17]]
+}
+
+const app = (state = testAnswerScreenState, action) => {
   switch (action.type) {
     case ADD_REQUEST_EMOJI:
       return {

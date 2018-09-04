@@ -2,6 +2,9 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { resetAppState } from '../store/actions/app'
+
+import shareButton from '../img/share_button_v01.svg'
+import closeButton from '../img/close_button_v01.svg'
 import './AnswerScreen.css'
 
 class AnswerScreen extends React.Component {
@@ -47,8 +50,12 @@ class AnswerScreen extends React.Component {
           </span>
         </span>
         <span className="final-buttons">
-          <button id="share" title="Share this"></button>
-          <button id="ask-another" title="Ask again" onClick={resetAppState}></button>
+          <button id="share" title="Share this">
+            <img src={shareButton} />
+          </button>
+          <button id="ask-another" title="Ask again" onClick={resetAppState}>
+            <img src={closeButton} />
+          </button>
         </span>
       </div>
     )

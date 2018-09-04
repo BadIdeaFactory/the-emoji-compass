@@ -26,14 +26,15 @@
 }
 
 .final-buttons button {
+  position: relative;
   appearance: none;
   -moz-appearance: none;
   -webkit-appearance: none;
-  border: 1px solid #ddc272;
-  background-color: #c4a660;
+  border: 0;
+  background-color: transparent;
   color: white;
-  width: 44px;
-  height: 44px;
+  width: 36px;
+  height: 36px;
   font-size: 28px;
   font-family: 'Gentium Book Basic', serif;
   cursor: pointer;
@@ -42,12 +43,12 @@
   outline: none;
 }
 
-.final-buttons button:focus {
-  box-shadow: 0 0 10px 0 #5656e2;
-}
-
-.final-buttons button:hover {
-  color: yellow;
+.final-buttons button > img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
 }
 
 #final-emoji-1 {
