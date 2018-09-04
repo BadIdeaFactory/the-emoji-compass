@@ -2,95 +2,17 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import Compass from './Compass'
+import MainTextDisplay from './MainTextDisplay'
 import { init } from '../scripts'
 import './MainScreen.css'
 
-const TEXT_DISPLAY = {
-  INSTRUCTION1: 'INSTRUCTION1',
-  INSTRUCTION2: 'INSTRUCTION2',
-  EMOJI_DESCRIPTION: 'EMOJI_DESCRIPTION'
-}
-
 class MainScreen extends React.Component {
   static propTypes = {
-    symbols: PropTypes.arrayOf(PropTypes.shape({
-      emoji: PropTypes.string,
-      title: PropTypes.string,
-      text: PropTypes.string
-    })),
-    requestEmojis: PropTypes.array,
-    handPosition: PropTypes.number,
-    activeDial: PropTypes.number
-  }
-
-  constructor (props) {
-    super(props)
-
-    this.state = {
-      textDisplay: TEXT_DISPLAY.INSTRUCTION1
-    }
+    requestEmojis: PropTypes.array
   }
 
   componentDidMount () {
     init()
-
-    window.addEventListener('compass:hand_drag_start', this.handleDragStart)
-  }
-
-  componentWillUnmount () {
-    window.removeEventListener('compass:hand_drag_start', this.handleDragStart)
-  }
-
-  static getDerivedStateFromProps(props, state) {
-    if (props.activeDial && props.activeDial > 1 && !props.handPosition) {
-      return {
-        textDisplay: TEXT_DISPLAY.INSTRUCTION2
-      }
-    }
-
-    if (props.handPosition) {
-      return {
-        textDisplay: TEXT_DISPLAY.EMOJI_DESCRIPTION
-      }
-    }
-
-    return null
-  }
-
-  handleDragStart = (event) => {
-    this.setState({
-      textDisplay: TEXT_DISPLAY.EMOJI_DESCRIPTION
-    })
-  }
-
-  renderTextContents = () => {
-    switch (this.state.textDisplay) {
-      case TEXT_DISPLAY.EMOJI_DESCRIPTION: {
-        const symbol = this.props.symbols[this.props.handPosition]
-
-        if (!symbol) return null
-
-        return (
-          <div className="text-box flavor-text">
-            <div className="flavor-text-emoji">{symbol.emoji}</div>
-            <div className="flavor-text-description">{symbol.text}</div>
-          </div>
-        )
-      }
-      case TEXT_DISPLAY.INSTRUCTION2:
-        return (
-          <div className="text-box instruction-text">
-            Drag the next dial to select the next emoji.
-          </div>
-        )
-      case TEXT_DISPLAY.INSTRUCTION1:
-      default:
-        return (
-          <div className="text-box instruction-text">
-            To ask a question of the compass, rotate the highlighted dial.
-          </div>
-        )
-    }
   }
 
   render () {
@@ -104,9 +26,7 @@ class MainScreen extends React.Component {
             </span>
           ))}
         </div>
-        <div className="text-container">
-          {this.renderTextContents()}
-        </div>
+        <MainTextDisplay />
       </div>
     )
   }
@@ -114,10 +34,7 @@ class MainScreen extends React.Component {
 
 function mapStateToProps (state) {
   return {
-    symbols: state.app.symbols,
-    requestEmojis: state.app.requestEmojis,
-    handPosition: state.app.handPosition,
-    activeDial: state.app.activeDial
+    requestEmojis: state.app.requestEmojis
   }
 }
 

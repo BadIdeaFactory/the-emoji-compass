@@ -4,7 +4,7 @@ import {
   RESET_APP_STATE,
   SHOW_ANSWER_SCREEN,
   UPDATE_HAND_POSITION,
-  SET_ACTIVE_DIAL
+  SET_ACTIVE_HAND
 } from '../actions'
 import symbols from '../../symbols.json'
 import { ROUTES } from '../../constants'
@@ -16,7 +16,7 @@ const initialState = {
   requestEmojis: [],
   responseEmojis: [],
   handPosition: null,
-  activeDial: 1
+  activeHand: 1
 }
 
 const app = (state = initialState, action) => {
@@ -43,10 +43,10 @@ const app = (state = initialState, action) => {
         ...state,
         handPosition: getEmojiPosition(action.rotation, state.symbols)
       }
-    case SET_ACTIVE_DIAL:
+    case SET_ACTIVE_HAND:
       return {
         ...state,
-        activeDial: action.dial,
+        activeHand: action.dial,
         // Reset hand position
         handPosition: null
       }

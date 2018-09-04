@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { TweenLite } from 'gsap'
 import Draggable from 'gsap/Draggable'
-import { addRequestEmoji, updateHandPosition, setActiveDial } from '../store/actions/app'
+import { addRequestEmoji, updateHandPosition, setActiveHand } from '../store/actions/app'
 import { random, getEmojiPosition } from '../utils'
 import { autoRotateDial } from '../scripts'
 
@@ -18,7 +18,7 @@ class CompassHand extends React.Component {
       title: PropTypes.string,
       text: PropTypes.string
     })),
-    activeDial: PropTypes.number,
+    activeHand: PropTypes.number,
     addRequestEmoji: PropTypes.func,
     updateHandPosition: PropTypes.func
   }
@@ -78,7 +78,7 @@ class CompassHand extends React.Component {
         this.disable()
   
         // Set the active dial to the next dial.
-        this.props.setActiveDial(this.props.id + 1)
+        this.props.setActiveHand(this.props.id + 1)
       },
       onThrowUpdate: (event) => {
         this.props.updateHandPosition(this.rotation)
@@ -86,7 +86,7 @@ class CompassHand extends React.Component {
     })
   
     // Activate if this is the currently active dial.
-    if (this.props.activeDial === this.props.id) {
+    if (this.props.activeHand === this.props.id) {
       this.enable()
     } else {
       this.disable()
@@ -95,7 +95,7 @@ class CompassHand extends React.Component {
 
   componentDidUpdate (prevProps) {
     // Activate if this is the currently active dial.
-    if (this.props.activeDial === this.props.id) {
+    if (this.props.activeHand === this.props.id) {
       // special case the last one
       if (this.props.id === 4) {
         autoRotateDial(this)
@@ -148,7 +148,7 @@ class CompassHand extends React.Component {
 function mapStateToProps (state) {
   return {
     symbols: state.app.symbols,
-    activeDial: state.app.activeDial
+    activeHand: state.app.activeHand
   }
 }
 
@@ -156,7 +156,7 @@ function mapDispatchToProps (dispatch) {
   return {
     addRequestEmoji: (emoji) => { dispatch(addRequestEmoji(emoji)) },
     updateHandPosition: (rotation) => { dispatch(updateHandPosition(rotation)) },
-    setActiveDial: (dial) => { dispatch(setActiveDial(dial)) }
+    setActiveHand: (dial) => { dispatch(setActiveHand(dial)) }
   }
 }
 
