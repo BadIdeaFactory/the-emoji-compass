@@ -10,7 +10,6 @@ body {
   font-weight: bold;
   font-size: 15px;
   line-height: 1.6;
-  text-shadow: 0 0 6px rgba(0,0,0,1);
   letter-spacing: 0.02em;
 }
 
@@ -25,6 +24,11 @@ body {
   display: flex;
   flex-direction: column;
   background-color: #090909;
+}
+
+/* Hide Cordova thing? */
+.app {
+  display: none;
 }
 
 .compass-hands-container {

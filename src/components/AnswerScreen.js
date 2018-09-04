@@ -1,10 +1,13 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
+import Symbol from './Symbol'
 import { resetAppState } from '../store/actions/app'
 
 import shareButton from '../img/share_button_v01.svg'
 import closeButton from '../img/close_button_v01.svg'
+import arc1 from '../img/arc_02_1.svg'
+import arc2 from '../img/arc_02_2.svg'
 import './AnswerScreen.css'
 
 class AnswerScreen extends React.Component {
@@ -12,6 +15,20 @@ class AnswerScreen extends React.Component {
     requestEmojis: PropTypes.array,
     responseEmojis: PropTypes.array,
     resetAppState: PropTypes.func
+  }
+
+  constructor (props) {
+    super(props)
+
+    this.state = {
+      text: null
+    }
+  }
+
+  handleClickEmoji = (emoji) => {
+    this.setState({
+      text: emoji.text
+    })
   }
 
   renderEmojiResultRow (emoji) {
@@ -35,28 +52,32 @@ class AnswerScreen extends React.Component {
 
     return (
       <div className="final-text">
-        <span>
-          I asked the emoji compass
-          <span id="final-emoji-1">
-            {requestEmojis.map(function(i) { return i.emoji }).join(' ')}
-          </span>
-          and it answered
-          <span id="final-emoji-2">
-            <table className="emoji-table">
-              <tbody>
-                {responseEmojis.map(this.renderEmojiResultRow)}
-              </tbody>
-            </table>
-          </span>
-        </span>
-        <span className="final-buttons">
+        <div className="answer-arc-container">
+          <img src={arc1} />
+          <div className="answer-emojis">
+            {requestEmojis.map((emoji, i) => <Symbol symbol={emoji} key={i} onClick={this.handleClickEmoji} />)}
+          </div>
+        </div>
+
+        <div className="answer-arc-container">
+          <img src={arc2} />
+          <div className="answer-emojis">
+            {responseEmojis.map((emoji, i) => <Symbol symbol={emoji} key={i} onClick={this.handleClickEmoji} />)}
+          </div>
+        </div>
+
+        {this.state.text && (
+          <div className="answer-text">{this.state.text}</div>
+        )}
+
+        <div className="final-buttons">
           <button id="share" title="Share this">
             <img src={shareButton} />
           </button>
           <button id="ask-another" title="Ask again" onClick={resetAppState}>
             <img src={closeButton} />
           </button>
-        </span>
+        </div>
       </div>
     )
   }

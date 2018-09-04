@@ -8,12 +8,21 @@ export default class Symbol extends React.Component {
       emoji: PropTypes.string,
       title: PropTypes.string,
       text: PropTypes.string
-    })
+    }),
+    onClick: PropTypes.func
+  }
+
+  static defaultProps = {
+    onClick: () => {}
+  }
+
+  handleClick = (event) => {
+    this.props.onClick(this.props.symbol)
   }
 
   render () {
     return (
-      <div className={this.props.className}>
+      <div className={this.props.className} onClick={this.handleClick}>
         <span>
           {this.props.symbol.emoji}
         </span>
