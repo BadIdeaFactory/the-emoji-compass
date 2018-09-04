@@ -26,7 +26,7 @@ const testAnswerScreenState = {
   responseEmojis: [symbols[31], symbols[8], symbols[17]]
 }
 
-const app = (state = testAnswerScreenState, action) => {
+const app = (state = initialState, action) => {
   switch (action.type) {
     case ADD_REQUEST_EMOJI:
       return {
