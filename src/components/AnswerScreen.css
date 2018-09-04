@@ -25,9 +25,10 @@
 }
 
 .answer-text {
-  margin: 2em 2em 0.5em;
-  font-size: 7vmin;
+  margin: 1em 2em 0.5em;
+  font-size: 6.5vmin;
   font-weight: normal;
+  line-height: 1.6;
 }
 
 .answer-emojis {
@@ -35,6 +36,7 @@
   top: 16vmin;
   width: 100%;
   font-size: 10vmin;
+  color: black;
 }
 
 .answer-emojis > div {
