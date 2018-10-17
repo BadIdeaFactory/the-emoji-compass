@@ -53,7 +53,7 @@ const app = (state = initialState, action) => {
     case SET_ACTIVE_HAND:
       return {
         ...state,
-        activeHand: action.dial,
+        activeHand: action.hand,
         // Reset hand position
         handPosition: null
       }

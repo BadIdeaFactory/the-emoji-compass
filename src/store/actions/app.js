@@ -40,9 +40,9 @@ export function updateHandPosition (rotation) {
   }
 }
 
-export function setActiveHand (dial) {
+export function setActiveHand (hand) {
   return {
     type: SET_ACTIVE_HAND,
-    dial
+    hand
   }
 }

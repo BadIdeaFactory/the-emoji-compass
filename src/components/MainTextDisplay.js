@@ -75,14 +75,14 @@ class MainTextDisplay extends React.Component {
       case TEXT_DISPLAY.INSTRUCTION2:
         return (
           <div className="text-box instruction-text">
-            Drag the next dial to select the next emoji.
+            Drag the next hand to select the next emoji.
           </div>
         )
       case TEXT_DISPLAY.INSTRUCTION1:
       default:
         return (
           <div className="text-box instruction-text">
-            To ask a question of the compass, rotate the highlighted dial.
+            To ask a question of the compass, rotate the highlighted hand.
           </div>
         )
     }

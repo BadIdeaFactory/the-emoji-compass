@@ -36,7 +36,6 @@ class App extends Component {
       this.lastViewedTimestamp = Date.now()
     } else {
       if (Date.now() - this.lastViewedTimestamp > IMPATIENCE_TIME_LIMIT && this.props.responseEmojis.length > 0) {
-        window.dispatchEvent(new CustomEvent('compass:legacy:cancel_dial_animation'))
         this.props.showAnswerScreen()
       }
     }

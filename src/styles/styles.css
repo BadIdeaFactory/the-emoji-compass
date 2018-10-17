@@ -50,7 +50,7 @@ body {
   height: 0;
   align-items: center; }
 
-.dial {
+.hand {
   position: absolute;
   transform: rotateZ(0deg);
   transform-origin: left;
@@ -58,44 +58,44 @@ body {
   cursor: pointer;
   margin-left: -2.5vmin; }
 
-.dial-1 {
+.hand-1 {
   width: 30vmin;
   height: 8vmin;
   background-image: url("../img/clock-hand2-inactive.png");
   background-size: contain;
   background-position: center left;
   background-repeat: no-repeat; }
-  .dial-1.active {
+  .hand-1.active {
     background-image: url("../img/clock-hand2-active.png"); }
 
-.dial-2 {
+.hand-2 {
   width: 30vmin;
   height: 8vmin;
   background-image: url("../img/clock-hand2-inactive.png");
   background-size: contain;
   background-position: center left;
   background-repeat: no-repeat; }
-  .dial-2.active {
+  .hand-2.active {
     background-image: url("../img/clock-hand2-active.png"); }
 
-.dial-3 {
+.hand-3 {
   width: 30vmin;
   height: 8vmin;
   background-image: url("../img/clock-hand2-inactive.png");
   background-size: contain;
   background-position: center left;
   background-repeat: no-repeat; }
-  .dial-3.active {
+  .hand-3.active {
     background-image: url("../img/clock-hand2-active.png"); }
 
-.dial-4 {
+.hand-4 {
   width: 40vmin;
   height: 6vmin;
   background-image: url("../img/clock-hand-inactive.png");
   background-size: contain;
   background-position: center left;
   background-repeat: no-repeat; }
-  .dial-4.active {
+  .hand-4.active {
     background-image: url("../img/clock-hand-active.png"); }
 
 .compass-hub {

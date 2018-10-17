@@ -5,7 +5,7 @@ import { TweenLite } from 'gsap'
 import Draggable from 'gsap/Draggable'
 import { addRequestEmoji, updateHandPosition, setActiveHand } from '../store/actions/app'
 import { random, getEmojiPosition } from '../utils'
-import { autoRotateDial } from '../scripts'
+import { autoRotateHand } from '../scripts'
 
 class CompassHand extends React.Component {
   static propTypes = {
@@ -37,11 +37,11 @@ class CompassHand extends React.Component {
   componentDidMount () {
     const el = this.el.current
 
-    // Set dial width according to actual circle dimensions
+    // Set hand width according to actual circle dimensions
     this.setElementSize()
     window.addEventListener('resize', this.setElementSize)
   
-    // Make dials draggable
+    // Make hands draggable
     TweenLite.set(el, {
       transformOrigin: '2.5vmin',
       rotation: random() * 360 // Set at random start position
@@ -77,7 +77,7 @@ class CompassHand extends React.Component {
         // Disable this when it's done dragging.
         this.disable()
   
-        // Set the active dial to the next dial.
+        // Set the active hand to the next hand.
         this.props.setActiveHand(this.props.id + 1)
       },
       onThrowUpdate: (event) => {
@@ -85,7 +85,7 @@ class CompassHand extends React.Component {
       }
     })
   
-    // Activate if this is the currently active dial.
+    // Activate if this is the currently active hand.
     if (this.props.activeHand === this.props.id) {
       this.enable()
     } else {
@@ -94,11 +94,11 @@ class CompassHand extends React.Component {
   }
 
   componentDidUpdate (prevProps) {
-    // Activate if this is the currently active dial.
+    // Activate if this is the currently active hand.
     if (this.props.activeHand === this.props.id) {
       // special case the last one
       if (this.props.id === 4) {
-        autoRotateDial(this)
+        autoRotateHand(this)
       } else {
         this.enable()
       }
@@ -140,7 +140,7 @@ class CompassHand extends React.Component {
 
   render () {
     return (
-      <div className={`dial dial-${this.props.id}`} ref={this.el } />
+      <div className={`hand hand-${this.props.id}`} ref={this.el } />
     )
   }
 }
@@ -156,7 +156,7 @@ function mapDispatchToProps (dispatch) {
   return {
     addRequestEmoji: (emoji) => { dispatch(addRequestEmoji(emoji)) },
     updateHandPosition: (rotation) => { dispatch(updateHandPosition(rotation)) },
-    setActiveHand: (dial) => { dispatch(setActiveHand(dial)) }
+    setActiveHand: (hand) => { dispatch(setActiveHand(hand)) }
   }
 }
 

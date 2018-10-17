@@ -86,7 +86,7 @@ function wait (delay) {
 }
 
 // Have a 4th dial automatically and randomly select 3 more emojis
-export function autoRotateDial (dial) {
+export function autoRotateHand (dial) {
   const el = dial.el.current
   const draggable = dial.draggable[0]
 
