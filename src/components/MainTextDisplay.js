@@ -1,6 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
+import Emoji from './Emoji'
 import './MainTextDisplay.css'
 
 const TEXT_DISPLAY = {
@@ -67,7 +68,9 @@ class MainTextDisplay extends React.Component {
 
         return (
           <div className="text-box flavor-text">
-            <div className="flavor-text-emoji">{symbol.emoji}</div>
+            <div className="flavor-text-emoji">
+              <Emoji symbol={symbol} />
+            </div>
             <div className="flavor-text-description">{symbol.text}</div>
           </div>
         )
