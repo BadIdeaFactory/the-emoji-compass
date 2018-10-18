@@ -32,6 +32,11 @@
   margin: -0.75em;
 }
 
+/* In case of image, match font-size */
+.compass-dial-emoji img {
+  height: 5vmin;
+}
+
 .compass-dial-emoji > span {
   display: flex;
   align-items: center;
