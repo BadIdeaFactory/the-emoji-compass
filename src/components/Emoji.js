@@ -5,13 +5,14 @@ import React from 'react'
 import PropTypes from 'prop-types'
 
 import alphaomega from '../img/alphaomega.svg'
+import './Emoji.css'
 
 export default function Emoji (props) {
   // Special case αΩ
   if (props.symbol.emoji === 'αΩ') {
     return (
       <span>
-        <img src={alphaomega} alt="αΩ" />
+        <img className="emoji" src={alphaomega} alt="αΩ" />
       </span>
     )
   }
