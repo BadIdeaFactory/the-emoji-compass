@@ -53,14 +53,14 @@ class AnswerScreen extends React.Component {
     return (
       <div className="final-text">
         <div className="answer-arc-container">
-          <img src={arc1} />
+          <img src={arc1} alt="" />
           <div className="answer-emojis">
             {requestEmojis.map((emoji, i) => <Symbol symbol={emoji} key={i} onClick={this.handleClickEmoji} />)}
           </div>
         </div>
 
         <div className="answer-arc-container">
-          <img src={arc2} />
+          <img src={arc2} alt="" />
           <div className="answer-emojis">
             {responseEmojis.map((emoji, i) => <Symbol symbol={emoji} key={i} onClick={this.handleClickEmoji} />)}
           </div>
@@ -72,10 +72,10 @@ class AnswerScreen extends React.Component {
 
         <div className="final-buttons">
           <button id="share" title="Share this">
-            <img src={shareButton} />
+            <img src={shareButton} alt="" />
           </button>
           <button id="ask-another" title="Ask again" onClick={resetAppState}>
-            <img src={closeButton} />
+            <img src={closeButton} alt="" />
           </button>
         </div>
       </div>
