@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import Symbol from './CompassDialSymbol'
+import Emoji from './Emoji'
 import './CompassDial.css'
 
 class CompassDial extends React.Component {
@@ -39,13 +39,19 @@ class CompassDial extends React.Component {
 
   // Create all the emoji items around the compass
   renderSymbols = () => {
-    return this.props.symbols.map((symbol, i) => (
-      <Symbol
-        symbol={symbol}
-        key={symbol.emoji}
-        className={'compass-dial-emoji' + ((this.props.handPosition === i) ? ' compass-dial-emoji-highlighted' : '')}
-      />
-    ))
+    return this.props.symbols.map((symbol, i) => {
+      const classNames = ['compass-dial-emoji']
+    
+      if (this.props.handPosition === i) {
+        classNames.push('compass-dial-emoji-highlighted')
+      }
+  
+      return (
+        <div className={classNames.join(' ')} key={symbol.emoji}>
+          <Emoji symbol={symbol} />
+        </div>
+      )
+    })
   }
 
   repositionSymbols = () => {

@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import Symbol from './CompassDialSymbol'
+import Emoji from './Emoji'
 import { resetAppState } from '../store/actions/app'
 
 import shareButton from '../img/share_button_v01.svg'
@@ -55,14 +55,22 @@ class AnswerScreen extends React.Component {
         <div className="answer-arc-container">
           <img src={arc1} alt="" />
           <div className="answer-emojis">
-            {requestEmojis.map((emoji, i) => <Symbol symbol={emoji} key={i} onClick={this.handleClickEmoji} />)}
+            {requestEmojis.map((emoji, i) => (
+              <div onClick={() => this.handleClickEmoji(emoji)} key={i}>
+                <Emoji symbol={emoji} />
+              </div>
+            ))}
           </div>
         </div>
 
         <div className="answer-arc-container">
           <img src={arc2} alt="" />
           <div className="answer-emojis">
-            {responseEmojis.map((emoji, i) => <Symbol symbol={emoji} key={i} onClick={this.handleClickEmoji} />)}
+            {responseEmojis.map((emoji, i) => (
+              <div onClick={() => this.handleClickEmoji(emoji)} key={i}>
+                <Emoji symbol={emoji} />
+              </div>
+            ))}
           </div>
         </div>
 
