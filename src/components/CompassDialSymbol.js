@@ -1,7 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-
-import alphaomega from '../img/alphaomega.svg'
+import Emoji from './Emoji'
 
 export default class Symbol extends React.Component {
   static propTypes = {
@@ -23,22 +22,9 @@ export default class Symbol extends React.Component {
   }
 
   render () {
-    // Special case αΩ
-    if (this.props.symbol.emoji === 'αΩ') {
-      return (
-        <div className={this.props.className} onClick={this.handleClick}>
-          <span>
-            <img src={alphaomega} alt="αΩ" />
-          </span>
-        </div>
-      )
-    }
-
     return (
       <div className={this.props.className} onClick={this.handleClick}>
-        <span>
-          {this.props.symbol.emoji}
-        </span>
+        <Emoji symbol={this.props.symbol} />
       </div>
     )
   }

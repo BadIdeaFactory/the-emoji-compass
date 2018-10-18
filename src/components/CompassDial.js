@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import Symbol from './Symbol'
+import Symbol from './CompassDialSymbol'
 import './CompassDial.css'
 
 class CompassDial extends React.Component {
