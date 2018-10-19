@@ -30,9 +30,15 @@ class AnswerScreen extends React.Component {
     }
   }
 
-  handleClickEmoji = (emoji) => {
+  handleSelectRequestEmoji = (id) => {
     this.setState({
-      text: emoji.text
+      text: this.props.requestEmojis[id - 1].text
+    })
+  }
+
+  handleSelectResponseEmoji = (id) => {
+    this.setState({
+      text: this.props.responseEmojis[id - 1].text
     })
   }
 
@@ -58,23 +64,19 @@ class AnswerScreen extends React.Component {
     return (
       <div className="final-text">
         <div className="answer-arc-container">
-          <ArcContainer type={1} />
+          <ArcContainer type={1} handleSelectEmoji={this.handleSelectRequestEmoji} />
           <div className="answer-emojis">
             {requestEmojis.map((emoji, i) => (
-              <div onClick={() => this.handleClickEmoji(emoji)} key={i}>
-                <Emoji symbol={emoji} />
-              </div>
+              <Emoji symbol={emoji} key={i} />
             ))}
           </div>
         </div>
 
         <div className="answer-arc-container">
-          <ArcContainer type={2} />
+          <ArcContainer type={2} handleSelectEmoji={this.handleSelectResponseEmoji} />
           <div className="answer-emojis">
             {responseEmojis.map((emoji, i) => (
-              <div onClick={() => this.handleClickEmoji(emoji)} key={i}>
-                <Emoji symbol={emoji} />
-              </div>
+              <Emoji symbol={emoji} key={i} />
             ))}
           </div>
         </div>

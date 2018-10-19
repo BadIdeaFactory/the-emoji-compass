@@ -5,7 +5,8 @@ import Arc2 from './Arc2'
 
 export default class ArcContainer extends React.Component {
   static propTypes = {
-    type: PropTypes.number.isRequired
+    type: PropTypes.number.isRequired,
+    handleSelectEmoji: PropTypes.func.isRequired
   }
 
   constructor(props) {
@@ -17,6 +18,7 @@ export default class ArcContainer extends React.Component {
   }
 
   handleSelect = (id) => {
+    this.props.handleSelectEmoji(id)
     this.setState({
       active: id
     })

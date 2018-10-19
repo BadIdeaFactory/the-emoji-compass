@@ -43,7 +43,7 @@
   justify-content: center;
 }
 
-.answer-emojis > div {
+.answer-emojis > span {
   margin-left: 0.5em;
   margin-right: 0.5em;
   flex: 1;
@@ -51,8 +51,8 @@
 }
 
 /* Raise the middle one */
-.answer-emojis > div:nth-child(2) {
-  margin-top: -7.5vmin;
+.answer-emojis > span:nth-child(2) {
+  margin-top: -6vmin;
 }
 
 .final-buttons {
