@@ -10,9 +10,8 @@ import closeButton from '../img/close_button_v01.svg'
 // Note: the following is broken. It displays as all black.
 // import { ReactComponent as Arc1 } from '../img/arc_02_1.svg'
 // import { ReactComponent as Arc2 } from '../img/arc_02_2.svg'
-// To workaround it, we are just components manually ported via SVGR.
-import Arc1 from './Arc1'
-import Arc2 from './Arc2'
+// To workaround it, we import components manually ported via SVGR.
+import ArcContainer from './ArcContainer'
 
 import './AnswerScreen.css'
 
@@ -59,7 +58,7 @@ class AnswerScreen extends React.Component {
     return (
       <div className="final-text">
         <div className="answer-arc-container">
-          <Arc1 />
+          <ArcContainer type={1} />
           <div className="answer-emojis">
             {requestEmojis.map((emoji, i) => (
               <div onClick={() => this.handleClickEmoji(emoji)} key={i}>
@@ -70,7 +69,7 @@ class AnswerScreen extends React.Component {
         </div>
 
         <div className="answer-arc-container">
-          <Arc2 />
+          <ArcContainer type={2} />
           <div className="answer-emojis">
             {responseEmojis.map((emoji, i) => (
               <div onClick={() => this.handleClickEmoji(emoji)} key={i}>
