@@ -6,8 +6,13 @@ import { resetAppState } from '../store/actions/app'
 
 import shareButton from '../img/share_button_v01.svg'
 import closeButton from '../img/close_button_v01.svg'
-import arc1 from '../img/arc_02_1.svg'
-import arc2 from '../img/arc_02_2.svg'
+
+// Note: the following is broken. It displays as all black.
+// import { ReactComponent as Arc1 } from '../img/arc_02_1.svg'
+// import { ReactComponent as Arc2 } from '../img/arc_02_2.svg'
+// To workaround it, we import components manually ported via SVGR.
+import ArcContainer from './ArcContainer'
+
 import './AnswerScreen.css'
 
 class AnswerScreen extends React.Component {
@@ -53,7 +58,7 @@ class AnswerScreen extends React.Component {
     return (
       <div className="final-text">
         <div className="answer-arc-container">
-          <img src={arc1} alt="" />
+          <ArcContainer type={1} />
           <div className="answer-emojis">
             {requestEmojis.map((emoji, i) => (
               <div onClick={() => this.handleClickEmoji(emoji)} key={i}>
@@ -64,7 +69,7 @@ class AnswerScreen extends React.Component {
         </div>
 
         <div className="answer-arc-container">
-          <img src={arc2} alt="" />
+          <ArcContainer type={2} />
           <div className="answer-emojis">
             {responseEmojis.map((emoji, i) => (
               <div onClick={() => this.handleClickEmoji(emoji)} key={i}>
