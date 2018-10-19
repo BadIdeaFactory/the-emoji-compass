@@ -11,9 +11,10 @@ import './Emoji.css'
 // See here: https://webpack.js.org/guides/dependency-management/#context-module-api
 // and: https://stackoverflow.com/a/42118921
 function importAll (r) {
-  const images = {}
-  r.keys().map((item) => { images[item.replace('./', '').replace('.png', '')] = r(item) })
-  return images
+  return r.keys().reduce((images, item) => {
+    images[item.replace('./', '').replace('.png', '')] = r(item)
+    return images
+  }, {})
 }
 
 const images = importAll(
