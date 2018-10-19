@@ -1,0 +1,4 @@
+/* By default, emoji images should match the font-size of its parent */
+img.emoji {
+  height: 1em;
+}

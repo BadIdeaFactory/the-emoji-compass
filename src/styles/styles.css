@@ -1,0 +1,118 @@
+body {
+  margin: 0;
+  overflow: hidden;
+  user-select: none;
+  font-family: 'Gentium Book Basic', serif;
+  font-size: 16px;
+  text-transform: unset;
+
+  /* try out the new Gentium! */
+  font-weight: bold;
+  font-size: 15px;
+  line-height: 1.6;
+  letter-spacing: 0.02em;
+
+  background-image: url('../img/aurora_v01.svg');
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center center;
+}
+
+*, *::after, *::before {
+  box-sizing: border-box;
+}
+
+.container {
+  width: 100vw;
+  height: 100vh;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Hide Cordova thing? */
+.app {
+  display: none;
+}
+
+.compass-hands-container {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center; }
+
+.compass-hands {
+  display: flex;
+  width: 0;
+  height: 0;
+  align-items: center; }
+
+.hand {
+  position: absolute;
+  transform: rotateZ(0deg);
+  transform-origin: left;
+  transform-origin: 2.5vmin;
+  cursor: pointer;
+  margin-left: -2.5vmin; }
+
+.hand-1 {
+  width: 30vmin;
+  height: 8vmin;
+  background-image: url("../img/clock-hand2-inactive.png");
+  background-size: contain;
+  background-position: center left;
+  background-repeat: no-repeat; }
+  .hand-1.active {
+    background-image: url("../img/clock-hand2-active.png"); }
+
+.hand-2 {
+  width: 30vmin;
+  height: 8vmin;
+  background-image: url("../img/clock-hand2-inactive.png");
+  background-size: contain;
+  background-position: center left;
+  background-repeat: no-repeat; }
+  .hand-2.active {
+    background-image: url("../img/clock-hand2-active.png"); }
+
+.hand-3 {
+  width: 30vmin;
+  height: 8vmin;
+  background-image: url("../img/clock-hand2-inactive.png");
+  background-size: contain;
+  background-position: center left;
+  background-repeat: no-repeat; }
+  .hand-3.active {
+    background-image: url("../img/clock-hand2-active.png"); }
+
+.hand-4 {
+  width: 40vmin;
+  height: 6vmin;
+  background-image: url("../img/clock-hand-inactive.png");
+  background-size: contain;
+  background-position: center left;
+  background-repeat: no-repeat; }
+  .hand-4.active {
+    background-image: url("../img/clock-hand-active.png"); }
+
+.compass-hub {
+  position: absolute;
+  width: 5.25vmin;
+  height: 5.25vmin;
+  margin-left: -2.625vmin;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #8d3200;
+  z-index: 2000; }
+  .compass-hub::after {
+    width: 1.5vmin;
+    height: 1.5vmin;
+    content: '';
+    position: absolute;
+    background-color: #906732;
+    border-radius: 50%; }

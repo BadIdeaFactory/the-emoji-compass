@@ -1,0 +1,120 @@
+.final-text {
+  font-size: 8vmin;
+  color: white;
+  text-align: center;
+  line-height: 1.2;
+
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+
+  padding-top: 2rem;
+}
+
+@media (orientation: 'landscape') {
+  .final-text { 
+    font-size: 5vmin;
+  }
+}
+
+.answer-arc-container {
+  position: relative;
+}
+
+.answer-text {
+  margin: 1em 2em 0.5em;
+  font-size: 6.5vmin;
+  font-weight: normal;
+  line-height: 1.6;
+}
+
+.answer-emojis {
+  position: absolute;
+  top: 16vmin;
+  width: 100%;
+  font-size: 10vmin;
+  color: black;
+}
+
+.answer-emojis > div {
+  display: inline-block;
+  margin-left: 0.5em;
+  margin-right: 0.5em;
+}
+
+.final-buttons {
+  position: absolute;
+  width: 100%;
+  bottom: 2rem;
+}
+
+.final-buttons button {
+  position: relative;
+  appearance: none;
+  -moz-appearance: none;
+  -webkit-appearance: none;
+  border: 0;
+  background-color: transparent;
+  color: white;
+  width: 36px;
+  height: 36px;
+  font-size: 28px;
+  font-family: 'Gentium Book Basic', serif;
+  cursor: pointer;
+  margin: 0.75em;
+  border-radius: 50%;
+  outline: none;
+}
+
+.final-buttons button > img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.emoji-table {
+  margin-top: 1em;
+  margin-bottom: 1em;
+}
+
+.emoji-table-row > td {
+  padding-bottom: 2vmin;
+}
+
+.emoji-table-cell {
+  vertical-align: middle
+}
+
+.emoji-table-description {
+  color: #aaa;
+  font-size: 4vmin;
+  text-align: left;
+}
+
+.emoji-table-symbol {
+  margin-right: 0.5em;
+  font-size: 10vmin;
+}
+
+@media (orientation: 'landscape') {
+  #final-emoji-1 {
+    font-size: 6vmin;
+  }
+
+  .emoji-table {
+    margin-top: 0.5em;
+    margin-bottom: 0.5em;
+  }
+
+  .emoji-table-row > td {
+    padding-bottom: 1vmin;
+  }
+
+  .emoji-table-symbol {
+    font-size: 6vmin;
+  }
+}

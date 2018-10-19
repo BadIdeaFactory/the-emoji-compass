@@ -1,0 +1,9 @@
+.emoji-requested {
+  text-align: center;
+  font-size: 12vmin;
+  height: 20vmin;
+}
+
+.emoji-requested span:not(:last-child) {
+  margin-right: 0.5em;
+}

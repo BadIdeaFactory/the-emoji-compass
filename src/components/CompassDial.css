@@ -1,0 +1,48 @@
+.compass-dial-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  text-shadow: none;
+}
+
+.compass-dial {
+  position: relative;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url('../img/compass_v00.svg');
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: 100%;
+}
+
+.compass-dial-emoji {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  max-width: 100%;
+  font-size: 5vmin;
+  color: black;
+  width: 1.5em;
+  height: 1.5em;
+  margin: -0.75em;
+}
+
+.compass-dial-emoji > span {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  transition: 0.15s;
+}
+
+.compass-dial-emoji-highlighted > span {
+  transform: scale(1.5, 1.5);
+  background-color: rgba(255, 255, 255, 0.15);
+}

@@ -1,0 +1,36 @@
+.text-container {
+  text-align: center;
+  color: white;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  text-shadow: 0 0 6px rgba(0,0,0,1);
+}
+
+.text-box {
+  display: flex;
+  flex: 1;
+  align-items: center;
+  justify-content: center;
+  flex-direction: row;
+  padding: 2em;
+  padding-top: 0;
+}
+
+.instruction-text {
+  font-size: 1.75em;
+}
+
+.flavor-text-emoji {
+  font-size: 24vmin;
+  line-height: 24vmin;
+  color: white;
+}
+
+.flavor-text-description {
+  margin-left: 1.5em;
+  color: #fff;
+  font-size: 1.15em;
+  text-align: left;
+  line-height: 1.4;
+}
