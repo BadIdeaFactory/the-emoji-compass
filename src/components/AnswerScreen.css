@@ -36,6 +36,8 @@
   width: 100%;
   font-size: 10vmin;
   color: black;
+  /* disable events so svg handlers work */
+  pointer-events: none;
 }
 
 .answer-emojis > div {
