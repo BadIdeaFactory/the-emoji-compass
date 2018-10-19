@@ -32,18 +32,27 @@
 
 .answer-emojis {
   position: absolute;
-  top: 16vmin;
+  top: 17.5vmin;
   width: 100%;
   font-size: 10vmin;
   color: black;
   /* disable events so svg handlers work */
   pointer-events: none;
+
+  display: flex;
+  justify-content: center;
 }
 
 .answer-emojis > div {
-  display: inline-block;
   margin-left: 0.5em;
   margin-right: 0.5em;
+  flex: 1;
+  font-size: 16vmin;
+}
+
+/* Raise the middle one */
+.answer-emojis > div:nth-child(2) {
+  margin-top: -7.5vmin;
 }
 
 .final-buttons {
