@@ -81,9 +81,7 @@ class AnswerScreen extends React.Component {
           </div>
         </div>
 
-        {this.state.text && (
-          <div className="answer-text">{this.state.text}</div>
-        )}
+        <div className="answer-text">{this.state.text}</div>
 
         <div className="final-buttons">
           <button id="share" title="Share this">

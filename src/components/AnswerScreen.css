@@ -1,4 +1,7 @@
 .final-text {
+  display: flex;
+  flex-direction: column;
+
   font-size: 8vmin;
   color: white;
   text-align: center;
@@ -24,41 +27,42 @@
 }
 
 .answer-text {
-  margin: 1em 2em 0.5em;
+  flex: 1;
+  display: flex;
+  align-items: center;
+  margin: 0.5em 2em;
   font-size: 6.5vmin;
   font-weight: normal;
   line-height: 1.6;
+  text-shadow: 0 0 6px rgba(0,0,0,1);
 }
 
 .answer-emojis {
-  position: absolute;
-  top: 17.5vmin;
-  width: 100%;
-  font-size: 10vmin;
-  color: black;
-  /* disable events so svg handlers work */
-  pointer-events: none;
-
   display: flex;
   justify-content: center;
+
+  position: absolute;
+  top: 37%;
+  width: 100%;
+
+  /* disable events so svg handlers work */
+  pointer-events: none;
 }
 
 .answer-emojis > span {
+  flex: 1;
   margin-left: 0.5em;
   margin-right: 0.5em;
-  flex: 1;
-  font-size: 16vmin;
+  font-size: 200%;
 }
 
 /* Raise the middle one */
 .answer-emojis > span:nth-child(2) {
-  margin-top: -6vmin;
+  margin-top: -6%;
 }
 
 .final-buttons {
-  position: absolute;
-  width: 100%;
-  bottom: 2rem;
+  margin-bottom: 2rem;
 }
 
 .final-buttons button {
