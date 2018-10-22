@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>The Emoji Compass</title>
+  <style>
+    body {
+      margin: 0;
+      background-color: rgb(29, 32, 41);
+    }
+
+    .screen-viewer {
+      text-align: center;
+    }
+
+    .mobile-skin {
+      position: relative;
+      width: 402px;
+      height: 836px;
+      margin: 30px auto;
+      background: url('./images/htcOne-portrait.png') no-repeat;
+    }
+
+    .mobile-skin::after {
+      content: '';
+      display: block;
+      z-index: -1;
+      opacity: .5;
+      background: url('./images/htcOne-portrait-shadow.png') no-repeat;
+      width: 436px;
+      height: 870px;
+      position: absolute;
+      top: -17px;
+      left: -17px;
+    }
+
+    .mobile-status-bar {
+      background-image: url('./images/htcOne-portrait-bar-light@2x.png');
+      background-size: 360px 24px;
+      position: absolute;
+      top: 82px;
+      left: 21px;
+      width: 360px;
+      height: 24px;
+      background-color: rgba(0, 0, 0, 0.5);
+      z-index: 100;
+    }
+
+    .mobile-viewport {
+      overflow: hidden;
+      display: block;
+      position: absolute;
+      left: 21px;
+      top: 82px;
+      width: 360px;
+      height: 640px;
+    }
+
+    iframe {
+      border: 0;
+      width: 100%;
+      height: 100%;
+    }
+  </style>
+</head>
+<body>
+  <div class="screen-viewer">
+    <div class="mobile-skin">
+      <div class="mobile-status-bar"></div>
+      <div class="mobile-viewport">
+        <iframe src="./build/index.html"></iframe>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
