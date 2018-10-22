@@ -24,7 +24,7 @@
   "bugs": {
     "url": "https://github.com/BadIdeaFactory/the-emoji-compass/issues"
   },
-  "homepage": "https://blissful-bose-d48ae0.netlify.com/",
+  "homepage": "https://badideafactory.github.io/the-emoji-compass/build/",
   "dependencies": {
     "emojione-assets": "4.0.0",
     "gsap": "2.0.2",
