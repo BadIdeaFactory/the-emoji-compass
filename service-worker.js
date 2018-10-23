@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/3.6.2/workbox-sw.js");
 
 importScripts(
-  "/the-emoji-compass/build/precache-manifest.42e713c4e1989b04e968606b2dfdd76e.js"
+  "/the-emoji-compass/build/precache-manifest.c4b70af53d9f194291e7db36f5d1f286.js"
 );
 
 workbox.clientsClaim();
