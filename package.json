@@ -2,16 +2,12 @@
   "name": "the-emoji-compass",
   "version": "0.0.1",
   "description": "",
-  "main": "index.js",
   "private": true,
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject",
-    "start-old": "node index.js",
-    "build-old": "npm run build:css",
-    "build-old:css": "node-sass styles.scss styles.css"
+    "eject": "react-scripts eject"
   },
   "repository": {
     "type": "git",

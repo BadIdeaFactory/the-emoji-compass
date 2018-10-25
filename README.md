@@ -30,8 +30,7 @@ The Bad Idea Factory has created a mobile app that replaces the 36 alethiometer 
 ### Built with
  * [TweenMax](https://cdnjs.cloudflare.com/ajax/libs/gsap/1.20.3/TweenMax.min.js)
  * [Draggable](https://cdnjs.cloudflare.com/ajax/libs/gsap/1.20.3/utils/Draggable.min.js)
- * [browser-sync](https://www.npmjs.com/package/browser-sync)
- * [node-sass](https://www.npmjs.com/package/node-sass-cli)
+ * [Create React App](https://github.com/facebook/create-react-app)
  * [Mixin to place items on a circle by Hugo Giraudel & Ana Tudor](https://css-tricks.com/snippets/sass/placing-items-circle/)
 
 ### License
