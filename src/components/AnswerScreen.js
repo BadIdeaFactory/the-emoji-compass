@@ -62,7 +62,7 @@ class AnswerScreen extends React.Component {
     if (requestEmojis.length === 0 || responseEmojis.length === 0) return null
 
     return (
-      <div className="final-text">
+      <div className="container container-answer-screen">
         <div className="answer-arc-container">
           <ArcContainer type={1} handleSelectEmoji={this.handleSelectRequestEmoji} />
           <div className="answer-emojis">

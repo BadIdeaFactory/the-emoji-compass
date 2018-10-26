@@ -1,34 +1,37 @@
-body {
-  margin: 0;
-  overflow: hidden;
-  user-select: none;
-  font-family: 'Gentium Book Basic', serif;
-  font-size: 16px;
-  text-transform: unset;
-
-  /* try out the new Gentium! */
-  font-weight: bold;
-  font-size: 15px;
-  line-height: 1.6;
-  letter-spacing: 0.02em;
-
-  background-image: url('../img/oxford_v01.svg');
-  background-attachment: fixed;
-  background-repeat: no-repeat;
-  background-size: cover;
-  background-position: center center;
-}
-
 *, *::after, *::before {
   box-sizing: border-box;
 }
 
+body {
+  margin: 0;
+  overflow: hidden;
+  user-select: none;
+  text-transform: unset; /* Unset global transform from Cordova */
+}
+
 .container {
+  /* Positioning and layout */
   width: 100vw;
   height: 100vh;
   position: relative;
   display: flex;
   flex-direction: column;
+
+  /* Background */
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center center;
+
+  /* Typography */
+  font-family: 'Gentium Book Basic', serif;
+  font-weight: bold;
+  font-size: 15px;
+  line-height: 1.6;
+  letter-spacing: 0.02em;
+  color: white;
+  text-align: center;
+  text-shadow: 0 0 6px rgba(0, 0, 0, 1);
 }
 
 /* Hide Cordova thing? */
