@@ -62,7 +62,7 @@ class AnswerScreen extends React.Component {
     const split = string.replace(/\. /g, '.[split]').split('[split]')
 
     // Return each phrase in a separate "line".
-    return split.map((x) => <div>{x}</div>)
+    return split.map((x) => <div key={x}>{x}</div>)
   }
 
   render () {
