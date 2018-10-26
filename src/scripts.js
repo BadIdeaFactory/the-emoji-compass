@@ -57,11 +57,11 @@ function rotatePromise (el, draggable, rotateTo) {
   // rotateDirection = 1 => clockwise
   // rotateDirection = -1 => counterclockwise
   const rotateDirection = Math.round(random())?1:-1
-  const rotateQuantity = Math.ceil(random() * 1) // a number between 1 and 2 inclusive
+  const rotateQuantity = Math.ceil(random()) // a number between 1 and 2 inclusive
   const overshoot = 5 + Math.ceil(random() * 5) // Number of degrees to overshoot
 
   // rotation is cumulative so calculate actual ending degrees
-  let circs = Math.ceil(draggable.rotation / 360) + rotateQuantity * rotateDirection
+  let circs = Math.floor(draggable.rotation / 360) + rotateQuantity * rotateDirection
   const rotateToActual = circs * 360 + rotateTo
   const rotateToOvershoot = rotateToActual + overshoot * rotateDirection
   const duration = Math.abs(draggable.rotation - rotateToOvershoot) / 200 * 60  // 200 degrees per second on average
