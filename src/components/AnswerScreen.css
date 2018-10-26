@@ -11,6 +11,7 @@
 
 .answer-arc-container {
   position: relative;
+  width: 100%;
 }
 
 .answer-text {
