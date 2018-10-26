@@ -57,7 +57,7 @@ class CompassDial extends React.Component {
   repositionSymbols = () => {
     const circleSize = this.ringEl.current.getBoundingClientRect().width
     const items = this.ringEl.current.querySelectorAll('.compass-dial-emoji')
-    const offset = (circleSize / 2) * .82
+    const offset = (circleSize / 2) * .8125
 
     // Add position styling
     items.forEach(function (item, index, symbols) {
