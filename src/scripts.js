@@ -6,7 +6,7 @@ import store from './store'
 import { setResponseEmoji, showAnswerScreen, updateHandPosition } from './store/actions/app'
 
 // adjustable values
-const DELAY_BETWEEN_PICKS = 1250
+const DELAY_BETWEEN_PICKS = 10
 const DELAY_AFTER_ALL_PICKS = 450
 const DIAL_ROTATION_SPEED = 2.5
 
@@ -22,26 +22,29 @@ function onDialPositionUpdate (rotation) {
   store.dispatch(updateHandPosition(rotation))
 }
 
-function rotateDialStep (el, draggable, rotateTo, rotateDirection, resolve) {
-  // rotateDirection = 0 => clockwise
-  // rotateDirection = 1 => counterclockwise
+function rotateDialStep (el, draggable, frame, totalFrames, rotateTo, overshoot, rotateDirection, easing, resolve) {
   let rotated = false
+  let rotateToOvershoot = rotateTo + overshoot * rotateDirection
+  let progress = frame / totalFrames
 
-  if (rotateDirection === 0 && draggable.rotation <= rotateTo) {
-    TweenLite.set(el, { rotation: draggable.rotation + DIAL_ROTATION_SPEED })
-    rotated = true
-  } else if (rotateDirection === 1 && draggable.rotation >= rotateTo) {
-    TweenLite.set(el, { rotation: draggable.rotation - DIAL_ROTATION_SPEED })
+  if (rotateDirection === 1 && draggable.rotation <= rotateToOvershoot
+   || rotateDirection === -1 && draggable.rotation >= rotateToOvershoot) {
+    TweenLite.set(el, { rotation: draggable.rotation + DIAL_ROTATION_SPEED * easing(progress) * rotateDirection })
     rotated = true
   }
-  
+
   if (rotated) {
     // Tell the Draggable to calibrate/synchronize/read the current value
     draggable.update()
     onDialPositionUpdate(draggable.rotation)
 
     dialAnimation = window.requestAnimationFrame(function (timestamp) {
-      rotateDialStep(el, draggable, rotateTo, rotateDirection, resolve)
+      rotateDialStep(el, draggable, frame + 1, totalFrames, rotateTo, overshoot, rotateDirection, easing, resolve)
+    })
+  } else if(overshoot != 0) {
+    // Tell the Draggable to calibrate/synchronize/read the current value
+    dialAnimation = window.requestAnimationFrame(function (timestamp) {
+      rotateDialStep(el, draggable, 0, 10, rotateTo, Math.trunc(overshoot / 2), rotateDirection * -1, (t) => t * t , resolve)
     })
   } else {
     onDialPositionUpdate(draggable.rotation)
@@ -51,25 +54,22 @@ function rotateDialStep (el, draggable, rotateTo, rotateDirection, resolve) {
 }
 
 function rotatePromise (el, draggable, rotateTo) {
-  // rotateDirection = 0 => clockwise
-  // rotateDirection = 1 => counterclockwise
-  const rotateDirection = Math.round(random()) // 0 or 1.
+  // rotateDirection = 1 => clockwise
+  // rotateDirection = -1 => counterclockwise
+  const rotateDirection = Math.round(random())?1:-1
   const rotateQuantity = Math.ceil(random() * 1) // a number between 1 and 2 inclusive
+  const overshoot = 5 + Math.ceil(random() * 5) // Number of degrees to overshoot
 
   // rotation is cumulative so calculate actual ending degrees
-  let circs
-  if (rotateDirection === 0) {
-    // clockwise degrees go up
-    circs = Math.ceil(draggable.rotation / 360) + rotateQuantity
-  } else {
-    // counterclockwise degrees go down
-    circs = Math.floor(draggable.rotation / 360) - rotateQuantity
-  }
+  let circs = Math.ceil(draggable.rotation / 360) + rotateQuantity * rotateDirection
   const rotateToActual = circs * 360 + rotateTo
+  const rotateToOvershoot = rotateToActual + overshoot * rotateDirection
+  const duration = Math.abs(draggable.rotation - rotateToOvershoot) / 200 * 60  // 200 degrees per second on average
 
   return new Promise(function (resolve) {
+    let easing = (t) => t<rotateToActual/rotateToOvershoot ? 16*t*t*t*t*t : 1+16*(--t)*t*t*t*t
     dialAnimation = window.requestAnimationFrame(function (timestamp) {
-      rotateDialStep(el, draggable, rotateToActual, rotateDirection, resolve)
+      rotateDialStep(el, draggable, 0, duration, rotateToActual, overshoot, rotateDirection, easing, resolve)
     })
   })
 }
