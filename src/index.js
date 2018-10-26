@@ -2,7 +2,7 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import { Provider } from 'react-redux'
 import App from './App'
-import registerServiceWorker from './registerServiceWorker'
+import { unregister } from './registerServiceWorker'
 
 import './styles/typography.css'
 import './styles/styles.css'
@@ -16,4 +16,5 @@ ReactDOM.render(
   </Provider>
   , document.getElementById('root'))
 
-  registerServiceWorker()
+// registerServiceWorker()
+unregister()
