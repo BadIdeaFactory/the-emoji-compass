@@ -55,6 +55,16 @@ class AnswerScreen extends React.Component {
     )
   }
 
+  renderTextOnSeparateLines (string) {
+    if (!string) return ''
+
+    // Split original text on periods.
+    const split = string.replace(/\. /g, '.[split]').split('[split]')
+
+    // Return each phrase in a separate "line".
+    return split.map((x) => <div>{x}</div>)
+  }
+
   render () {
     const { requestEmojis, responseEmojis, resetAppState } = this.props
 
@@ -81,7 +91,9 @@ class AnswerScreen extends React.Component {
           </div>
         </div>
 
-        <div className="answer-text">{this.state.text}</div>
+        <div className="answer-text">
+          {this.renderTextOnSeparateLines(this.state.text)}
+        </div>
 
         <div className="final-buttons">
           <button id="share" title="Share this">
