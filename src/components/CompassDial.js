@@ -4,6 +4,8 @@ import { connect } from 'react-redux'
 import Emoji from './Emoji'
 import './CompassDial.css'
 
+import compass from '../img/compass_v01.svg'
+
 class CompassDial extends React.Component {
   static propTypes = {
     symbols: PropTypes.arrayOf(PropTypes.shape({
@@ -72,6 +74,7 @@ class CompassDial extends React.Component {
     return (
       <div className="compass-dial-container">
         <div id="ring" className="compass-dial" ref={this.ringEl}>
+          <img src={compass} className="compass-dial-background" alt="The compass" />
           {this.renderSymbols()}
         </div>
       </div>
