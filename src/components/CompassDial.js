@@ -4,6 +4,8 @@ import { connect } from 'react-redux'
 import Emoji from './Emoji'
 import './CompassDial.css'
 
+import compass from '../img/compass_v01.svg'
+
 class CompassDial extends React.Component {
   static propTypes = {
     symbols: PropTypes.arrayOf(PropTypes.shape({
@@ -57,7 +59,7 @@ class CompassDial extends React.Component {
   repositionSymbols = () => {
     const circleSize = this.ringEl.current.getBoundingClientRect().width
     const items = this.ringEl.current.querySelectorAll('.compass-dial-emoji')
-    const offset = (circleSize / 2) * .82
+    const offset = (circleSize / 2) * .8125
 
     // Add position styling
     items.forEach(function (item, index, symbols) {
@@ -72,6 +74,7 @@ class CompassDial extends React.Component {
     return (
       <div className="compass-dial-container">
         <div id="ring" className="compass-dial" ref={this.ringEl}>
+          <img src={compass} className="compass-dial-background" alt="The compass" />
           {this.renderSymbols()}
         </div>
       </div>

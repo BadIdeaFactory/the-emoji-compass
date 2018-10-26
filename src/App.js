@@ -44,18 +44,10 @@ class App extends Component {
   render () {
     switch (this.props.route) {
       case ROUTES.ANSWER:
-        return (
-          <div id="main">
-            <AnswerScreen />
-          </div>
-        )
+        return <AnswerScreen />
       case ROUTES.MAIN:
       default:
-        return (
-          <div id="main">
-            <MainScreen />
-          </div>
-        )
+        return <MainScreen />
     }
   }
 }

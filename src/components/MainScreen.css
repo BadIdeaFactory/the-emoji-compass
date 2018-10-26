@@ -1,3 +1,7 @@
+.container-main-screen {
+  background-image: url('../img/oxford_v01.svg');
+}
+
 .emoji-requested {
   text-align: center;
   font-size: 12vmin;

@@ -39,7 +39,7 @@ import Unicode_2600 from '../../node_modules/emojione-assets/png/128/2600.png'
 import Unicode_2694 from '../../node_modules/emojione-assets/png/128/2694.png'
 import Unicode_26a1 from '../../node_modules/emojione-assets/png/128/26a1.png'
 import Unicode_1f333 from '../../node_modules/emojione-assets/png/128/1f333.png'
-import Unicode_1f331 from '../../node_modules/emojione-assets/png/128/1f331.png'
+import Unicode_1f5bc from '../../node_modules/emojione-assets/png/128/1f5bc.png'
 import Unicode_1f479 from '../../node_modules/emojione-assets/png/128/1f479.png'
 
 import './Emoji.css'
@@ -78,7 +78,7 @@ images['2600'] = Unicode_2600
 images['2694'] = Unicode_2694
 images['26a1'] = Unicode_26a1
 images['1f333'] = Unicode_1f333
-images['1f331'] = Unicode_1f331
+images['1f5bc'] = Unicode_1f5bc
 images['1f479'] = Unicode_1f479
 
 export default function Emoji (props) {

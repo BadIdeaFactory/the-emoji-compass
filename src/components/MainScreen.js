@@ -18,7 +18,7 @@ class MainScreen extends React.Component {
 
   render () {
     return (
-      <div className="container">
+      <div className="container container-main-screen">
         <Compass />
         <div className="emoji-requested">
           {this.props.requestEmojis.map((symbol, i) => (

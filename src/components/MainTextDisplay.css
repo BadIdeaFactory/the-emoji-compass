@@ -1,10 +1,7 @@
 .text-container {
-  text-align: center;
-  color: white;
   flex: 1;
   display: flex;
   flex-direction: column;
-  text-shadow: 0 0 6px rgba(0,0,0,1);
 }
 
 .text-box {
@@ -18,18 +15,18 @@
 }
 
 .instruction-text {
-  font-size: 1.75em;
+  /* Sized to prevent instruction text from orphaning
+   words on new lines on Android-based phones */
+  font-size: 1.65em;
 }
 
 .flavor-text-emoji {
   font-size: 24vmin;
   line-height: 24vmin;
-  color: white;
 }
 
 .flavor-text-description {
   margin-left: 1.5em;
-  color: #fff;
   font-size: 1.15em;
   text-align: left;
   line-height: 1.4;

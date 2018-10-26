@@ -55,6 +55,16 @@ class AnswerScreen extends React.Component {
     )
   }
 
+  renderTextOnSeparateLines (string) {
+    if (!string) return ''
+
+    // Split original text on periods.
+    const split = string.replace(/\. /g, '.[split]').split('[split]')
+
+    // Return each phrase in a separate "line".
+    return split.map((x) => <div key={x}>{x}</div>)
+  }
+
   render () {
     const { requestEmojis, responseEmojis, resetAppState } = this.props
 
@@ -62,7 +72,7 @@ class AnswerScreen extends React.Component {
     if (requestEmojis.length === 0 || responseEmojis.length === 0) return null
 
     return (
-      <div className="final-text">
+      <div className="container container-answer-screen">
         <div className="answer-arc-container">
           <ArcContainer type={1} handleSelectEmoji={this.handleSelectRequestEmoji} />
           <div className="answer-emojis">
@@ -81,7 +91,9 @@ class AnswerScreen extends React.Component {
           </div>
         </div>
 
-        <div className="answer-text">{this.state.text}</div>
+        <div className="answer-text">
+          {this.renderTextOnSeparateLines(this.state.text)}
+        </div>
 
         <div className="final-buttons">
           <button id="share" title="Share this">
