@@ -18,7 +18,9 @@
 }
 
 .instruction-text {
-  font-size: 1.75em;
+  /* Sized to prevent instruction text from orphaning
+   words on new lines on Android-based phones */
+  font-size: 1.65em;
 }
 
 .flavor-text-emoji {
