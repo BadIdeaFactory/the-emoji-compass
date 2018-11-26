@@ -20,14 +20,22 @@
   font-size: 1.65em;
 }
 
-.flavor-text-emoji {
+.emoji-description {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  grid-gap: 1.5em;
+}
+
+.emoji-description > span {
   font-size: 24vmin;
   line-height: 24vmin;
 }
 
-.flavor-text-description {
-  margin-left: 1.5em;
-  font-size: 1.15em;
+.emoji-description > span > img.emoji {
+  vertical-align: middle;
+}
+
+.emoji-description .flavor-text-container {
   text-align: left;
-  line-height: 1.4;
+  font-size: 1.25em;
 }

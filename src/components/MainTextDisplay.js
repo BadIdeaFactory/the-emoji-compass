@@ -68,13 +68,9 @@ class MainTextDisplay extends React.Component {
         if (!symbol) return null
 
         return (
-          <div className="text-box flavor-text">
-            <div className="flavor-text-emoji">
-              <Emoji symbol={symbol} />
-            </div>
-            <div className="flavor-text-description">
-              <FlavorText text={symbol.text} />
-            </div>
+          <div className="text-box emoji-description">
+            <Emoji symbol={symbol} />
+            <FlavorText text={symbol.text} />
           </div>
         )
       }

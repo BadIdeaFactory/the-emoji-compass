@@ -1,5 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import './FlavorText.css'
 
 /**
  * Takes a long piece of text from the an emoji symbol and splits it
@@ -17,7 +18,9 @@ export function splitTextIntoSeparateLines (string) {
 
 // Return each phrase in a separate "line".
 const FlavorText = (props) => (
-  splitTextIntoSeparateLines(props.text).map((x) => <div key={x}>{x}</div>)
+  <div className="flavor-text-container">
+    {splitTextIntoSeparateLines(props.text).map((x) => <p key={x}>{x}</p>)}
+  </div>
 )
 
 FlavorText.propTypes = {
