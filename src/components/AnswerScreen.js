@@ -2,6 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import Emoji from './Emoji'
+import FlavorText from './FlavorText'
 import { resetAppState } from '../store/actions/app'
 
 import shareButton from '../img/share_button_v01.svg'
@@ -55,16 +56,6 @@ class AnswerScreen extends React.Component {
     )
   }
 
-  renderTextOnSeparateLines (string) {
-    if (!string) return ''
-
-    // Split original text on periods.
-    const split = string.replace(/\. /g, '.[split]').split('[split]')
-
-    // Return each phrase in a separate "line".
-    return split.map((x) => <div key={x}>{x}</div>)
-  }
-
   render () {
     const { requestEmojis, responseEmojis, resetAppState } = this.props
 
@@ -92,7 +83,7 @@ class AnswerScreen extends React.Component {
         </div>
 
         <div className="answer-text">
-          {this.renderTextOnSeparateLines(this.state.text)}
+          <FlavorText text={this.state.text} />
         </div>
 
         <div className="final-buttons">
