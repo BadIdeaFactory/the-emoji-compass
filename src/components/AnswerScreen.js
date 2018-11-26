@@ -32,13 +32,13 @@ class AnswerScreen extends React.Component {
 
   handleSelectRequestEmoji = (id) => {
     this.setState({
-      text: this.props.requestEmojis[id - 1].text
+      text: this.props.requestEmojis[id].text
     })
   }
 
   handleSelectResponseEmoji = (id) => {
     this.setState({
-      text: this.props.responseEmojis[id - 1].text
+      text: this.props.responseEmojis[id].text
     })
   }
 

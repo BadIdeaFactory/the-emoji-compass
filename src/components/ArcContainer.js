@@ -18,7 +18,7 @@ export default class ArcContainer extends React.Component {
   }
 
   handleSelect = (id) => {
-    this.props.handleSelectEmoji(id)
+    this.props.handleSelectEmoji(id - 1)
     this.setState({
       active: id
     })
