@@ -7,6 +7,11 @@ body {
   overflow: hidden;
   user-select: none;
   text-transform: unset; /* Unset global transform from Cordova */
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center center;
+  background-image: url('../img/aurora_v04.svg');
 }
 
 .container {

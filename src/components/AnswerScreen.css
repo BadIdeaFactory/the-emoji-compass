@@ -1,6 +1,5 @@
 .container-answer-screen {
   padding-top: 2rem;
-  background-image: url('../img/aurora_v04.svg');
 }
 
 @media (orientation: 'landscape') {
