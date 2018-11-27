@@ -26,11 +26,19 @@
   grid-gap: 1.5em;
 }
 
+.emoji-picking {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-gap: 1.5em;
+}
+
+.emoji-picking span,
 .emoji-description > span {
   font-size: 24vmin;
   line-height: 24vmin;
 }
 
+.emoji-picking > span > img.emoji,
 .emoji-description > span > img.emoji {
   vertical-align: middle;
 }
