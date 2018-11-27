@@ -12,7 +12,8 @@ import closeButton from '../img/close_button_v01.svg'
 // import { ReactComponent as Arc1 } from '../img/arc_02_1.svg'
 // import { ReactComponent as Arc2 } from '../img/arc_02_2.svg'
 // To workaround it, we import components manually ported via SVGR.
-import ArcContainer from './ArcContainer'
+import Arc1 from './Arc1'
+import Arc2 from './Arc2'
 
 import './AnswerScreen.css'
 
@@ -27,19 +28,25 @@ class AnswerScreen extends React.Component {
     super(props)
 
     this.state = {
+      activeArc: null,
+      activeEmoji: null,
       text: null
     }
   }
 
-  handleSelectRequestEmoji = (id) => {
+  handleSelectRequestEmoji = (index) => {
     this.setState({
-      text: this.props.requestEmojis[id].text
+      activeArc: 1,
+      activeEmoji: index,
+      text: this.props.requestEmojis[index].text
     })
   }
 
-  handleSelectResponseEmoji = (id) => {
+  handleSelectResponseEmoji = (index) => {
     this.setState({
-      text: this.props.responseEmojis[id].text
+      activeArc: 2,
+      activeEmoji: index,
+      text: this.props.responseEmojis[index].text
     })
   }
 
@@ -62,10 +69,12 @@ class AnswerScreen extends React.Component {
     // Bail if nothing to show
     if (requestEmojis.length === 0 || responseEmojis.length === 0) return null
 
+    const { activeArc, activeEmoji } = this.state
+
     return (
       <div className="container container-answer-screen">
         <div className="answer-arc-container">
-          <ArcContainer type={1} handleSelectEmoji={this.handleSelectRequestEmoji} />
+          <Arc1 active={(activeArc === 1) ? activeEmoji : null} handleSelect={this.handleSelectRequestEmoji} />
           <div className="answer-emojis">
             {requestEmojis.map((emoji, i) => (
               <Emoji symbol={emoji} key={i} />
@@ -74,7 +83,7 @@ class AnswerScreen extends React.Component {
         </div>
 
         <div className="answer-arc-container">
-          <ArcContainer type={2} handleSelectEmoji={this.handleSelectResponseEmoji} />
+          <Arc2 active={(activeArc === 2) ? activeEmoji : null} handleSelect={this.handleSelectResponseEmoji} />
           <div className="answer-emojis">
             {responseEmojis.map((emoji, i) => (
               <Emoji symbol={emoji} key={i} />
@@ -83,7 +92,7 @@ class AnswerScreen extends React.Component {
         </div>
 
         <div className="answer-text">
-          <FlavorText text={this.state.text} />
+          {this.state.text && <FlavorText text={this.state.text} />}
         </div>
 
         <div className="final-buttons">
