@@ -2,6 +2,8 @@
   flex: 1;
   display: flex;
   flex-direction: column;
+  min-height: 180px;
+  max-height: 180px;
 }
 
 .text-box {
@@ -10,14 +12,16 @@
   align-items: center;
   justify-content: center;
   flex-direction: row;
-  padding: 2em;
-  padding-top: 0;
+  /* padding: 2em;
+  padding-top: 0; */
 }
 
 .instruction-text {
   /* Sized to prevent instruction text from orphaning
    words on new lines on Android-based phones */
   font-size: 1.65em;
+  padding: 2em;
+  padding-top: 0.5em;
 }
 
 .emoji-description {

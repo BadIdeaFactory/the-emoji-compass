@@ -1,5 +1,9 @@
-*, *::after, *::before {
+body {
   box-sizing: border-box;
+}
+
+*, *::after, *::before {
+  box-sizing: inherit;
 }
 
 body {

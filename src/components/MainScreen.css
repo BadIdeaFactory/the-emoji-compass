@@ -4,8 +4,8 @@
 
 .emoji-requested {
   text-align: center;
-  font-size: 12vmin;
-  height: 20vmin;
+  font-size: 48px;
+  height: 48px;
 }
 
 .emoji-requested span:not(:last-child) {
