@@ -51,7 +51,7 @@ class MainTextDisplay extends React.Component {
       }
     }
 
-    if (props.responseEmojis.length > 0) {
+    if (props.activeHand === 4) {
       return {
         textDisplay: TEXT_DISPLAY.RESPONSE_EMOJIS
       }

@@ -1,5 +1,6 @@
 import {
   ADD_REQUEST_EMOJI,
+  ADD_RESPONSE_EMOJI,
   SET_RESPONSE_EMOJI,
   RESET_APP_STATE,
   SHOW_ANSWER_SCREEN,
@@ -10,6 +11,13 @@ import {
 export function addRequestEmoji (emoji) {
   return {
     type: ADD_REQUEST_EMOJI,
+    emoji
+  }
+}
+
+export function addResponseEmoji (emoji) {
+  return {
+    type: ADD_RESPONSE_EMOJI,
     emoji
   }
 }

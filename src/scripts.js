@@ -3,7 +3,7 @@ import { TweenLite } from 'gsap'
 import symbols from './symbols.json'
 import { random, getUniqueRandomIntegers, getRotation } from './utils'
 import store from './store'
-import { setResponseEmoji, showAnswerScreen, updateHandPosition } from './store/actions/app'
+import { addResponseEmoji, showAnswerScreen, updateHandPosition } from './store/actions/app'
 
 // adjustable values
 const DELAY_BETWEEN_PICKS = 10
@@ -99,22 +99,29 @@ export function autoRotateHand (dial) {
   const randomNumbers = getUniqueRandomIntegers(numberOfSymbols, 3)
   const responseEmojis = randomNumbers.map((num) => symbols[num])
 
-  store.dispatch(setResponseEmoji(responseEmojis))
-
   const rotateTo = getRotation(randomNumbers[0], numberOfSymbols)
 
   rotatePromise(el, draggable, rotateTo)
-    .then(function () { return wait(DELAY_BETWEEN_PICKS) })
+    .then(function () {
+      store.dispatch(addResponseEmoji(responseEmojis[0]))
+      return wait(DELAY_BETWEEN_PICKS)
+    })
     .then(function () {
       const rotateTo = getRotation(randomNumbers[1], numberOfSymbols)
       return rotatePromise(el, draggable, rotateTo)
     })
-    .then(function () { return wait(DELAY_BETWEEN_PICKS) })
+    .then(function () {
+      store.dispatch(addResponseEmoji(responseEmojis[1]))
+      return wait(DELAY_BETWEEN_PICKS)
+    })
     .then(function () {
       const rotateTo = getRotation(randomNumbers[2], numberOfSymbols)
       return rotatePromise(el, draggable, rotateTo)
     })
-    .then(function () { return wait(DELAY_AFTER_ALL_PICKS) })
+    .then(function () {
+      store.dispatch(addResponseEmoji(responseEmojis[2]))
+      return wait(DELAY_AFTER_ALL_PICKS)
+    })
     .then(function () {
       store.dispatch(showAnswerScreen())
     })

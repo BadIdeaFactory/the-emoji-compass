@@ -1,5 +1,6 @@
 import {
   ADD_REQUEST_EMOJI,
+  ADD_RESPONSE_EMOJI,
   SET_RESPONSE_EMOJI,
   RESET_APP_STATE,
   SHOW_ANSWER_SCREEN,
@@ -32,6 +33,11 @@ const app = (state = initialState, action) => {
       return {
         ...state,
         requestEmojis: [...state.requestEmojis, action.emoji]
+      }
+    case ADD_RESPONSE_EMOJI:
+      return {
+        ...state,
+        responseEmojis: [...state.responseEmojis, action.emoji]
       }
     case SET_RESPONSE_EMOJI:
       return {
