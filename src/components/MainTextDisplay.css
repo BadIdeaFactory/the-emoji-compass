@@ -4,6 +4,7 @@
   flex-direction: column;
   min-height: 180px;
   max-height: 180px;
+  width: 100%;
 }
 
 .text-box {
@@ -28,6 +29,7 @@
   display: grid;
   grid-template-columns: 1fr 2fr;
   grid-gap: 1.5em;
+  padding: 1em;
 }
 
 .emoji-picking {
