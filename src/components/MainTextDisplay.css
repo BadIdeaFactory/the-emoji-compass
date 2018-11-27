@@ -47,3 +47,12 @@
   text-align: left;
   font-size: 1.25em;
 }
+
+.emoji-picking > span {
+  transition: opacity 400ms;
+  opacity: 0;
+}
+
+.emoji-picking > span.show-enter-done {
+  opacity: 1;
+}

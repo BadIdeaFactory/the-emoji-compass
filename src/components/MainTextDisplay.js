@@ -1,6 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
+import { CSSTransition } from 'react-transition-group'
 import Emoji from './Emoji'
 import FlavorText from './FlavorText';
 import './MainTextDisplay.css'
@@ -90,7 +91,9 @@ class MainTextDisplay extends React.Component {
         return (
           <div className="text-box emoji-picking">
             {this.props.responseEmojis.map((emoji, i) => (
-              <Emoji symbol={emoji} key={i} />
+              <CSSTransition in={true} classNames="show" timeout={150} appear={true}>
+                <Emoji symbol={emoji} key={i} />
+              </CSSTransition>
             ))}
           </div>
         )
