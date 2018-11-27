@@ -19,18 +19,21 @@ import './AnswerScreen.css'
 
 class AnswerScreen extends React.Component {
   static propTypes = {
-    requestEmojis: PropTypes.array,
-    responseEmojis: PropTypes.array,
-    resetAppState: PropTypes.func
+    requestEmojis: PropTypes.array.isRequired,
+    responseEmojis: PropTypes.array.isRequired,
+    resetAppState: PropTypes.func.isRequired
   }
 
   constructor (props) {
     super(props)
 
+    // Picks a number from 0, 1, or 2 to start with
+    const randomSelectedEmoji = Math.floor(Math.random() * 3)
+
     this.state = {
-      activeArc: null,
-      activeEmoji: null,
-      text: null
+      activeArc: 2,
+      activeEmoji: randomSelectedEmoji,
+      text: this.props.responseEmojis[randomSelectedEmoji].text
     }
   }
 
