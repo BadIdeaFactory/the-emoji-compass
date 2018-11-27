@@ -27,8 +27,8 @@ function rotateDialStep (el, draggable, frame, totalFrames, rotateTo, overshoot,
   let rotateToOvershoot = rotateTo + overshoot * rotateDirection
   let progress = frame / totalFrames
 
-  if (rotateDirection === 1 && draggable.rotation <= rotateToOvershoot
-   || rotateDirection === -1 && draggable.rotation >= rotateToOvershoot) {
+  if ((rotateDirection === 1 && draggable.rotation <= rotateToOvershoot)
+   || (rotateDirection === -1 && draggable.rotation >= rotateToOvershoot)) {
     TweenLite.set(el, { rotation: draggable.rotation + DIAL_ROTATION_SPEED * easing(progress) * rotateDirection })
     rotated = true
   }
@@ -41,7 +41,7 @@ function rotateDialStep (el, draggable, frame, totalFrames, rotateTo, overshoot,
     dialAnimation = window.requestAnimationFrame(function (timestamp) {
       rotateDialStep(el, draggable, frame + 1, totalFrames, rotateTo, overshoot, rotateDirection, easing, resolve)
     })
-  } else if(overshoot != 0) {
+  } else if (overshoot !== 0) {
     // Tell the Draggable to calibrate/synchronize/read the current value
     dialAnimation = window.requestAnimationFrame(function (timestamp) {
       rotateDialStep(el, draggable, 0, 10, rotateTo, Math.trunc(overshoot / 2), rotateDirection * -1, (t) => t * t , resolve)
@@ -56,7 +56,7 @@ function rotateDialStep (el, draggable, frame, totalFrames, rotateTo, overshoot,
 function rotatePromise (el, draggable, rotateTo) {
   // rotateDirection = 1 => clockwise
   // rotateDirection = -1 => counterclockwise
-  const rotateDirection = Math.round(random())?1:-1
+  const rotateDirection = Math.round(random()) ? 1 : -1
   const rotateQuantity = Math.ceil(random()) // a number between 1 and 2 inclusive
   const overshoot = 5 + Math.ceil(random() * 5) // Number of degrees to overshoot
 
@@ -64,10 +64,10 @@ function rotatePromise (el, draggable, rotateTo) {
   let circs = Math.floor(draggable.rotation / 360) + rotateQuantity * rotateDirection
   const rotateToActual = circs * 360 + rotateTo
   const rotateToOvershoot = rotateToActual + overshoot * rotateDirection
-  const duration = Math.abs(draggable.rotation - rotateToOvershoot) / 200 * 60  // 200 degrees per second on average
+  const duration = Math.abs(draggable.rotation - rotateToOvershoot) / 200 * 60 // 200 degrees per second on average
 
   return new Promise(function (resolve) {
-    let easing = (t) => t<rotateToActual/rotateToOvershoot ? 16*t*t*t*t*t : 1+16*(--t)*t*t*t*t
+    let easing = (t) => (t < rotateToActual / rotateToOvershoot) ? (16 * t * t * t * t * t) : (1 + 16 * (--t) * t * t * t * t)
     dialAnimation = window.requestAnimationFrame(function (timestamp) {
       rotateDialStep(el, draggable, 0, duration, rotateToActual, overshoot, rotateDirection, easing, resolve)
     })
