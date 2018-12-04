@@ -45,7 +45,7 @@ class CompassNeedle extends React.Component {
   
     // Make needles draggable
     TweenLite.set(el, {
-      transformOrigin: '2.5vmin',
+      transformOrigin: '2.0vmin',
       rotation: random() * 360 // Set at random start position
     })
 
@@ -116,7 +116,7 @@ class CompassNeedle extends React.Component {
 
   setElementSize = () => {
     const circleSize = document.getElementById('ring').getBoundingClientRect().width
-    const ratio = (this.props.type === 'response') ? 0.43 : 0.36
+    const ratio = (this.props.type === 'response') ? 0.425 : 0.355
     this.el.current.style.width = (ratio * circleSize) + 'px'
   }
 

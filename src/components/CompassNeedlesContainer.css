@@ -16,14 +16,14 @@
 
 .compass-hub {
   position: absolute;
-  width: 5.25vmin;
-  height: 5.25vmin;
-  margin-left: -2.625vmin;
+  width: 4.25vmin;
+  height: 4.25vmin;
+  margin-left: -2.125vmin;
   border-radius: 50%;
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: #8d3200;
+  background-color: #752b2b;
   z-index: 2000;
 }
 
@@ -32,6 +32,6 @@
   height: 1.5vmin;
   content: '';
   position: absolute;
-  background-color: #906732;
+  background-color: #d0b36e;
   border-radius: 50%;
 }

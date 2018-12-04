@@ -1,18 +1,18 @@
 .needle {
   position: absolute;
+  width: 30vmin;
+  height: 6vmin;
   transform: rotateZ(0deg);
   transform-origin: left;
-  transform-origin: 2.5vmin;
+  transform-origin: 2.0vmin;
   cursor: pointer;
-  margin-left: -2.5vmin;
+  margin-left: -2.0vmin;
   background-size: contain;
   background-position: center left;
   background-repeat: no-repeat;
 }
 
 .needle-request {
-  width: 30vmin;
-  height: 8vmin;
   background-image: url("../img/needle-request-inactive.svg");
 }
 
@@ -21,8 +21,6 @@
 }
 
 .needle-response {
-  width: 40vmin;
-  height: 6vmin;
   background-image: url("../img/needle-response-inactive.svg");
 }
 
