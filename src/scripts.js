@@ -7,7 +7,7 @@ import { addResponseEmoji, showAnswerScreen, updateHandPosition } from './store/
 
 // adjustable values
 const DELAY_BETWEEN_PICKS = 10
-const DELAY_AFTER_ALL_PICKS = 450
+const DELAY_AFTER_ALL_PICKS = 1150
 const DIAL_ROTATION_SPEED = 2.5
 
 let dialAnimation
