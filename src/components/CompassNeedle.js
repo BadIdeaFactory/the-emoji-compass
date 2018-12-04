@@ -3,11 +3,11 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { TweenLite } from 'gsap'
 import Draggable from 'gsap/Draggable'
-import { addRequestEmoji, updateHandPosition, setActiveHand } from '../store/actions/app'
+import { addRequestEmoji, updateNeedlePosition, setActiveNeedle } from '../store/actions/app'
 import { random, getEmojiPosition } from '../utils'
-import { autoRotateHand } from '../scripts'
+import { autoRotateNeedle } from '../scripts'
 
-class CompassHand extends React.Component {
+class CompassNeedle extends React.Component {
   static propTypes = {
     id: PropTypes.number,
     enabled: PropTypes.bool,
@@ -18,9 +18,9 @@ class CompassHand extends React.Component {
       title: PropTypes.string,
       text: PropTypes.string
     })),
-    activeHand: PropTypes.number,
+    activeNeedle: PropTypes.number,
     addRequestEmoji: PropTypes.func,
-    updateHandPosition: PropTypes.func
+    updateNeedlePosition: PropTypes.func
   }
 
   static defaultProps = {
@@ -37,11 +37,11 @@ class CompassHand extends React.Component {
   componentDidMount () {
     const el = this.el.current
 
-    // Set hand width according to actual circle dimensions
+    // Set needle width according to actual circle dimensions
     this.setElementSize()
     window.addEventListener('resize', this.setElementSize)
   
-    // Make hands draggable
+    // Make needles draggable
     TweenLite.set(el, {
       transformOrigin: '2.5vmin',
       rotation: random() * 360 // Set at random start position
@@ -61,13 +61,13 @@ class CompassHand extends React.Component {
       // Set scope of Draggable callback functions to this component.
       callbackScope: this,
       onDragStart: (event) => {
-        window.dispatchEvent(new CustomEvent('compass:hand_drag_start'))
+        window.dispatchEvent(new CustomEvent('compass:needle_drag_start'))
       },
       onDrag: (event) => {
-        this.props.updateHandPosition(this.draggable[0].rotation)
+        this.props.updateNeedlePosition(this.draggable[0].rotation)
       },
       onDragEnd: (event) => {
-        this.props.updateHandPosition(this.draggable[0].rotation)
+        this.props.updateNeedlePosition(this.draggable[0].rotation)
   
         // Select the emoji it's pointing at.
         const position = getEmojiPosition(this.draggable[0].rotation, this.props.symbols)
@@ -77,16 +77,16 @@ class CompassHand extends React.Component {
         // Disable this when it's done dragging.
         this.disable()
   
-        // Set the active hand to the next hand.
-        this.props.setActiveHand(this.props.id + 1)
+        // Set the active needle to the next needle.
+        this.props.setActiveNeedle(this.props.id + 1)
       },
       onThrowUpdate: (event) => {
-        this.props.updateHandPosition(this.rotation)
+        this.props.updateNeedlePosition(this.rotation)
       }
     })
   
-    // Activate if this is the currently active hand.
-    if (this.props.activeHand === this.props.id) {
+    // Activate if this is the currently active needle.
+    if (this.props.activeNeedle === this.props.id) {
       this.enable()
     } else {
       this.disable()
@@ -94,11 +94,11 @@ class CompassHand extends React.Component {
   }
 
   componentDidUpdate (prevProps) {
-    // Activate if this is the currently active hand.
-    if (this.props.activeHand === this.props.id) {
+    // Activate if this is the currently active needle.
+    if (this.props.activeNeedle === this.props.id) {
       // special case the last one
       if (this.props.id === 4) {
-        autoRotateHand(this)
+        autoRotateNeedle(this)
       } else {
         this.enable()
       }
@@ -140,7 +140,7 @@ class CompassHand extends React.Component {
 
   render () {
     return (
-      <div className={`hand hand-${this.props.id}`} ref={this.el } />
+      <div className={`needle needle-${this.props.id}`} ref={this.el } />
     )
   }
 }
@@ -148,16 +148,16 @@ class CompassHand extends React.Component {
 function mapStateToProps (state) {
   return {
     symbols: state.app.symbols,
-    activeHand: state.app.activeHand
+    activeNeedle: state.app.activeNeedle
   }
 }
 
 function mapDispatchToProps (dispatch) {
   return {
     addRequestEmoji: (emoji) => { dispatch(addRequestEmoji(emoji)) },
-    updateHandPosition: (rotation) => { dispatch(updateHandPosition(rotation)) },
-    setActiveHand: (hand) => { dispatch(setActiveHand(hand)) }
+    updateNeedlePosition: (rotation) => { dispatch(updateNeedlePosition(rotation)) },
+    setActiveNeedle: (needleId) => { dispatch(setActiveNeedle(needleId)) }
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(CompassHand)
+export default connect(mapStateToProps, mapDispatchToProps)(CompassNeedle)

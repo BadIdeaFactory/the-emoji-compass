@@ -1,6 +1,6 @@
 import React from 'react'
 import CompassDial from './CompassDial'
-import CompassHandsContainer from './CompassHandsContainer'
+import CompassNeedlesContainer from './CompassNeedlesContainer'
 import './Compass.css'
 
 export default class Compass extends React.Component {
@@ -8,7 +8,7 @@ export default class Compass extends React.Component {
     return (
       <div className="compass-container">
         <CompassDial/>
-        <CompassHandsContainer />
+        <CompassNeedlesContainer />
       </div>
     )
   }

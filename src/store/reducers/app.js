@@ -4,8 +4,8 @@ import {
   SET_RESPONSE_EMOJI,
   RESET_APP_STATE,
   SHOW_ANSWER_SCREEN,
-  UPDATE_HAND_POSITION,
-  SET_ACTIVE_HAND
+  UPDATE_NEEDLE_POSITION,
+  SET_ACTIVE_NEEDLE
 } from '../actions'
 import symbols from '../../symbols.json'
 import { ROUTES } from '../../constants'
@@ -16,8 +16,8 @@ const initialState = {
   route: ROUTES.MAIN,
   requestEmojis: [],
   responseEmojis: [],
-  handPosition: null,
-  activeHand: 1
+  needlePosition: null,
+  activeNeedle: 1
 }
 
 const testAnswerScreenState = {
@@ -51,17 +51,17 @@ const app = (state = initialState, action) => {
       }
     case RESET_APP_STATE:
       return initialState
-    case UPDATE_HAND_POSITION: 
+    case UPDATE_NEEDLE_POSITION: 
       return {
         ...state,
-        handPosition: getEmojiPosition(action.rotation, state.symbols)
+        needlePosition: getEmojiPosition(action.rotation, state.symbols)
       }
-    case SET_ACTIVE_HAND:
+    case SET_ACTIVE_NEEDLE:
       return {
         ...state,
-        activeHand: action.hand,
-        // Reset hand position
-        handPosition: null
+        activeNeedle: action.needleId,
+        // Reset needle position
+        needlePosition: null
       }
     default:
       return state

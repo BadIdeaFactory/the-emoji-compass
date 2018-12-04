@@ -49,7 +49,7 @@ body {
   display: none;
 }
 
-.compass-hands-container {
+.compass-needles-container {
   position: absolute;
   width: 100%;
   height: 100%;
@@ -57,13 +57,13 @@ body {
   align-items: center;
   justify-content: center; }
 
-.compass-hands {
+.compass-needles {
   display: flex;
   width: 0;
   height: 0;
   align-items: center; }
 
-.hand {
+.needle {
   position: absolute;
   transform: rotateZ(0deg);
   transform-origin: left;
@@ -71,45 +71,45 @@ body {
   cursor: pointer;
   margin-left: -2.5vmin; }
 
-.hand-1 {
+.needle-1 {
   width: 30vmin;
   height: 8vmin;
-  background-image: url("../img/clock-hand2-inactive.png");
+  background-image: url("../img/needle1-inactive.svg");
   background-size: contain;
   background-position: center left;
   background-repeat: no-repeat; }
-  .hand-1.active {
-    background-image: url("../img/clock-hand2-active.png"); }
+  .needle-1.active {
+    background-image: url("../img/needle1-active.svg"); }
 
-.hand-2 {
+.needle-2 {
   width: 30vmin;
   height: 8vmin;
-  background-image: url("../img/clock-hand2-inactive.png");
+  background-image: url("../img/needle1-inactive.svg");
   background-size: contain;
   background-position: center left;
   background-repeat: no-repeat; }
-  .hand-2.active {
-    background-image: url("../img/clock-hand2-active.png"); }
+  .needle-2.active {
+    background-image: url("../img/needle1-active.svg"); }
 
-.hand-3 {
+.needle-3 {
   width: 30vmin;
   height: 8vmin;
-  background-image: url("../img/clock-hand2-inactive.png");
+  background-image: url("../img/needle1-inactive.svg");
   background-size: contain;
   background-position: center left;
   background-repeat: no-repeat; }
-  .hand-3.active {
-    background-image: url("../img/clock-hand2-active.png"); }
+  .needle-3.active {
+    background-image: url("../img/needle1-active.svg"); }
 
-.hand-4 {
+.needle-4 {
   width: 40vmin;
   height: 6vmin;
-  background-image: url("../img/clock-hand-inactive.png");
+  background-image: url("../img/needle2-inactive.svg");
   background-size: contain;
   background-position: center left;
   background-repeat: no-repeat; }
-  .hand-4.active {
-    background-image: url("../img/clock-hand-active.png"); }
+  .needle-4.active {
+    background-image: url("../img/needle2-active.svg"); }
 
 .compass-hub {
   position: absolute;

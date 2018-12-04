@@ -20,8 +20,8 @@ class MainTextDisplay extends React.Component {
       title: PropTypes.string,
       text: PropTypes.string
     })),
-    handPosition: PropTypes.number,
-    activeHand: PropTypes.number,
+    needlePosition: PropTypes.number,
+    activeNeedle: PropTypes.number,
     responseEmojis: PropTypes.array
   }
 
@@ -38,27 +38,27 @@ class MainTextDisplay extends React.Component {
   }
 
   componentDidMount () {
-    window.addEventListener('compass:hand_drag_start', this.handleDragStart)
+    window.addEventListener('compass:needle_drag_start', this.handleDragStart)
   }
 
   componentWillUnmount () {
-    window.removeEventListener('compass:hand_drag_start', this.handleDragStart)
+    window.removeEventListener('compass:needle_drag_start', this.handleDragStart)
   }
 
   static getDerivedStateFromProps(props, state) {
-    if (props.activeHand && props.activeHand > 1 && props.handPosition === null) {
+    if (props.activeNeedle && props.activeNeedle > 1 && props.needlePosition === null) {
       return {
         textDisplay: TEXT_DISPLAY.INSTRUCTION2
       }
     }
 
-    if (props.activeHand === 4) {
+    if (props.activeNeedle === 4) {
       return {
         textDisplay: TEXT_DISPLAY.RESPONSE_EMOJIS
       }
     }
 
-    if (Number.isInteger(props.handPosition)) {
+    if (Number.isInteger(props.needlePosition)) {
       return {
         textDisplay: TEXT_DISPLAY.EMOJI_DESCRIPTION
       }
@@ -76,7 +76,7 @@ class MainTextDisplay extends React.Component {
   renderTextContents = () => {
     switch (this.state.textDisplay) {
       case TEXT_DISPLAY.EMOJI_DESCRIPTION: {
-        const symbol = this.props.symbols[this.props.handPosition]
+        const symbol = this.props.symbols[this.props.needlePosition]
 
         if (!symbol) return null
 
@@ -100,14 +100,14 @@ class MainTextDisplay extends React.Component {
       case TEXT_DISPLAY.INSTRUCTION2:
         return (
           <div className="text-box instruction-text">
-            Drag the next hand to select the next emoji.
+            Drag the next needle to select the next emoji.
           </div>
         )
       case TEXT_DISPLAY.INSTRUCTION1:
       default:
         return (
           <div className="text-box instruction-text">
-            To ask a question of the compass, rotate the highlighted hand.
+            To ask a question of the compass, rotate the highlighted needle.
           </div>
         )
     }
@@ -125,8 +125,8 @@ class MainTextDisplay extends React.Component {
 function mapStateToProps (state) {
   return {
     symbols: state.app.symbols,
-    handPosition: state.app.handPosition,
-    activeHand: state.app.activeHand,
+    needlePosition: state.app.needlePosition,
+    activeNeedle: state.app.activeNeedle,
     responseEmojis: state.app.responseEmojis
   }
 }

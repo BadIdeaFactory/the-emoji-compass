@@ -4,8 +4,8 @@ import {
   SET_RESPONSE_EMOJI,
   RESET_APP_STATE,
   SHOW_ANSWER_SCREEN,
-  UPDATE_HAND_POSITION,
-  SET_ACTIVE_HAND
+  UPDATE_NEEDLE_POSITION,
+  SET_ACTIVE_NEEDLE
 } from './'
 
 export function addRequestEmoji (emoji) {
@@ -41,16 +41,16 @@ export function showAnswerScreen () {
   }
 }
 
-export function updateHandPosition (rotation) {
+export function updateNeedlePosition (rotation) {
   return {
-    type: UPDATE_HAND_POSITION,
+    type: UPDATE_NEEDLE_POSITION,
     rotation
   }
 }
 
-export function setActiveHand (hand) {
+export function setActiveNeedle (needleId) {
   return {
-    type: SET_ACTIVE_HAND,
-    hand
+    type: SET_ACTIVE_NEEDLE,
+    needleId
   }
 }

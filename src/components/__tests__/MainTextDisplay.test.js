@@ -10,8 +10,8 @@ describe('<MainTextDisplay />', () => {
     const state = {
       app: {
         symbols: [],
-        handPosition: null,
-        activeHand: 1
+        needlePosition: null,
+        activeNeedle: 1
       }
     }
     const store = mockStore(state)
@@ -23,8 +23,8 @@ describe('<MainTextDisplay />', () => {
     const state = {
       app: {
         symbols: [],
-        handPosition: null,
-        activeHand: 2
+        needlePosition: null,
+        activeNeedle: 2
       }
     }
     const store = mockStore(state)
@@ -32,12 +32,12 @@ describe('<MainTextDisplay />', () => {
     expect(wrapper.dive().state('textDisplay')).toEqual('INSTRUCTION2')
   })
 
-  it('renders emoji description when the active hand position is some number', () => {
+  it('renders emoji description when the active needle position is some number', () => {
     const state = {
       app: {
         symbols: [],
-        handPosition: 200,
-        activeHand: 3
+        needlePosition: 200,
+        activeNeedle: 3
       }
     }
     const store = mockStore(state)
@@ -45,14 +45,14 @@ describe('<MainTextDisplay />', () => {
     expect(wrapper.dive().state('textDisplay')).toEqual('EMOJI_DESCRIPTION')
   })
 
-  // Test fails if the active hand is pointing at the emoji at position zero
+  // Test fails if the active needle is pointing at the emoji at position zero
   // but the text description displays instructions instead.
-  it('renders emoji description when the active hand position is at zero', () => {
+  it('renders emoji description when the active needle position is at zero', () => {
     const state = {
       app: {
         symbols: [],
-        handPosition: 0,
-        activeHand: 1
+        needlePosition: 0,
+        activeNeedle: 1
       }
     }
     const store = mockStore(state)

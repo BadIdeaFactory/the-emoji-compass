@@ -13,7 +13,7 @@ class CompassDial extends React.Component {
       title: PropTypes.string,
       text: PropTypes.string
     })),
-    handPosition: PropTypes.number
+    needlePosition: PropTypes.number
   }
 
   constructor(props) {
@@ -44,7 +44,7 @@ class CompassDial extends React.Component {
     return this.props.symbols.map((symbol, i) => {
       const classNames = ['compass-dial-emoji']
     
-      if (this.props.handPosition === i) {
+      if (this.props.needlePosition === i) {
         classNames.push('compass-dial-emoji-highlighted')
       }
   
@@ -85,7 +85,7 @@ class CompassDial extends React.Component {
 function mapStateToProps (state) {
   return {
     symbols: state.app.symbols,
-    handPosition: state.app.handPosition
+    needlePosition: state.app.needlePosition
   }
 }
 

@@ -3,7 +3,7 @@ import { TweenLite } from 'gsap'
 import symbols from './symbols.json'
 import { random, getUniqueRandomIntegers, getRotation } from './utils'
 import store from './store'
-import { addResponseEmoji, showAnswerScreen, updateHandPosition } from './store/actions/app'
+import { addResponseEmoji, showAnswerScreen, updateNeedlePosition } from './store/actions/app'
 
 // adjustable values
 const DELAY_BETWEEN_PICKS = 10
@@ -19,7 +19,7 @@ export function init () {
 }
 
 function onDialPositionUpdate (rotation) {
-  store.dispatch(updateHandPosition(rotation))
+  store.dispatch(updateNeedlePosition(rotation))
 }
 
 function rotateDialStep (el, draggable, frame, totalFrames, rotateTo, overshoot, rotateDirection, easing, resolve) {
@@ -86,7 +86,7 @@ function wait (delay) {
 }
 
 // Have a 4th dial automatically and randomly select 3 more emojis
-export function autoRotateHand (dial) {
+export function autoRotateNeedle (dial) {
   const el = dial.el.current
   const draggable = dial.draggable[0]
 
