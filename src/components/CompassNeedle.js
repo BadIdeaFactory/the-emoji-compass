@@ -114,9 +114,10 @@ class CompassNeedle extends React.Component {
 
   setElementSize = () => {
     const circleSize = document.getElementById('ring').getBoundingClientRect().width
-    this.el.current.style.width = (0.5 * circleSize) + 'px'
+    const ratio = (this.props.id === 4) ? 0.43 : 0.36
+    this.el.current.style.width = (ratio * circleSize) + 'px'
   }
-  
+
   // Wrap Draggable object's `enable()` to make element take z-index priority
   enable = () => {
     const el = this.el.current
