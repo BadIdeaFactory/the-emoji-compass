@@ -19,7 +19,7 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  margin: 0.5em 1.5em;
+  margin: 0 1em;
   font-size: 6.5vmin;
   font-weight: normal;
 }
@@ -52,6 +52,9 @@
 
 .final-buttons {
   margin-bottom: 2rem;
+  /* Buttons are placed in a predictable location, never pushed off the screen */
+  position: absolute;
+  bottom: 0;
 }
 
 .final-buttons button {
