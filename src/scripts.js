@@ -90,7 +90,7 @@ export function autoRotateNeedle (dial) {
   const el = dial.el.current
   const draggable = dial.draggable[0]
 
-  el.classList.add('active')
+  el.classList.add('needle-active')
 
   // Make sure the dial picks up its initial position by calling update()
   draggable.update()

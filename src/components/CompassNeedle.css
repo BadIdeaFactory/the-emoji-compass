@@ -1,0 +1,31 @@
+.needle {
+  position: absolute;
+  transform: rotateZ(0deg);
+  transform-origin: left;
+  transform-origin: 2.5vmin;
+  cursor: pointer;
+  margin-left: -2.5vmin;
+  background-size: contain;
+  background-position: center left;
+  background-repeat: no-repeat;
+}
+
+.needle-request {
+  width: 30vmin;
+  height: 8vmin;
+  background-image: url("../img/needle-request-inactive.svg");
+}
+
+.needle-request.needle-active {
+  background-image: url("../img/needle-request-active.svg");
+}
+
+.needle-response {
+  width: 40vmin;
+  height: 6vmin;
+  background-image: url("../img/needle-response-inactive.svg");
+}
+
+.needle-response.needle-active {
+  background-image: url("../img/needle-response-active.svg");
+}

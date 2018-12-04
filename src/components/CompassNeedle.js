@@ -6,10 +6,12 @@ import Draggable from 'gsap/Draggable'
 import { addRequestEmoji, updateNeedlePosition, setActiveNeedle } from '../store/actions/app'
 import { random, getEmojiPosition } from '../utils'
 import { autoRotateNeedle } from '../scripts'
+import './CompassNeedle.css'
 
 class CompassNeedle extends React.Component {
   static propTypes = {
-    id: PropTypes.number,
+    id: PropTypes.number.isRequired,
+    type: PropTypes.oneOf(['request', 'response']).isRequired,
     enabled: PropTypes.bool,
 
     // Provided by Redux
@@ -96,8 +98,8 @@ class CompassNeedle extends React.Component {
   componentDidUpdate (prevProps) {
     // Activate if this is the currently active needle.
     if (this.props.activeNeedle === this.props.id) {
-      // special case the last one
-      if (this.props.id === 4) {
+      // The response needle will spin automatically
+      if (this.props.type === 'response') {
         autoRotateNeedle(this)
       } else {
         this.enable()
@@ -114,7 +116,7 @@ class CompassNeedle extends React.Component {
 
   setElementSize = () => {
     const circleSize = document.getElementById('ring').getBoundingClientRect().width
-    const ratio = (this.props.id === 4) ? 0.43 : 0.36
+    const ratio = (this.props.type === 'response') ? 0.43 : 0.36
     this.el.current.style.width = (ratio * circleSize) + 'px'
   }
 
@@ -122,7 +124,7 @@ class CompassNeedle extends React.Component {
   enable = () => {
     const el = this.el.current
 
-    el.classList.add('active')
+    el.classList.add('needle-active')
     TweenLite.set(el, { zIndex: 1 })
 
     this.draggable[0].enable()
@@ -131,7 +133,7 @@ class CompassNeedle extends React.Component {
   disable = () => {
     const el = this.el.current
 
-    el.classList.remove('active')
+    el.classList.remove('needle-active')
     TweenLite.set(el, { zIndex: 0 })
 
     this.draggable[0].disable()
@@ -141,7 +143,7 @@ class CompassNeedle extends React.Component {
 
   render () {
     return (
-      <div className={`needle needle-${this.props.id}`} ref={this.el } />
+      <div className={`needle needle-${this.props.type}`} ref={this.el } />
     )
   }
 }
