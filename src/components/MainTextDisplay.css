@@ -35,7 +35,11 @@
 .emoji-picking {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
-  grid-gap: 1.5em;
+  /* Define spacing within and around emojis using viewport widths */
+  grid-gap: 6vw;
+  margin: 0 6vw;
+  /* Ensure that images don't exceed widths of its container */
+  object-fit: contain;
 }
 
 .emoji-picking span,
