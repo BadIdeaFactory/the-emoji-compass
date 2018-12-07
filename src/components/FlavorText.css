@@ -1,6 +1,8 @@
 .flavor-text-container {
   line-height: 1.3;
+}
 
+.answer-text .flavor-text-container {
   /* Margin accounts for the share/return buttons */
   margin-bottom: calc(76px + 2rem);
 }
