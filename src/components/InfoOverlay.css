@@ -36,7 +36,7 @@
   top: 15px;
   left: 15px;
   width: calc(100% - 30px);
-  height: calc(100% - 15px - 100px);
+  height: calc(100% - 15px - 75px);
   padding: 15px;
   overflow: hidden;
   overflow-y: auto;
@@ -70,6 +70,7 @@ footer button {
   appearance: none;
   border: 0;
   background-color: transparent;
-  height: 48px;
-  width: 48px;
+  height: 29px;
+  width: 29px;
+  padding: 0;
 }
