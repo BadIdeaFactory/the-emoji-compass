@@ -4,6 +4,7 @@ import { connect } from 'react-redux'
 import Compass from './Compass'
 import MainTextDisplay from './MainTextDisplay'
 import Emoji from './Emoji'
+import InfoButton from './InfoButton'
 import { init } from '../scripts'
 import './MainScreen.css'
 
@@ -26,6 +27,7 @@ class MainScreen extends React.Component {
           ))}
         </div>
         <MainTextDisplay />
+        <InfoButton />
       </div>
     )
   }

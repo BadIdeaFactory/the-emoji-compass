@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import Emoji from './Emoji'
 import FlavorText from './FlavorText'
+import InfoButton from './InfoButton'
 import { resetAppState } from '../store/actions/app'
 
 import shareButton from '../img/share_button_v01.svg'
@@ -106,6 +107,8 @@ class AnswerScreen extends React.Component {
             <img src={closeButton} alt="" />
           </button>
         </div>
+
+        <InfoButton />
       </div>
     )
   }
