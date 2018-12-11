@@ -1,0 +1,75 @@
+.info-overlay-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 3000;
+}
+
+.info-overlay-background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  cursor: pointer;
+}
+
+.info-overlay {
+  position: absolute;
+  top: 34px;
+  left: 14px;
+  width: calc(100% - 28px);
+  height: calc(100% - 48px);
+  background-color: white;
+  border-radius: 4px;
+  padding: 15px;
+  font-family: 'Gentium Book Basic', serif;
+  font-size: 15px;
+  line-height: 1.4;
+  color: #282623;
+}
+
+.info-overlay-content {
+  position: absolute;
+  top: 15px;
+  left: 15px;
+  width: calc(100% - 30px);
+  height: calc(100% - 15px - 100px);
+  padding: 15px;
+  overflow: hidden;
+  overflow-y: auto;
+}
+
+.info-overlay-content a,
+.info-overlay-content a:hover,
+.info-overlay-content a:visited,
+.info-overlay-content a:active {
+  color: #282623;
+}
+
+.mini-compass {
+  width: 52px;
+  height: 52px;
+  /* Center the compass */
+  margin: 0 auto;
+  display: block;
+  /* Additional bottom margin */
+  margin-bottom: 1.5em;
+}
+
+footer {
+  position: absolute;
+  bottom: 15px;
+  width: calc(100% - 30px);
+  text-align: center;
+}
+
+footer button {
+  appearance: none;
+  border: 0;
+  background-color: transparent;
+  height: 48px;
+  width: 48px;
+}

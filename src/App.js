@@ -5,6 +5,8 @@ import { ROUTES } from './constants'
 import { showAnswerScreen } from './store/actions/app'
 import MainScreen from './components/MainScreen'
 import AnswerScreen from './components/AnswerScreen'
+import InfoButton from './components/InfoButton'
+import InfoOverlay from './components/InfoOverlay'
 
 // If a viewer tabs away or minimizes the browser, and returns after
 // this amount of time, fast forward to final screen instead of
@@ -20,6 +22,10 @@ class App extends Component {
   constructor(props) {
     super(props)
 
+    this.state = {
+      infoVisible: false
+    }
+
     this.lastViewedTimestamp = Date.now()
   }
 
@@ -29,6 +35,18 @@ class App extends Component {
 
   componentWillUnmount () {
     document.removeEventListener('visibilitychange', this.handleVisibilityChange)
+  }
+
+  showInfoOverlay = () => {
+    this.setState({
+      infoVisible: true
+    })
+  }
+
+  hideInfoOverlay = () => {
+    this.setState({
+      infoVisible: false
+    })
   }
 
   handleVisibilityChange = (event) => {
@@ -42,13 +60,24 @@ class App extends Component {
   }
 
   render () {
+    let screen
     switch (this.props.route) {
       case ROUTES.ANSWER:
-        return <AnswerScreen />
+        screen = <AnswerScreen />
+        break
       case ROUTES.MAIN:
       default:
-        return <MainScreen />
+        screen = <MainScreen />
+        break
     }
+
+    return (
+      <main role="main">
+        {screen}
+        <InfoButton handler={this.showInfoOverlay} />
+        {this.state.infoVisible && <InfoOverlay handler={this.hideInfoOverlay} />}
+      </main>
+    )
   }
 }
 

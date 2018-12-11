@@ -3,7 +3,6 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import Emoji from './Emoji'
 import FlavorText from './FlavorText'
-import InfoButton from './InfoButton'
 import { resetAppState } from '../store/actions/app'
 
 import shareButton from '../img/share_button_v01.svg'
@@ -100,15 +99,13 @@ class AnswerScreen extends React.Component {
         </div>
 
         <div className="final-buttons">
-          <button id="share" title="Share this">
+          <button title="Share this">
             <img src={shareButton} alt="" />
           </button>
-          <button id="ask-another" title="Ask again" onClick={resetAppState}>
+          <button title="Ask again" onClick={resetAppState}>
             <img src={closeButton} alt="" />
           </button>
         </div>
-
-        <InfoButton />
       </div>
     )
   }
