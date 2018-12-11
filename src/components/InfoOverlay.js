@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import './InfoOverlay.css'
 import MINI_COMPASS_IMAGE from '../img/mini_compass.svg'
 import CLOSE_BUTTON_IMAGE from '../img/close_button_v01.svg'
+import THINKING_FACE_EMOJI from '../../node_modules/emojione-assets/png/128/1f914.png'
 
 // TODO: Use thinking face emoji with <Emoji /> component
 export default class InfoOverlay extends Component {
@@ -23,7 +24,7 @@ export default class InfoOverlay extends Component {
             <img src={MINI_COMPASS_IMAGE} alt="The Emoji Compass" className="mini-compass" />
 
             <p>
-              The Emoji Compass is a production of Bad Idea Factory, a creative collective that builds technology to make people 🤔. The app is inspired by, but has no official endorsement or connection to, His Dark Materials, the series by Philip Pullman. You can and should purchase his works over at this <a href="https://www.amazon.com/Philip-Pullman/e/B000AQ74C6/ref=sr_tc_2_0?qid=1543242999&sr=8-2-ent" target="_blank" rel="noopener noreferrer">rainforest-themed website</a>.
+              The Emoji Compass is a production of Bad Idea Factory, a creative collective that builds technology to make people <img className="emoji" src={THINKING_FACE_EMOJI} alt="thinking face emoji" />. The app is inspired by, but has no official endorsement or connection to, His Dark Materials, the series by Philip Pullman. You can and should purchase his works over at this <a href="https://www.amazon.com/Philip-Pullman/e/B000AQ74C6/ref=sr_tc_2_0?qid=1543242999&sr=8-2-ent" target="_blank" rel="noopener noreferrer">rainforest-themed website</a>.
             </p>
 
             <p>

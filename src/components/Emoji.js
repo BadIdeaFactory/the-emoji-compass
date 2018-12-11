@@ -110,9 +110,9 @@ export default function Emoji (props) {
 
 Emoji.prototype.propTypes = {
   symbol: PropTypes.shape({
+    code: PropTypes.string,
     emoji: PropTypes.string,
     title: PropTypes.string,
     text: PropTypes.string
   })
 }
-
