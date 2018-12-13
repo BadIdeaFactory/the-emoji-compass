@@ -1,23 +1,14 @@
-import React, { Component } from 'react'
+import React from 'react'
 import PropTypes from 'prop-types'
+import Button from './Button'
 import './InfoButton.css'
 
-import ICON_IMAGE from '../img/info.svg'
+const InfoButton = (props) => (
+  <Button type="info" title="Info" className="info-button" onClick={props.handler} />
+)
 
-export default class InfoButton extends Component {
-  static propTypes = {
-    handler: PropTypes.func.isRequired,
-  }
-
-  handleClick = (event) => {
-    this.props.handler()
-  }
-
-  render () {
-    return (
-      <div className="info-button" onClick={this.handleClick}>
-        <img src={ICON_IMAGE} alt="Info" />
-      </div>
-    )
-  }
+InfoButton.prototype.propTypes = {
+  handler: PropTypes.func.isRequired,
 }
+
+export default InfoButton
