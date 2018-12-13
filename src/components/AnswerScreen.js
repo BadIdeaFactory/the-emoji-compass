@@ -5,8 +5,8 @@ import Emoji from './Emoji'
 import FlavorText from './FlavorText'
 import { resetAppState } from '../store/actions/app'
 
-import shareButton from '../img/share_button_v01.svg'
-import closeButton from '../img/close_button_v01.svg'
+import SHARE_BUTTON_IMAGE from '../img/share_android.svg'
+import CLOSE_BUTTON_IMAGE from '../img/close.svg'
 
 // Note: the following is broken. It displays as all black.
 // import { ReactComponent as Arc1 } from '../img/arc_02_1.svg'
@@ -100,10 +100,10 @@ class AnswerScreen extends React.Component {
 
         <div className="final-buttons">
           <button title="Share this">
-            <img src={shareButton} alt="" />
+            <img src={SHARE_BUTTON_IMAGE} alt="" />
           </button>
           <button title="Ask again" onClick={resetAppState}>
-            <img src={closeButton} alt="" />
+            <img src={CLOSE_BUTTON_IMAGE} alt="" />
           </button>
         </div>
       </div>

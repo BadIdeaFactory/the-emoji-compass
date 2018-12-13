@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import './InfoOverlay.css'
 import MINI_COMPASS_IMAGE from '../img/mini_compass.svg'
-import CLOSE_BUTTON_IMAGE from '../img/close_button_v01.svg'
+import CLOSE_BUTTON_IMAGE from '../img/close.svg'
 import THINKING_FACE_EMOJI from '../../node_modules/emojione-assets/png/128/1f914.png'
 
 // TODO: Use thinking face emoji with <Emoji /> component
