@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 import Emoji from './Emoji'
 import './CompassDial.css'
 
-import compass from '../img/compass_v01.svg'
+import compass from '../img/compass.svg'
 
 class CompassDial extends React.Component {
   static propTypes = {
