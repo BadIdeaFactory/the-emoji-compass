@@ -33,6 +33,8 @@ export default class Button extends Component {
         return SHARE_IOS_ICON
       case 'info':
         return INFO_ICON
+      default:
+        return '?'
     }
   }
 
