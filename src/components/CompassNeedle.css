@@ -13,17 +13,17 @@
 }
 
 .needle-request {
-  background-image: url("../img/needle-request-inactive.svg");
+  background-image: url("../img/needle_request_inactive.svg");
 }
 
 .needle-request.needle-active {
-  background-image: url("../img/needle-request-active.svg");
+  background-image: url("../img/needle_request_active.svg");
 }
 
 .needle-response {
-  background-image: url("../img/needle-response-inactive.svg");
+  background-image: url("../img/needle_response_inactive.svg");
 }
 
 .needle-response.needle-active {
-  background-image: url("../img/needle-response-active.svg");
+  background-image: url("../img/needle_response_active.svg");
 }
