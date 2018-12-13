@@ -1,12 +1,10 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
+import Button from './Button'
 import Emoji from './Emoji'
 import FlavorText from './FlavorText'
 import { resetAppState } from '../store/actions/app'
-
-import SHARE_BUTTON_IMAGE from '../img/share_android.svg'
-import CLOSE_BUTTON_IMAGE from '../img/close.svg'
 
 // Note: the following is broken. It displays as all black.
 // import { ReactComponent as Arc1 } from '../img/arc_02_1.svg'
@@ -51,6 +49,10 @@ class AnswerScreen extends React.Component {
       activeEmoji: index,
       text: this.props.responseEmojis[index].text
     })
+  }
+
+  handleShare = (event) => {
+    // TODO
   }
 
   renderEmojiResultRow (emoji) {
@@ -99,12 +101,8 @@ class AnswerScreen extends React.Component {
         </div>
 
         <div className="final-buttons">
-          <button title="Share this">
-            <img src={SHARE_BUTTON_IMAGE} alt="" />
-          </button>
-          <button title="Ask again" onClick={resetAppState}>
-            <img src={CLOSE_BUTTON_IMAGE} alt="" />
-          </button>
+          <Button type="share-android" title="Share this" onClick={this.handleShare} />
+          <Button type="close" title="Ask again" onClick={resetAppState} />
         </div>
       </div>
     )

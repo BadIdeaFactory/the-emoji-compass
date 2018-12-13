@@ -58,24 +58,7 @@
 }
 
 .final-buttons button {
-  position: relative;
-  appearance: none;
-  -moz-appearance: none;
-  -webkit-appearance: none;
-  border: 0;
-  background-color: transparent;
-  width: 36px;
-  height: 36px;
-  cursor: pointer;
-  margin: 20px;
-}
-
-.final-buttons button > img {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
+  margin: 10px 20px;
 }
 
 .emoji-table {

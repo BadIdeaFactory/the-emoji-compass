@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
+import Button from './Button'
 import './InfoOverlay.css'
 import MINI_COMPASS_IMAGE from '../img/mini_compass.svg'
-import CLOSE_BUTTON_IMAGE from '../img/close.svg'
 import THINKING_FACE_EMOJI from '../../node_modules/emojione-assets/png/128/1f914.png'
 
 // TODO: Use thinking face emoji with <Emoji /> component
@@ -88,9 +88,7 @@ export default class InfoOverlay extends Component {
             </div>
           </div>
           <footer>
-            <button title="Close" onClick={this.handleCloseOverlay}>
-              <img src={CLOSE_BUTTON_IMAGE} alt="" />
-            </button>
+            <Button type="close" title="Close" onClick={this.handleCloseOverlay} />
           </footer>
         </div>
       </div>
