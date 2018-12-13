@@ -129,10 +129,24 @@
         z-index: 100;
       }
     }
+
+    header {
+      position: fixed;
+      top: 0;
+    }
+
+    footer {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      width: 100px;
+    }
   </style>
 </head>
 <body>
-  <h1><span>the</span> <span>emoji</span> <span>compass</span></h1>
+  <header>
+    <h1><span>the</span> <span>emoji</span> <span>compass</span></h1>
+  </header>
   <div class="screen-viewer">
     <div class="mobile-skin">
       <div class="mobile-status-bar"></div>
@@ -141,6 +155,9 @@
       </div>
     </div>
   </div>
+  <footer>
+    <a href="https://biffud.com/"><img src="bif_logo.svg" alt="Bad Idea Factory"></a>
+  </footer>
   <script src="https://unpkg.com/@biffud/random-bg-color@1.0.0/src/index.js"></script>
   <script>
     BIFFUD.setRandomBgColor()
