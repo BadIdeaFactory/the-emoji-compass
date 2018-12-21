@@ -11,11 +11,14 @@ body {
   overflow: hidden;
   user-select: none;
   text-transform: unset; /* Unset global transform from Cordova */
-  background-attachment: fixed;
-  background-repeat: no-repeat;
-  background-size: cover;
-  background-position: center center;
-  background-image: url('../img/aurora.svg');
+  /* background:
+    url('../img/aurora.svg') center/cover fixed no-repeat; */
+  background:
+    url('../img/bgoverlay.png') 0/32px repeat,
+    url('../img/aurora.svg') center/cover fixed no-repeat;
+  /* background:
+    url('../img/aurora1.png') center/cover fixed no-repeat; */
+  background-blend-mode: overlay;
 }
 
 .container {
@@ -26,12 +29,6 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-
-  /* Background */
-  background-attachment: fixed;
-  background-repeat: no-repeat;
-  background-size: cover;
-  background-position: center center;
 
   /* Typography */
   font-family: 'Gentium Book Basic', serif;

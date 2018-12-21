@@ -1,5 +1,12 @@
 .container-main-screen {
-  background-image: url('../img/oxford.svg');
+  /* background:
+    url('../img/oxford.svg') center/cover fixed no-repeat; */
+  background:
+    url('../img/bgoverlay.png') 0/32px repeat,
+    url('../img/oxford.svg') center/cover fixed no-repeat;
+  /* background:
+    url('../img/oxford1.png') center/cover fixed no-repeat; */
+  background-blend-mode: overlay;
 }
 
 .emoji-requested {
