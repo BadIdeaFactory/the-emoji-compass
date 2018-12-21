@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { Fragment } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { CSSTransition } from 'react-transition-group'
@@ -91,9 +91,11 @@ class MainTextDisplay extends React.Component {
         return (
           <div className="text-box emoji-picking">
             {this.props.responseEmojis.map((emoji, i) => (
-              <CSSTransition in={true} classNames="show" timeout={150} appear={true}>
-                <Emoji symbol={emoji} key={i} />
-              </CSSTransition>
+              <Fragment key={i}>
+                <CSSTransition in={true} classNames="show" timeout={150} appear={true}>
+                  <Emoji symbol={emoji} />
+                </CSSTransition>
+              </Fragment>
             ))}
           </div>
         )
