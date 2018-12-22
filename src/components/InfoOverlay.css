@@ -103,6 +103,16 @@
   color: #282623;
 }
 
+.info-overlay-content::-webkit-scrollbar-thumb {
+  width: 2px;
+  background-color: #edd5b0;
+  border-radius: 1px;
+}
+
+.info-overlay-content::-webkit-scrollbar {
+  width: 2px;
+}
+
 .mini-compass {
   width: 52px;
   height: 52px;
