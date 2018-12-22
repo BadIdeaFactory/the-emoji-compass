@@ -102,14 +102,21 @@ class MainTextDisplay extends React.Component {
       case TEXT_DISPLAY.INSTRUCTION2:
         return (
           <div className="text-box instruction-text">
-            Drag the next needle to select the next emoji.
+            <p>
+              Drag the next needle to select the next emoji.
+            </p>
           </div>
         )
       case TEXT_DISPLAY.INSTRUCTION1:
       default:
         return (
           <div className="text-box instruction-text">
-            To ask a question of the compass, rotate the highlighted needle.
+            <p>
+              Ask a question by choosing three symbols.
+            </p>
+            <p>
+              Rotate the hands of the compass to select the first.
+            </p>
           </div>
         )
     }

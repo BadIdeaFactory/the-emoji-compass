@@ -20,9 +20,15 @@
 .instruction-text {
   /* Sized to prevent instruction text from orphaning
    words on new lines on Android-based phones */
-  font-size: 1.65em;
-  padding: 1.5em;
+  font-size: 1.5em;
+  line-height: 1.4;
+  padding: 2em;
   padding-top: 0.5em;
+  flex-direction: column;
+}
+
+.instruction-text p {
+  margin: 0.25em 0;
 }
 
 .emoji-description {
