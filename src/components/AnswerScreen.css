@@ -13,6 +13,12 @@
   width: 100%;
 }
 
+.arc-label {
+  position: absolute;
+  left: 0;
+  pointer-events: none;
+}
+
 .answer-text {
   flex: 1;
   display: flex;

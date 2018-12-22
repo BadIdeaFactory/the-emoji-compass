@@ -6,12 +6,12 @@ import Emoji from './Emoji'
 import FlavorText from './FlavorText'
 import { resetAppState } from '../store/actions/app'
 
-// Note: the following is broken. It displays as all black.
-// import { ReactComponent as Arc1 } from '../img/arc_02_1.svg'
-// import { ReactComponent as Arc2 } from '../img/arc_02_2.svg'
+// import { ReactComponent as Arc } from '../img/arc.svg'
 // To workaround it, we import components manually ported via SVGR.
-import Arc1 from './Arc1'
-import Arc2 from './Arc2'
+import Arc from './Arc'
+
+import ARC_LABEL_REQUEST from '../img/arc_label_request.svg'
+import ARC_LABEL_RESPONSE from '../img/arc_label_response.svg'
 
 import './AnswerScreen.css'
 
@@ -79,7 +79,8 @@ class AnswerScreen extends React.Component {
     return (
       <div className="container container-answer-screen">
         <div className="answer-arc-container">
-          <Arc1 active={(activeArc === 1) ? activeEmoji : null} handleSelect={this.handleSelectRequestEmoji} />
+          <Arc active={(activeArc === 1) ? activeEmoji : null} handleSelect={this.handleSelectRequestEmoji} />
+          <img src={ARC_LABEL_REQUEST} className="arc-label" alt="I asked:" />
           <div className="answer-emojis">
             {requestEmojis.map((emoji, i) => (
               <Emoji symbol={emoji} key={i} />
@@ -88,7 +89,8 @@ class AnswerScreen extends React.Component {
         </div>
 
         <div className="answer-arc-container">
-          <Arc2 active={(activeArc === 2) ? activeEmoji : null} handleSelect={this.handleSelectResponseEmoji} />
+          <Arc active={(activeArc === 2) ? activeEmoji : null} handleSelect={this.handleSelectResponseEmoji} />
+          <img src={ARC_LABEL_RESPONSE} className="arc-label" alt="The compass returned:" />
           <div className="answer-emojis">
             {responseEmojis.map((emoji, i) => (
               <Emoji symbol={emoji} key={i} />
