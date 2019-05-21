@@ -1,5 +1,5 @@
 .container-answer-screen {
-  padding-top: 3.25rem;
+  padding-top: 2rem;
 }
 
 @media (orientation: 'landscape') {
@@ -56,10 +56,10 @@
 }
 
 .final-buttons {
-  margin-bottom: 2rem;
-  /* Buttons are placed in a predictable location, never pushed off the screen */
-  position: absolute;
-  bottom: 0;
+  margin-bottom: 1rem;
+  height: 65px;
+  flex-basis: 65px;
+  text-align: center;
 }
 
 .final-buttons button {

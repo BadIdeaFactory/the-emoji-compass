@@ -4,11 +4,6 @@
   font-size: 18px;
 }
 
-.answer-text .flavor-text-container {
-  /* Margin accounts for the share/return buttons */
-  margin-bottom: calc(76px + 2rem);
-}
-
 .flavor-text-container p {
   margin: 0;
 }

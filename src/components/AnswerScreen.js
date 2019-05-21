@@ -101,11 +101,6 @@ class AnswerScreen extends React.Component {
         <div className="answer-text">
           {this.state.text && <FlavorText text={this.state.text} />}
         </div>
-
-        <div className="final-buttons">
-          <Button type="share-android" title="Share this" onClick={this.handleShare} />
-          <Button type="close" title="Ask again" onClick={resetAppState} />
-        </div>
       </div>
     )
   }

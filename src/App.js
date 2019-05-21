@@ -2,11 +2,13 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { ROUTES } from './constants'
-import { showAnswerScreen } from './store/actions/app'
+import Button from './components/Button'
 import MainScreen from './components/MainScreen'
 import AnswerScreen from './components/AnswerScreen'
 import InfoButton from './components/InfoButton'
 import InfoOverlay from './components/InfoOverlay'
+import { showAnswerScreen, resetAppState } from './store/actions/app'
+import './App.css'
 
 // If a viewer tabs away or minimizes the browser, and returns after
 // this amount of time, fast forward to final screen instead of
@@ -71,11 +73,20 @@ class App extends Component {
         break
     }
 
+    let classNames = []
+    if (this.props.route === ROUTES.MAIN) {
+      classNames.push('main-screen')
+    }
+
     return (
-      <main role="main">
+      <main role="main" className={classNames.join(' ')}>
         {screen}
         <InfoButton handler={this.showInfoOverlay} />
         {this.state.infoVisible && <InfoOverlay handler={this.hideInfoOverlay} />}
+        <div className="final-buttons">
+          <Button type="share-android" title="Share this" onClick={this.handleShare} />
+          <Button type="close" title="Ask again" onClick={resetAppState} />
+        </div>
       </main>
     )
   }
