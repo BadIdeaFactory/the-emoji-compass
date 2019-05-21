@@ -29,6 +29,7 @@ body {
   flex-direction: column;
   flex-grow: 1;
   align-items: center;
+  margin-top: 2rem;
 
   /* Typography */
   font-family: 'Gentium Book Basic', serif;

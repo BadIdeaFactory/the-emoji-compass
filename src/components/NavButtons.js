@@ -4,8 +4,8 @@ import { connect } from 'react-redux'
 import { ROUTES } from '../constants'
 import Button from './Button'
 import InfoButton from './InfoButton'
-
 import { resetAppState } from '../store/actions/app'
+import './NavButtons.css'
 
 class NavButtons extends Component {
   static propTypes = {
@@ -22,7 +22,7 @@ class NavButtons extends Component {
     const { route, showInfoOverlay, resetAppState } = this.props
 
     return (
-      <div className="final-buttons">
+      <div className="nav-buttons">
         {route === ROUTES.ANSWER && <Button type="share-android" title="Share this" onClick={this.handleShare} />}
         <InfoButton handler={showInfoOverlay} />
         {route === ROUTES.ANSWER && <Button type="close" title="Ask again" onClick={resetAppState} />}

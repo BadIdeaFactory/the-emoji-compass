@@ -1,0 +1,13 @@
+
+.nav-buttons {
+  height: 90px;
+  flex-basis: 90px;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.nav-buttons button {
+  margin: 0 20px;
+}

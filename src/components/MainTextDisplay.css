@@ -2,9 +2,19 @@
   flex: 1;
   display: flex;
   flex-direction: column;
-  min-height: 180px;
-  max-height: 180px;
   width: 100%;
+}
+
+@media (max-height: 700px) {
+  .text-container {
+    font-size: 0.75rem;
+  }
+}
+
+@media (max-height: 600px) {
+  .text-container {
+    font-size: 0.65rem;
+  }
 }
 
 .text-box {
@@ -13,8 +23,7 @@
   align-items: center;
   justify-content: center;
   flex-direction: row;
-  /* padding: 2em;
-  padding-top: 0; */
+  padding: 0.5em 2em;
 }
 
 .instruction-text {
@@ -22,8 +31,6 @@
    words on new lines on Android-based phones */
   font-size: 1.5em;
   line-height: 1.4;
-  padding: 2em;
-  padding-top: 0.5em;
   flex-direction: column;
 }
 
