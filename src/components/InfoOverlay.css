@@ -88,6 +88,10 @@
   padding-top: 5px;
 }
 
+.info-overlay-content h2 {
+  color: #d0973b;
+}
+
 .info-overlay-content > p:first-child {
   margin-top: 0;
 }

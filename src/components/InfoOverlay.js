@@ -58,13 +58,23 @@ export default class InfoOverlay extends Component {
             <div className="info-overlay-content" ref={this.contentEl} onScroll={this.handleScrollContent}>
               <img src={MINI_COMPASS_IMAGE} alt="The Emoji Compass" className="mini-compass" />
 
+              <h2>How to use</h2>
+
               <p>
-                The Emoji Compass is a production of Bad Idea Factory, a creative collective that builds technology to make people <img className="emoji" src={THINKING_FACE_EMOJI} alt="thinking face emoji" />. The app is inspired by, but has no official endorsement or connection to, His Dark Materials, the series by Philip Pullman. You can and should purchase his works over at this <a href="https://www.amazon.com/Philip-Pullman/e/B000AQ74C6/ref=sr_tc_2_0?qid=1543242999&sr=8-2-ent" target="_blank" rel="noopener noreferrer">rainforest-themed website</a>.
+                The Emoji Compass will tell you the answer to any question you hold in your heart. You can ask it an unlimited number of questions by combining the three emoji symbols that best represent your query. After you choose, the fourth needle will spin and hover on three more symbols, each imbued with many layers of meaning. Only by skillfully divining these meanings within will you navigate to the answer you seek.
+              </p>
+
+              <h2>About the project</h2>
+
+              <p>
+                The Emoji Compass is a production of Bad Idea Factory, a creative collective that builds technology to make people <img className="emoji" src={THINKING_FACE_EMOJI} alt="thinking face emoji" />. The app is inspired by, but has no official endorsement or connection to, His Dark Materials, the series by Philip Pullman. You can and should <a href="https://www.indiebound.org/book/9780440238133" target="_blank" rel="noopener noreferrer">purchase his works</a>.
               </p>
 
               <p>
                 Uncompensated laborers on this project include Matt Stempeck, Lou Huang, Margo Dunlap, and their accomplices Dan Schultz and Chris Peterson.
               </p>
+
+              <h2>Colophon</h2>
 
               <p>
                 You'll find the code that powers The Emoji Compass on <a href="https://github.com/BadIdeaFactory/the-emoji-compass" target="_blank" rel="noopener noreferrer">GitHub</a>.
@@ -81,6 +91,8 @@ export default class InfoOverlay extends Component {
                 <li><a href="https://hugogiraudel.com/2013/04/02/items-on-circle/" target="_blank" rel="noopener noreferrer">Mixin to place items on a circle</a> by Hugo Giraudel & Ana Tudor </li>
                 <li>The <a href="https://fonts.google.com/specimen/Gentium+Book+Basic" target="_blank" rel="noopener noreferrer">Gentium Book Basic</a> font, licensed under <a href="http://scripts.sil.org/OFL" target="_blank" rel="noopener noreferrer">SIL Open Font License</a></li>
               </ul>
+
+              <h2>Privacy policy</h2>
 
               <p>
                 By using the app you agree to the <a href="TODO" target="_blank" rel="noopener noreferrer">privacy policy</a>.
