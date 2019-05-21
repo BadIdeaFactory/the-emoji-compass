@@ -31,13 +31,6 @@
   margin: 0.25em 0;
 }
 
-.emoji-description {
-  display: grid;
-  grid-template-columns: 1fr 2fr;
-  grid-gap: 1.5em;
-  padding: 1em;
-}
-
 .emoji-picking {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;

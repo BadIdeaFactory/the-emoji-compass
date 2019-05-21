@@ -82,7 +82,7 @@ class MainTextDisplay extends React.Component {
 
         return (
           <div className="text-box emoji-description">
-            <Emoji symbol={symbol} />
+            {/* <Emoji symbol={symbol} /> */}
             <FlavorText text={symbol.text} />
           </div>
         )
