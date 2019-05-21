@@ -1,5 +1,7 @@
 .flavor-text-container {
   line-height: 1.3;
+  font-size: 6.5vmin;
+  font-size: 18px;
 }
 
 .answer-text .flavor-text-container {
@@ -8,5 +10,13 @@
 }
 
 .flavor-text-container p {
-  margin: 0.5em 0;
+  margin: 0;
+}
+
+.flavor-text-divider {
+  font-size: 14;
+}
+
+.flavor-text-divider:last-of-type {
+  display: none;
 }

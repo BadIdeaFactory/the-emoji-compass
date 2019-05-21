@@ -59,11 +59,6 @@
   vertical-align: middle;
 }
 
-.emoji-description .flavor-text-container {
-  text-align: left;
-  font-size: 1.25em;
-}
-
 .emoji-picking > span {
   transition: opacity 400ms;
   opacity: 0;

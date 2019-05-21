@@ -19,7 +19,12 @@ export function splitTextIntoSeparateLines (string) {
 // Return each phrase in a separate "line".
 const FlavorText = (props) => (
   <div className="flavor-text-container">
-    {splitTextIntoSeparateLines(props.text).map((x) => <p key={x}>{x}</p>)}
+    {splitTextIntoSeparateLines(props.text).map((x) => (
+      <React.Fragment key={x}>
+        <p>{x}</p>
+        <p className="flavor-text-divider">⁓</p>
+      </React.Fragment>
+    ))}
   </div>
 )
 
