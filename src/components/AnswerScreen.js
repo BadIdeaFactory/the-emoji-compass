@@ -1,10 +1,8 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import Button from './Button'
 import Emoji from './Emoji'
 import FlavorText from './FlavorText'
-import { resetAppState } from '../store/actions/app'
 
 // import { ReactComponent as Arc } from '../img/arc.svg'
 // To workaround it, we import components manually ported via SVGR.
@@ -18,8 +16,7 @@ import './AnswerScreen.css'
 class AnswerScreen extends React.Component {
   static propTypes = {
     requestEmojis: PropTypes.array.isRequired,
-    responseEmojis: PropTypes.array.isRequired,
-    resetAppState: PropTypes.func.isRequired
+    responseEmojis: PropTypes.array.isRequired
   }
 
   constructor (props) {
@@ -51,10 +48,6 @@ class AnswerScreen extends React.Component {
     })
   }
 
-  handleShare = (event) => {
-    // TODO
-  }
-
   renderEmojiResultRow (emoji) {
     return (
       <tr key={emoji.emoji} className="emoji-table-row">
@@ -69,7 +62,7 @@ class AnswerScreen extends React.Component {
   }
 
   render () {
-    const { requestEmojis, responseEmojis, resetAppState } = this.props
+    const { requestEmojis, responseEmojis } = this.props
 
     // Bail if nothing to show
     if (requestEmojis.length === 0 || responseEmojis.length === 0) return null
@@ -113,10 +106,4 @@ function mapStateToProps (state) {
   }
 }
 
-function mapDispatchToProps (dispatch) {
-  return {
-    resetAppState: () => { dispatch(resetAppState()) }
-  }
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(AnswerScreen)
+export default connect(mapStateToProps)(AnswerScreen)

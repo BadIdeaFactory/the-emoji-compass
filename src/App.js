@@ -2,12 +2,11 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { ROUTES } from './constants'
-import Button from './components/Button'
+import NavButtons from './components/NavButtons'
 import MainScreen from './components/MainScreen'
 import AnswerScreen from './components/AnswerScreen'
-import InfoButton from './components/InfoButton'
 import InfoOverlay from './components/InfoOverlay'
-import { showAnswerScreen, resetAppState } from './store/actions/app'
+import { showAnswerScreen } from './store/actions/app'
 import './App.css'
 
 // If a viewer tabs away or minimizes the browser, and returns after
@@ -81,12 +80,8 @@ class App extends Component {
     return (
       <main role="main" className={classNames.join(' ')}>
         {screen}
-        <InfoButton handler={this.showInfoOverlay} />
         {this.state.infoVisible && <InfoOverlay handler={this.hideInfoOverlay} />}
-        <div className="final-buttons">
-          <Button type="share-android" title="Share this" onClick={this.handleShare} />
-          <Button type="close" title="Ask again" onClick={resetAppState} />
-        </div>
+        <NavButtons route={this.props.route} showInfoOverlay={this.showInfoOverlay} />
       </main>
     )
   }
