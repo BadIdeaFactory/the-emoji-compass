@@ -54,7 +54,7 @@ export default class InfoOverlay extends Component {
       <div className="info-overlay-container">
         <div className="info-overlay-background" onClick={this.handleCloseOverlay} />
         <div className="info-overlay">
-          <div className="info-overlay-scroller" ref={this.scrollerEl}>
+          <div className="info-overlay-scroller info-overlay-scroller-bottom" ref={this.scrollerEl}>
             <div className="info-overlay-content" ref={this.contentEl} onScroll={this.handleScrollContent}>
               <img src={MINI_COMPASS_IMAGE} alt="The Emoji Compass" className="mini-compass" />
 
