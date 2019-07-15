@@ -6,6 +6,7 @@ import INFO_ICON from '../img/info.svg'
 import SHARE_ANDROID_ICON from '../img/share_android.svg'
 import SHARE_IOS_ICON from '../img/share_ios.svg'
 import CLOSE_ICON from '../img/close.svg'
+import CLOSE_ICON_LIGHT from '../img/close_light.svg'
 
 export default class Button extends Component {
   static propTypes = {
@@ -27,6 +28,9 @@ export default class Button extends Component {
     switch (type) {
       case 'close':
         return CLOSE_ICON
+      // Used on light backgrounds.
+      case 'close-light':
+        return CLOSE_ICON_LIGHT
       case 'share-android':
         return SHARE_ANDROID_ICON
       case 'share-ios':

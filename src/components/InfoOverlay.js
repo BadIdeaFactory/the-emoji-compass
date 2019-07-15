@@ -100,7 +100,7 @@ export default class InfoOverlay extends Component {
             </div>
           </div>
           <footer>
-            <Button type="close" title="Close" onClick={this.handleCloseOverlay} />
+            <Button type="close-light" title="Close" onClick={this.handleCloseOverlay} />
           </footer>
         </div>
       </div>
