@@ -44,6 +44,11 @@
   pointer-events: none;
 }
 
+.answer-emojis img {
+  /* randomly selected drop shadow color */
+  filter: drop-shadow(2px 2px 3px rgba(35,12,32,0.3));
+}
+
 .answer-emojis > span {
   flex: 1;
   margin-left: 0.5em;
