@@ -10,6 +10,11 @@
   background-size: contain;
   background-position: center left;
   background-repeat: no-repeat;
+
+  /* randomly selected drop shadow color */
+  /* note: no x/y offset is preferred because the shadow is applied before a
+     rotation transform, so you can't get it to act like there is a light source */
+  filter: drop-shadow(0 0 5px rgba(35,12,32,0.25));
 }
 
 .needle-request {
