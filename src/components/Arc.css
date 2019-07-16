@@ -1,19 +1,29 @@
 .arc-selected {
-  animation: pulse 2s infinite;
+  fill: #F5EBD1 !important;
+  opacity: 1 !important;
 }
 
 .arc-unselected {
   opacity: 0 !important;
 }
 
+.arc-selected-glow {
+  animation: pulse 2s infinite;
+}
+
 @keyframes pulse {
   0% {
-    opacity: 0.15;
+    opacity: 0.0;
   }
   50% {
-    opacity: 0.3;
+    opacity: 0.85;
   }
   100% {
-    opacity: 0.15;
+    opacity: 0.0;
   }
+}
+
+.arc image,
+.arc-noninteractive {
+  pointer-events: none;
 }
