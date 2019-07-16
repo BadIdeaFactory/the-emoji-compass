@@ -1,0 +1,19 @@
+.arc-selected {
+  animation: pulse 2s infinite;
+}
+
+.arc-unselected {
+  opacity: 0 !important;
+}
+
+@keyframes pulse {
+  0% {
+    opacity: 0.15;
+  }
+  50% {
+    opacity: 0.3;
+  }
+  100% {
+    opacity: 0.15;
+  }
+}

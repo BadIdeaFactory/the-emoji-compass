@@ -1,5 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import './Arc.css'
 
 const Arc = (props) => (
   <svg viewBox="0 0 1080 488.519">
@@ -84,19 +85,19 @@ const Arc = (props) => (
           d="M329.914 373.768c165.958-28.978 333.949-23.908 499.3 15.07A1249.526 1249.526 0 0 1 1080 476.852v-265.22a1242.436 1242.436 0 0 0-252.388-88.961c-164.429-38.76-331.474-43.8-496.494-14.988A1238.459 1238.459 0 0 0 98.161 172.4Q48.27 191.688 0 215.327v265.185q46.979-22.832 95.637-41.657a1245.481 1245.481 0 0 1 234.277-65.087z"
         />
         <g>
-          <path className="prefix__cls-7"
+          <path
+            className={`prefix__cls-7 ${(props.active === 0) ? 'arc-selected' : 'arc-unselected'}`}
             onClick={() => props.handleSelect(0)}
-            style={{ opacity: (props.active === 0) ? .3 : 0 }}
             d="M.3 211.1l41.918 253.533A1239.544 1239.544 0 0 1 372.3 370.6l-16.281-270.591A1240.941 1240.941 0 0 0 .3 211.1z"
           />
-          <path className="prefix__cls-7"
+          <path
+            className={`prefix__cls-7 ${(props.active === 1) ? 'arc-selected' : 'arc-unselected'}`}
             onClick={() => props.handleSelect(1)}
-            style={{ opacity: (props.active === 1) ? .3 : 0 }}
             d="M356.019 100.009L372.3 370.6a1234.185 1234.185 0 0 1 335.408-.633L723.99 99.3a1234.414 1234.414 0 0 0-367.971.709z"
           />
-          <path className="prefix__cls-7"
+          <path
+            className={`prefix__cls-7 ${(props.active === 2) ? 'arc-selected' : 'arc-unselected'}`}
             onClick={() => props.handleSelect(2)}
-            style={{ opacity: (props.active === 2) ? .3 : 0 }}
             d="M1079.7 209.234a1246.027 1246.027 0 0 0-251.587-88.48q-52.092-12.279-104.121-19.949l-16.286 270.667q60.1 8.1 120.4 22.263a1248.342 1248.342 0 0 1 211.031 70.016l40.556-245.3z"
           />
         </g>
