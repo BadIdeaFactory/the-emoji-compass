@@ -25,14 +25,39 @@ class AnswerScreen extends React.Component {
     // Picks a number from 0, 1, or 2 to start with
     const randomSelectedEmoji = Math.floor(Math.random() * 3)
 
+    this.intervalTimer = -1
+
     this.state = {
+      userHasInteracted: false,
       activeArc: 2,
       activeEmoji: randomSelectedEmoji,
       text: this.props.responseEmojis[randomSelectedEmoji].text
     }
   }
 
-  handleSelectRequestEmoji = (index) => {
+  componentDidMount () {
+    this.intervalTimer = window.setInterval(this.rotateSelection, 3000)
+  }
+
+  componentWillUnmount () {
+    window.clearInterval(this.intervalTimer)
+  }
+
+  handleSelectRequestEmoji = (event, index) => {
+    this.setState({
+      userHasInteracted: true
+    })
+    this.selectRequestEmoji(index)
+  }
+
+  handleSelectResponseEmoji = (event, index) => {
+    this.setState({
+      userHasInteracted: true
+    })
+    this.selectResponseEmoji(index)
+  }
+
+  selectRequestEmoji = (index) => {
     this.setState({
       activeArc: 1,
       activeEmoji: index,
@@ -40,12 +65,35 @@ class AnswerScreen extends React.Component {
     })
   }
 
-  handleSelectResponseEmoji = (index) => {
+  selectResponseEmoji = (index) => {
     this.setState({
       activeArc: 2,
       activeEmoji: index,
       text: this.props.responseEmojis[index].text
     })
+  }
+
+  /**
+   * Automatically select the next emoji, as long as user has not
+   * yet interacted with the answers.
+   */
+  rotateSelection = () => {
+    if (this.state.userHasInteracted === true) return
+    const { activeArc, activeEmoji } = this.state
+    if (activeArc === 1) {
+      if (activeEmoji === 2) {
+        this.selectResponseEmoji(0)
+      } else {
+        this.selectRequestEmoji(activeEmoji + 1)
+      }
+    }
+    if (activeArc === 2) {
+      if (activeEmoji === 2) {
+        this.selectRequestEmoji(0)
+      } else {
+        this.selectResponseEmoji(activeEmoji + 1)
+      }
+    }
   }
 
   renderEmojiResultRow (emoji) {

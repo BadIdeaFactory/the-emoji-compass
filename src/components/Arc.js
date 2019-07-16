@@ -87,17 +87,17 @@ const Arc = (props) => (
         <g>
           <path
             className={`prefix__cls-7 ${(props.active === 0) ? 'arc-selected' : 'arc-unselected'}`}
-            onClick={() => props.handleSelect(0)}
+            onClick={(e) => props.handleSelect(e, 0)}
             d="M.3 211.1l41.918 253.533A1239.544 1239.544 0 0 1 372.3 370.6l-16.281-270.591A1240.941 1240.941 0 0 0 .3 211.1z"
           />
           <path
             className={`prefix__cls-7 ${(props.active === 1) ? 'arc-selected' : 'arc-unselected'}`}
-            onClick={() => props.handleSelect(1)}
+            onClick={(e) => props.handleSelect(e, 1)}
             d="M356.019 100.009L372.3 370.6a1234.185 1234.185 0 0 1 335.408-.633L723.99 99.3a1234.414 1234.414 0 0 0-367.971.709z"
           />
           <path
             className={`prefix__cls-7 ${(props.active === 2) ? 'arc-selected' : 'arc-unselected'}`}
-            onClick={() => props.handleSelect(2)}
+            onClick={(e) => props.handleSelect(e, 2)}
             d="M1079.7 209.234a1246.027 1246.027 0 0 0-251.587-88.48q-52.092-12.279-104.121-19.949l-16.286 270.667q60.1 8.1 120.4 22.263a1248.342 1248.342 0 0 1 211.031 70.016l40.556-245.3z"
           />
         </g>
