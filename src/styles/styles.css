@@ -23,13 +23,17 @@ body {
 
 .container {
   /* Positioning and layout */
-  width: 100vw;
+  /* width: 100vw;
   position: relative;
   display: flex;
   flex-direction: column;
   flex-grow: 1;
   align-items: center;
-  margin-top: 2rem;
+  margin-top: 2rem; */
+  width: 100vw;
+  height: calc(100% - 90px);
+  position: absolute;
+  align-items: center;
 
   /* Typography */
   font-family: 'Gentium Book Basic', serif;

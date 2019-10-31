@@ -2,12 +2,15 @@
   text-align: center;
   font-size: 48px;
   height: 48px;
-  margin-top: 2rem;
+  /* margin-top: 2rem; */
+  position: absolute;
+  width: 100%;
+  top: 106vmin;
 }
 
 @media (max-height: 600px) {
   .emoji-requested {
-    margin-top: 3rem;
+    margin-top: 1rem;
     font-size: 36px;
     height: 36px;
   }

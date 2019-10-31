@@ -109,7 +109,8 @@
   {
     "emoji": "⚓",
     "title": "Anchor",
-    "text": "Hope floats. Steadfast currents prevail. Prevention tethers. Hear the sea.",
+    "text_old": "Hope floats. Steadfast currents prevail. Prevention tethers. Hear the sea.",
+    "text": "Hope floats. Steadfast currents prevail. Prevention tethers.",
     "code": "2693"
   },
   {
@@ -139,7 +140,8 @@
   {
     "emoji": "⏳",
     "title": "Hourglass",
-    "text": "Time, too, will change. Death the constant. Change everlasting. The present now.",
+    "text_old": "Time, too, will change. Death the constant. Change everlasting. The present now.",
+    "text": "Time, too, will change. Death the constant. Change everlasting.",
     "code": "23f3"
   },
   {
@@ -181,7 +183,8 @@
   {
     "emoji": "☀️",
     "title": "Sun",
-    "text": "The transit of daytime. Overriding authority. Radiating truth. Energetic intellect.",
+    "text_old": "The transit of daytime. Overriding authority. Radiating truth. Energetic intellect.",
+    "text": "The transit of daytime. Overriding authority. Radiating truth.",
     "code": "2600"
   },
   {

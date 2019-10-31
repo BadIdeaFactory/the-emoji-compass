@@ -3,6 +3,9 @@
   display: flex;
   flex-direction: column;
   width: 100%;
+  position: absolute;
+  top: calc(106vmin + 48px);
+  height: calc(100% - 48px - 100vmin);
 }
 
 @media (max-height: 700px) {
@@ -42,8 +45,8 @@
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
   /* Define spacing within and around emojis using viewport widths */
-  grid-gap: 6vw;
-  margin: 0 6vw;
+  gap: 4vw;
+  /* margin: 0 6vw; */
   /* Ensure that images don't exceed widths of its container */
   object-fit: contain;
 }
