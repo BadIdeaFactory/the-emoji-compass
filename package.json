@@ -18,7 +18,7 @@
   "bugs": {
     "url": "https://github.com/BadIdeaFactory/the-emoji-compass/issues"
   },
-  "homepage": "https://the-emoji-compass.netlify.com/",
+  "homepage": "./",
   "dependencies": {
     "emojione-assets": "4.5.0",
     "gsap": "2.1.3",
