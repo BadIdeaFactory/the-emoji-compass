@@ -23,7 +23,6 @@ class NavButtons extends Component {
 
     return (
       <div className="nav-buttons">
-        {route === ROUTES.ANSWER && <Button type="share-android" title="Share this" onClick={this.handleShare} />}
         <InfoButton handler={showInfoOverlay} />
         {route === ROUTES.ANSWER && <Button type="close" title="Ask again" onClick={resetAppState} />}
       </div>
