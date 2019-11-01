@@ -95,8 +95,13 @@ export default class InfoOverlay extends Component {
               <h2>Privacy policy</h2>
 
               <p>
-                By using the app you agree to the <a href="TODO" target="_blank" rel="noopener noreferrer">privacy policy</a>.
+                By using the app you agree to the <a href="https://github.com/BadIdeaFactory/the-emoji-compass/blob/master/PRIVACY.md" target="_blank" rel="noopener noreferrer">privacy policy</a>.
               </p>
+              <br /> 
+              <br /> 
+              <br /> 
+              <br /> 
+              <br /> 
             </div>
           </div>
           <footer>
