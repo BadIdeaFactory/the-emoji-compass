@@ -116,6 +116,7 @@
     h1 > span:last-child {
       position: absolute;
       top: 21px;
+      left: 0;
       font-weight: normal;
     }
 
@@ -135,6 +136,12 @@
       top: 0;
     }
 
+    .app-store-button {
+      position: absolute;
+      top: 100px;
+      left: 20px;
+    }
+
     footer {
       position: fixed;
       bottom: 20px;
@@ -146,6 +153,11 @@
 <body>
   <header>
     <h1><span>the</span> <span>emoji</span> <span>compass</span></h1>
+    <div class="app-store-button">
+      <a href="https://apps.apple.com/us/app/the-emoji-compass/id1440200804" rel="noreferer noopener">
+        <img src="images/app-store.svg" alt="Download on the Apple App Store" />
+      </a>  
+    </div>
   </header>
   <footer>
     <a href="https://biffud.com/"><img src="bif_logo.svg" alt="Bad Idea Factory"></a>
