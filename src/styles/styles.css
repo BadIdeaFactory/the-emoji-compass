@@ -1,3 +1,16 @@
+html,
+body {
+  /* Prevent overscroll on iOS / mobile */
+  position: fixed;
+  overflow: hidden;
+  width: 100vw;
+  height: 100vh;
+  margin: 0;
+  padding: 0;
+  top: 0;
+  left: 0;
+}
+
 body {
   box-sizing: border-box;
 }
@@ -7,8 +20,6 @@ body {
 }
 
 body {
-  margin: 0;
-  overflow: hidden;
   user-select: none;
   text-transform: unset; /* Unset global transform from Cordova */
   /* background:
