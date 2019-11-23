@@ -24,7 +24,21 @@ function CompassNeedleResponse (props) {
   const responseEmojis = randomNumbers.map((num) => symbols[num])
   const rotateDirection = Math.round(random()) ? 1 : -1
   const rotateQuantity = Math.ceil(random()) // a number between 2 and 3 inclusive
-  const rotateTo = getRotation(randomNumbers[0], numberOfSymbols) + (360 * rotateQuantity * rotateDirection)
+  const rotateTo = getRotation(randomNumbers[0], numberOfSymbols)
+
+  // calc rotate to: if diff between current and destination is less than
+  // one full rotation, then add a full rotation.
+  let actualRotateTo = rotateTo
+  if (rotateDirection === -1) {
+    actualRotateTo = rotateTo - 360
+  }
+  if (Math.abs(initialRotation - actualRotateTo) < 360) {
+    if (initialRotation > actualRotateTo) {
+      actualRotateTo = actualRotateTo - 360
+    } else {
+      actualRotateTo = actualRotateTo + 360
+    }
+  }
 
   const spring = useSpring({
     from: {
@@ -32,13 +46,13 @@ function CompassNeedleResponse (props) {
       transform: `rotate(${initialRotation}deg)`
     },
     to: {
-      rotate: rotateTo,
-      transform: `rotate(${rotateTo}deg)`
+      rotate: actualRotateTo,
+      transform: `rotate(${actualRotateTo}deg)`
     },
     config: {
-      mass: 10,
-      tension: 160,
-      friction: 60,
+      mass: 1,
+      tension: 15,
+      friction: 6,
     }
   })
 
