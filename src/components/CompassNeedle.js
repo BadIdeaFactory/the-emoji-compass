@@ -14,21 +14,18 @@ class CompassNeedle extends React.Component {
   static propTypes = {
     id: PropTypes.number.isRequired,
     type: PropTypes.oneOf(['request', 'response']).isRequired,
-    enabled: PropTypes.bool,
 
-    // Provided by Redux
+    // Provided by Redux mapStateToProps
     symbols: PropTypes.arrayOf(PropTypes.shape({
       emoji: PropTypes.string,
       title: PropTypes.string,
       text: PropTypes.string
     })),
     activeNeedle: PropTypes.number,
+
+    // Provided by Redux mapDispatchToProps
     addRequestEmoji: PropTypes.func,
     updateNeedlePosition: PropTypes.func
-  }
-
-  static defaultProps = {
-    addRequestEmoji: () => {}
   }
 
   constructor (props) {
@@ -47,8 +44,7 @@ class CompassNeedle extends React.Component {
   
     // Make needles draggable
     gsap.set(el, {
-      transformOrigin: '2.0vmin',
-      rotation: random() * 360 // Set at random start position
+      rotate: random() * 360 // Set at random start position
     })
 
     this.draggable = Draggable.create(el, {
