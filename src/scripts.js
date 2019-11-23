@@ -1,4 +1,4 @@
-import { TweenLite } from 'gsap'
+import { gsap } from 'gsap'
 
 import symbols from './symbols.json'
 import { random, getUniqueRandomIntegers, getRotation } from './utils'
@@ -29,7 +29,7 @@ function rotateDialStep (el, draggable, frame, totalFrames, rotateTo, overshoot,
 
   if ((rotateDirection === 1 && draggable.rotation <= rotateToOvershoot)
    || (rotateDirection === -1 && draggable.rotation >= rotateToOvershoot)) {
-    TweenLite.set(el, { rotation: draggable.rotation + DIAL_ROTATION_SPEED * easing(progress) * rotateDirection })
+    gsap.set(el, { rotation: draggable.rotation + DIAL_ROTATION_SPEED * easing(progress) * rotateDirection })
     rotated = true
   }
 

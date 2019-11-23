@@ -1,12 +1,14 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import { TweenLite } from 'gsap'
-import Draggable from 'gsap/Draggable'
+import { gsap } from 'gsap'
+import { Draggable } from 'gsap/Draggable'
 import { addRequestEmoji, updateNeedlePosition, setActiveNeedle } from '../store/actions/app'
 import { random, getEmojiPosition } from '../utils'
 import { autoRotateNeedle } from '../scripts'
 import './CompassNeedle.css'
+
+gsap.registerPlugin(Draggable)
 
 class CompassNeedle extends React.Component {
   static propTypes = {
@@ -44,7 +46,7 @@ class CompassNeedle extends React.Component {
     window.addEventListener('resize', this.setElementSize)
   
     // Make needles draggable
-    TweenLite.set(el, {
+    gsap.set(el, {
       transformOrigin: '2.0vmin',
       rotation: random() * 360 // Set at random start position
     })
@@ -125,7 +127,7 @@ class CompassNeedle extends React.Component {
     const el = this.el.current
 
     el.classList.add('needle-active')
-    TweenLite.set(el, { zIndex: 1 })
+    gsap.set(el, { zIndex: 1 })
 
     this.draggable[0].enable()
   }
@@ -134,7 +136,7 @@ class CompassNeedle extends React.Component {
     const el = this.el.current
 
     el.classList.remove('needle-active')
-    TweenLite.set(el, { zIndex: 0 })
+    gsap.set(el, { zIndex: 0 })
 
     this.draggable[0].disable()
     el.style.userSelect = 'none'
