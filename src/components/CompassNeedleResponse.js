@@ -40,19 +40,19 @@ function CompassNeedleResponse (props) {
     }
   }
 
-  const spring = useSpring({
+  const { rotateZ } = useSpring({
     from: {
-      rotate: initialRotation,
+      rotateZ: initialRotation,
       transform: `rotate(${initialRotation}deg)`
     },
     to: {
-      rotate: actualRotateTo,
+      rotateZ: actualRotateTo,
       transform: `rotate(${actualRotateTo}deg)`
     },
     config: {
       mass: 1,
-      tension: 15,
-      friction: 6,
+      tension: 45,
+      friction: 20,
     }
   })
 
@@ -87,12 +87,14 @@ function CompassNeedleResponse (props) {
       }}>
         start: {initialRotation.toFixed(2)}°<br />
         end: {rotateTo}°<br />
-        current: <animated.span>{spring.rotate}</animated.span>°
+        current: <animated.span>{rotateZ}</animated.span>°
       </div>
       <animated.div
         className="needle needle-response"
         ref={el}
-        style={spring}
+        style={{
+          transform: rotateZ.interpolate(z => `rotateZ(${z}deg)`)
+        }}
       />
     </>
   )
