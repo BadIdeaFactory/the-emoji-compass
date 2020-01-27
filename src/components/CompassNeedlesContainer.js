@@ -8,10 +8,9 @@ export default class CompassNeedlesContainer extends React.Component {
     return (
       <div className="compass-needles-container">
         <div className="compass-needles">
-          {/* <CompassNeedle id={1} type="request" />
-          <CompassNeedle id={2} type="request" />
-          <CompassNeedle id={3} type="request" />
-          <CompassNeedle id={4} type="response" /> */}
+          <CompassNeedle id={1} />
+          <CompassNeedle id={2} />
+          <CompassNeedle id={3} />
           <CompassNeedleResponse />
           <div className="compass-hub" />
         </div>

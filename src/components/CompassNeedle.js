@@ -5,7 +5,6 @@ import { gsap } from 'gsap'
 import { Draggable } from 'gsap/Draggable'
 import { addRequestEmoji, updateNeedlePosition, setActiveNeedle } from '../store/actions/app'
 import { random, getEmojiPosition } from '../utils'
-import { autoRotateNeedle } from '../scripts'
 import './CompassNeedle.css'
 
 gsap.registerPlugin(Draggable)
@@ -13,7 +12,6 @@ gsap.registerPlugin(Draggable)
 class CompassNeedle extends React.Component {
   static propTypes = {
     id: PropTypes.number.isRequired,
-    type: PropTypes.oneOf(['request', 'response']).isRequired,
 
     // Provided by Redux mapStateToProps
     symbols: PropTypes.arrayOf(PropTypes.shape({
@@ -96,12 +94,7 @@ class CompassNeedle extends React.Component {
   componentDidUpdate (prevProps) {
     // Activate if this is the currently active needle.
     if (this.props.activeNeedle === this.props.id) {
-      // The response needle will spin automatically
-      if (this.props.type === 'response') {
-        autoRotateNeedle(this)
-      } else {
-        this.enable()
-      }
+      this.enable()
     } else {
       this.disable()
     }
@@ -114,7 +107,7 @@ class CompassNeedle extends React.Component {
 
   setElementSize = () => {
     const circleSize = document.getElementById('ring').getBoundingClientRect().width
-    const ratio = (this.props.type === 'response') ? 0.425 : 0.355
+    const ratio = 0.355
     this.el.current.style.width = (ratio * circleSize) + 'px'
   }
 
@@ -141,7 +134,7 @@ class CompassNeedle extends React.Component {
 
   render () {
     return (
-      <div className={`needle needle-${this.props.type}`} ref={this.el } />
+      <div className="needle needle-request" ref={this.el } />
     )
   }
 }
