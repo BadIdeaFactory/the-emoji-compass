@@ -22,7 +22,7 @@
   "dependencies": {
     "@sentry/browser": "5.15.5",
     "emojione-assets": "4.5.0",
-    "gsap": "3.2.6",
+    "gsap": "3.6.0",
     "react": "16.13.1",
     "react-dom": "16.13.1",
     "react-redux": "7.2.0",
